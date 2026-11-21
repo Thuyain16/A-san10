@@ -12,7 +12,7 @@
     <link rel="manifest" href="manifest.json">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Leaflet Interactive Map (Single-Finger Smooth Pan & Route Drawing) -->
+    <!-- Leaflet Interactive Map with Google Satellite/Hybrid Tiles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
@@ -125,8 +125,9 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <button onclick="openRiderPortalGate()" id="t-rider-btn" class="px-2.5 py-1.5 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-extrabold text-xs flex items-center gap-1 shadow-2xs">
-                        🛵 ဝန်ထမ်း
+                    <button onclick="openRiderPortalGate()" class="relative px-2.5 py-1.5 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-extrabold text-xs flex items-center gap-1 shadow-2xs">
+                        <span id="t-rider-btn">🛵 ဝန်ထမ်း</span>
+                        <span id="rider-header-order-badge" class="hidden -top-1.5 -right-1.5 absolute min-w-[18px] h-[18px] px-1 rounded-full bg-red-600 text-white text-[10px] font-extrabold flex items-center justify-center shadow-sm ring-2 ring-white">0</span>
                     </button>
                     <button onclick="openPinModal()" id="t-admin-btn" class="px-2.5 py-1.5 rounded-xl bg-slate-900 text-white font-extrabold text-xs shadow-2xs">
                         Admin
@@ -147,7 +148,7 @@
             <!-- SCROLLABLE BODY (STAYS INSIDE SINGLE SCREEN ABOVE FIXED BOTTOM BAR) -->
             <div id="main-scroll-area" class="flex-1 min-h-0 overflow-y-auto pb-2">
 
-                <!-- HOME VIEW (COMPACT SINGLE-VIEW LAYOUT) -->
+                <!-- HOME VIEW (COMPACT SINGLE-VIEW LAYOUT + SHOP PROMO POSTERS) -->
                 <div id="view-home" class="p-3 space-y-2.5 fade-in">
                     <!-- SEARCH BAR -->
                     <div class="relative">
@@ -212,6 +213,15 @@
                             <span>📞</span><span>ဖုန်းဆက်မှာယူရန်</span>
                         </button>
                     </div>
+
+                    <!-- SHOP PROMOTION POSTERS SECTION ON HOME (MANAGED BY ADMIN) -->
+                    <div id="home-promo-posters-section" class="space-y-2 pt-0.5 hidden">
+                        <div class="flex items-center justify-between px-1">
+                            <span class="text-[11px] font-extrabold text-slate-800">📢 ဆိုင်ကြော်ငြာများ (Featured Posters)</span>
+                            <span class="text-[10px] font-bold text-[#FF5722]">Thipaw Ads</span>
+                        </div>
+                        <div id="home-promo-posters-list" class="space-y-2.5"></div>
+                    </div>
                 </div>
 
                 <!-- FOOD MARKETPLACE & CATEGORY FEED VIEW -->
@@ -268,16 +278,20 @@
 
                         <form id="food-checkout-form" onsubmit="submitFoodOrder(event)" class="space-y-3 pt-2 border-t border-slate-200 hidden">
                             <div class="space-y-1">
-                                <label class="text-[11px] font-extrabold text-slate-700">ပို့ဆောင်ရမည့် လိပ်စာ (Delivery Address)</label>
-                                <input type="text" id="food-address" required placeholder="ရပ်ကွက် / လမ်းအမည်" oninput="recalculateFoodCartTotals()" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
+                                <label class="text-[11px] font-extrabold text-slate-700">ပို့ဆောင်ရမည့် နေရပ်လိပ်စာ / ရပ်ကွက် / လမ်းနာမည်</label>
+                                <input type="text" id="food-address" required placeholder="ရပ်ကွက် / လမ်းအမည် စာရိုက်ထည့်ပါ" oninput="recalculateFoodCartTotals()" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
+                            </div>
+                            <div id="food-picked-coords-pill" class="hidden bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-[11px] font-bold text-emerald-800 flex items-center justify-between">
+                                <span id="food-picked-coords-text">📍 Map Point ရွေးပြီးပါပြီ</span>
+                                <button type="button" onclick="openFoodLocationPicker()" class="underline text-[#FF5722] font-extrabold ml-2">ပြန်ရွေးမည်</button>
                             </div>
                             <div class="flex items-center gap-2">
-                                <button type="button" onclick="captureFoodLocation()" class="flex-1 py-2.5 px-3 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-bold text-xs flex items-center justify-center gap-1.5">
-                                    <span>📍</span><span>လက်ရှိ GPS တည်နေရာ ထည့်မည်</span>
+                                <button type="button" onclick="openFoodLocationPicker()" class="flex-1 py-2.5 px-3 rounded-xl bg-orange-50 hover:bg-orange-100 border border-orange-200 text-[#FF5722] font-extrabold text-xs flex items-center justify-center gap-1.5 transition">
+                                    <span>📍</span><span>Location ထည့်ရန် (Map Point / GPS)</span>
                                 </button>
                             </div>
-                            <button type="submit" class="w-full py-3.5 rounded-xl bg-[#FF5722] hover:bg-[#E64A19] text-white font-extrabold text-xs shadow-md">
-                                အော်ဒါအတည်ပြု တင်မည် (Place Order)
+                            <button type="submit" class="w-full py-3.5 rounded-xl bg-[#00B14F] hover:bg-emerald-600 text-white font-extrabold text-xs shadow-md transition">
+                                အော်ဒါတင်မည်
                             </button>
                         </form>
                     </div>
@@ -330,7 +344,7 @@
                     </div>
                 </div>
 
-                <!-- BIKE TAXI VIEW (INITIAL SEARCH BARS + CHOOSE ON MAP FLOW) -->
+                <!-- BIKE TAXI VIEW (INITIAL SEARCH BARS + CHOOSE ON GOOGLE MAP FLOW) -->
                 <div id="view-bike" class="p-3.5 space-y-3 hidden fade-in">
                     <!-- ACTIVE RIDE LIVE TRACKING CARD WITH DIRECTIONS & MOVING MOTO -->
                     <div id="customer-active-ride-tracker" class="hidden"></div>
@@ -504,8 +518,9 @@
                         <button onclick="openShopPortal()" id="t-acc-shop" class="w-full py-2.5 px-4 rounded-2xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs text-left shadow-2xs">
                             🏪 ဆိုင် Channel ဖွင့်ရန် / စီမံရန်
                         </button>
-                        <button onclick="openRiderPortalGate()" id="t-acc-rider" class="w-full py-2.5 px-4 rounded-2xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs text-left shadow-2xs">
-                            🛵 ဝန်ထမ်း အော်ဒါကောက်ရန် နေရာ
+                        <button onclick="openRiderPortalGate()" class="w-full py-2.5 px-4 rounded-2xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs text-left shadow-2xs flex items-center justify-between">
+                            <span id="t-acc-rider">🛵 ဝန်ထမ်း အော်ဒါကောက်ရန် နေရာ</span>
+                            <span id="account-rider-order-badge" class="hidden px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-extrabold">0</span>
                         </button>
                         <button onclick="openAboutModal()" id="t-acc-about" class="w-full py-2.5 px-4 rounded-2xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs text-left shadow-2xs">
                             ℹ️ App အကြောင်းနှင့် စည်းမျဉ်းစည်းကမ်းများ
@@ -617,6 +632,7 @@
 
             <div class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
                 <button onclick="switchAdminTab('orders')" id="adm-tab-orders" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold whitespace-nowrap">📦 Live Orders (<span id="admin-count">0</span>)</button>
+                <button onclick="switchAdminTab('posters')" id="adm-tab-posters" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap">🖼️ Posters (<span id="admin-posters-count">0</span>)</button>
                 <button onclick="switchAdminTab('staff')" id="adm-tab-staff" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap">🛵 Riders & Logs (<span id="admin-staff-pending-badge" class="text-red-600">0</span>)</button>
                 <button onclick="switchAdminTab('support')" id="adm-tab-support" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap">💬 Customer Messages</button>
                 <button onclick="switchAdminTab('hotlines')" id="adm-tab-hotlines" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap">📞 Rider Hotlines</button>
@@ -627,6 +643,33 @@
                 <!-- TAB 1: LIVE ORDERS -->
                 <div id="admin-view-orders" class="space-y-3">
                     <div id="admin-orders-container" class="space-y-3"></div>
+                </div>
+
+                <!-- TAB NEW: SHOP PROMO POSTERS UPLOAD & DELETE -->
+                <div id="admin-view-posters" class="space-y-4 hidden">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <div>
+                            <h3 class="text-xs font-extrabold text-slate-900">🖼️ Home စာမျက်နှာ ဆိုင်ကြော်ငြာ Poster များ တင်ရန်</h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Home စာမျက်နှာ အောက်ဘက်တွင် ပေါ်မည့် ဆိုင်ကြော်ငြာ ပိုစတာပုံများကို တင်ခြင်း / ဖျက်ခြင်း ပြုလုပ်နိုင်ပါသည်။</p>
+                        </div>
+                        <form onsubmit="addAdminPromoPoster(event)" class="space-y-3 text-xs">
+                            <div class="flex items-center gap-3">
+                                <div id="poster-upload-preview" onclick="document.getElementById('poster-image-file').click()"
+                                    class="w-24 h-16 rounded-xl bg-orange-50 border-2 border-dashed border-orange-300 flex flex-col items-center justify-center text-[#FF5722] font-bold cursor-pointer overflow-hidden shrink-0">
+                                    <span>🖼️</span><span class="text-[9px]">Poster ပုံရွေး</span>
+                                </div>
+                                <input type="file" id="poster-image-file" accept="image/*" class="hidden" onchange="previewAdminPosterPhoto(event)">
+                                <div class="flex-1 space-y-2">
+                                    <input type="text" id="poster-shop-title" required placeholder="ဆိုင်နာမည် / ကြော်ငြာခေါင်းစဉ်" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 font-bold text-slate-950 outline-none">
+                                    <input type="text" id="poster-caption" placeholder="အထူးလျှော့ဈေး / အသေးစိတ် (မထည့်လည်းရသည်)" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-950 outline-none">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs shadow-xs">
+                                + Poster အသစ်တင်မည်
+                            </button>
+                        </form>
+                    </div>
+                    <div id="admin-posters-manage-list" class="space-y-3"></div>
                 </div>
 
                 <!-- TAB 2: RIDERS APPROVAL & DAILY ORDER LOGS -->
@@ -787,14 +830,14 @@
             </div>
         </div>
 
-        <!-- 6. CHOOSE ON MAP MODAL (ONE-FINGER SMOOTH DRAG MAP -> STEP 1 RED PIN DESTINATION -> STEP 2 BLUE PIN PICKUP) -->
+        <!-- 6. GOOGLE MAP PICKER MODAL (FOR BIKE TAXI & FOOD DELIVERY POINT SELECTION) -->
         <div id="gmap-picker-modal" class="fixed inset-0 bg-white z-50 hidden flex-col">
             <!-- TOP SEARCH BAR + BACK BUTTON -->
             <div class="bg-white border-b border-slate-200 px-3 py-2.5 flex items-center gap-2 shrink-0 shadow-xs z-20">
                 <button type="button" onclick="closeGoogleMapPicker()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center font-extrabold text-slate-800 shrink-0">←</button>
                 <div class="flex-1 bg-slate-100 rounded-2xl px-3 py-2 flex items-center gap-2 border border-slate-200">
                     <span id="picker-top-dot" class="w-3 h-3 rounded-full bg-[#FF5722] shrink-0"></span>
-                    <input type="text" id="picker-search-input" placeholder="Where to? / သွားမည့်နေရာ ရှာရန်..."
+                    <input type="text" id="picker-search-input" placeholder="Where to? / နေရာ ရှာရန်..."
                         oninput="handlePickerSearchInput(this.value)"
                         onkeydown="if(event.key==='Enter'){event.preventDefault(); searchLocationInPicker();}"
                         class="w-full bg-transparent text-xs font-extrabold text-slate-900 outline-none">
@@ -805,9 +848,15 @@
             <!-- SEARCH SUGGESTIONS DROPDOWN -->
             <div id="picker-search-results" class="hidden bg-white border-b border-slate-200 max-h-40 overflow-y-auto z-20 divide-y divide-slate-100"></div>
 
-            <!-- FULLSCREEN INTERACTIVE MAP (DRAG WITH ONE FINGER -> CENTER PIN UPDATES EXACT COORDINATES) -->
-            <div id="picker-map-canvas" class="flex-1 relative bg-slate-200 overflow-hidden select-none">
+            <!-- FULLSCREEN INTERACTIVE GOOGLE MAP (DRAG WITH ONE FINGER -> CENTER PIN UPDATES EXACT COORDINATES) -->
+            <div id="picker-map-canvas" class="flex-1 relative bg-slate-900 overflow-hidden select-none">
                 <div id="picker-leaflet-map" class="w-full h-full z-0"></div>
+
+                <!-- GOOGLE SATELLITE / ROAD LAYER SWITCHER -->
+                <div class="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-white/95 backdrop-blur-xs p-1 rounded-xl shadow-md border border-slate-200">
+                    <button type="button" onclick="setPickerGoogleLayer('y')" id="picker-layer-sat" class="px-2 py-1 rounded-lg bg-[#FF5722] text-white text-[10px] font-extrabold">🛰️ Google Satellite</button>
+                    <button type="button" onclick="setPickerGoogleLayer('m')" id="picker-layer-road" class="px-2 py-1 rounded-lg text-slate-700 text-[10px] font-extrabold">🗺️ Road</button>
+                </div>
 
                 <!-- CENTER PIN MARKER (FOLLOWS ONE-FINGER MAP DRAGGING) -->
                 <div id="picker-pin-visual" class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
@@ -821,8 +870,8 @@
                 </div>
 
                 <!-- HELPER HINT -->
-                <div class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 bg-slate-900/80 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
-                    ☝️ လက်တစ်ချောင်းတည်းဖြင့် Map ကို လွယ်ကူစွာ ရွှေ့နိုင်ပါသည်
+                <div class="pointer-events-none absolute top-2.5 left-2.5 z-20 bg-slate-900/85 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+                    ☝️ Google Map ကို လက်နဲ့ရွှေ့ပါ
                 </div>
 
                 <!-- BOTTOM-RIGHT CURRENT LOCATION TARGET BUTTON -->
@@ -832,8 +881,8 @@
                 </button>
             </div>
 
-            <!-- BOTTOM SHEET WITH DETAILED LOCATION & GREEN CONFIRM BUTTON -->
-            <div class="bg-white border-t border-slate-200 p-4 space-y-3 shrink-0 shadow-2xl z-20">
+            <!-- BOTTOM SHEET WITH DETAILED LOCATION, OPTIONAL STREET TEXT FOR FOOD, & GREEN CONFIRM BUTTON -->
+            <div class="bg-white border-t border-slate-200 p-4 space-y-2.5 shrink-0 shadow-2xl z-20">
                 <!-- QUICK LANDMARK CHIPS -->
                 <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
                     <button type="button" onclick="selectHsipawLandmark(22.6238, 97.3005, 'သီပေါမြို့မဈေး (Central Market)')" class="px-2.5 py-1 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-bold text-[11px] whitespace-nowrap">📍 မြို့မဈေး</button>
@@ -851,26 +900,32 @@
                     <span id="picker-step-badge" class="px-2.5 py-1 rounded-lg bg-orange-100 text-[#FF5722] text-[10px] font-extrabold shrink-0">Step 1/2</span>
                 </div>
 
-                <!-- GREEN ACTION BUTTON: "Choose This Destination" -> "Choose This Pickup" -->
+                <!-- EXTRA MANUAL WARD/STREET INPUT SHOWN FOR FOOD LOCATION PICKER -->
+                <div id="picker-food-manual-wrap" class="hidden space-y-1">
+                    <input type="text" id="picker-food-manual-text" placeholder="📍 ရပ်ကွက် / လမ်းနာမည် / အိမ်အမှတ် စာရိုက်ထည့်ရန် (တည်နေရာမတိကျပါက ရေးထည့်ပါ)"
+                        class="w-full rounded-xl bg-slate-50 border border-slate-300 px-3 py-2 text-xs font-bold text-slate-950 outline-none focus:border-[#00B14F]">
+                </div>
+
+                <!-- GREEN ACTION BUTTON -->
                 <button type="button" id="picker-confirm-btn" onclick="confirmGoogleMapPickerSelection()" class="w-full py-3.5 rounded-full bg-[#00B14F] hover:bg-emerald-600 text-white font-extrabold text-sm shadow-md transition">
                     Choose This Destination
                 </button>
             </div>
         </div>
 
-        <!-- 6B. FULLSCREEN ROUTE & BIKE TAXI CONFIRMATION SCREEN (SHOWS MAP + BLUE & RED PINS + ROUTE LINE + PRICE + BOOK BUTTON) -->
+        <!-- 6B. FULLSCREEN ROUTE & BIKE TAXI CONFIRMATION SCREEN (GOOGLE MAP + BLUE & RED PINS + ROUTE LINE + BOOK BUTTON) -->
         <div id="bike-route-confirm-box" class="fixed inset-0 bg-white z-50 hidden flex-col fade-in">
             <!-- TOP HEADER BAR OVER FULLSCREEN ROUTE MAP -->
             <div class="bg-white border-b border-slate-200 px-3.5 py-2.5 flex items-center justify-between shrink-0 shadow-xs z-20">
                 <button type="button" onclick="backToBikeInitial()" class="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs flex items-center gap-1">
                     ← Back
                 </button>
-                <span id="t-route-preview-badge" class="text-xs font-extrabold text-emerald-700">🗺️ Route Preview</span>
+                <span id="t-route-preview-badge" class="text-xs font-extrabold text-emerald-700">🗺️ Google Route Preview</span>
                 <span id="route-confirm-fare-top" class="px-2.5 py-1 rounded-full bg-orange-100 text-[#FF5722] text-xs font-extrabold">4,000 Ks</span>
             </div>
 
-            <!-- FULLSCREEN ROUTE MAP SHOWING BLUE PIN, RED PIN & DRAWN ROUTE LINE -->
-            <div class="flex-1 w-full relative bg-slate-100 overflow-hidden">
+            <!-- FULLSCREEN GOOGLE ROUTE MAP SHOWING BLUE PIN, RED PIN & DRAWN ROUTE LINE -->
+            <div class="flex-1 w-full relative bg-slate-900 overflow-hidden">
                 <div id="bike-route-leaflet-map" class="w-full h-full z-0"></div>
                 <div class="pointer-events-none absolute top-3 left-3 right-3 flex flex-col gap-1.5 z-10">
                     <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
@@ -957,7 +1012,7 @@
                         <img src="./1794811370987.png" onerror="this.src='https://i.ibb.co/B5NfCWH9/1794811370987.jpg'" alt="TD" class="w-10 h-10 rounded-xl border border-slate-200">
                         <div>
                             <h3 id="t-about-title" class="text-base font-extrabold text-slate-900">Thipaw Delivery အကြောင်း</h3>
-                            <p class="text-[11px] text-slate-500">Version 3.0 • Hsipaw Local Super-App</p>
+                            <p class="text-[11px] text-slate-500">Version 3.1 • Hsipaw Local Super-App</p>
                         </div>
                     </div>
                     <button onclick="closeAboutModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
@@ -1103,6 +1158,7 @@
         const CONFIG_STORAGE_KEY = 'td_admin_config';
         const HOTLINES_STORAGE_KEY = 'td_admin_hotlines';
         const SUPPORT_CHATS_KEY = 'td_support_chats';
+        const PROMO_POSTERS_KEY = 'td_promo_posters';
 
         const DEFAULT_CONFIG = {
             adminPin: "1234",
@@ -1142,6 +1198,7 @@
         let appConfig = Object.assign({}, DEFAULT_CONFIG, JSON.parse(localStorage.getItem(CONFIG_STORAGE_KEY)) || {});
         let adminHotlines = normalizeHotlines(JSON.parse(localStorage.getItem(HOTLINES_STORAGE_KEY)));
         let supportChats = JSON.parse(localStorage.getItem(SUPPORT_CHATS_KEY)) || [];
+        let promoPosters = JSON.parse(localStorage.getItem(PROMO_POSTERS_KEY)) || [];
 
         let allShops = JSON.parse(localStorage.getItem(SHOPS_STORAGE_KEY)) || [];
         let allOrders = JSON.parse(localStorage.getItem(ORDERS_STORAGE_KEY)) || [];
@@ -1163,11 +1220,13 @@
         let mainMapLng = HSIPAW_LNG;
         let mainMapType = 'k';
 
-        // Choose-on-Map & Route Preview Leaflet Map Instances
+        // Google Map Picker & Route Preview Leaflet Map Instances
         let pickerLeafletMap = null;
+        let pickerGoogleTileLayer = null;
+        let pickerGoogleLayerType = 'y'; // 'y' = Google Satellite Hybrid, 'm' = Google Road
         let routeLeafletMap = null;
         let routeLayersGroup = null;
-        let pickerFlowMode = 'destination';
+        let pickerFlowMode = 'destination'; // 'destination' | 'pickup' | 'food'
         let isChoosingOnMapFlow = false;
         let tempPickedLat = HSIPAW_LAT;
         let tempPickedLng = HSIPAW_LNG;
@@ -1177,12 +1236,14 @@
 
         let tempShopPhoto = DEFAULT_SHOP_IMG;
         let tempEditShopPhoto = null;
+        let tempPosterPhoto = null;
         let shopUnlocked = false;
         let activeChatOrderId = null;
         let activeChatRole = 'customer';
         let activeSupportRole = 'customer';
         let activeSupportUserPhone = null;
         let lastKnownOrderCount = allOrders.length;
+        let notifiedOrderIds = new Set(allOrders.map(o => o.id));
 
         const HSIPAW_PLACES = [
             { name: "သီပေါမြို့မဈေး", sub: "ဈေးပိုင်းရပ်ကွက်, သီပေါမြို့", lat: 22.6238, lng: 97.3005 },
@@ -1229,7 +1290,7 @@
                 bikePickupPh: "Current location / Pick up at?",
                 bikeDropoffPh: "Where to? / Destination",
                 bookBikeTxt: "🛵 Book Bike Taxi",
-                routePreviewBadge: "🗺️ Route Preview",
+                routePreviewBadge: "🗺️ Google Route Preview",
                 routeBikeTitle: "Bike Taxi",
                 routeBookBtn: "🛵 Book Bike Taxi",
                 supportCardTitle: "💬 Direct Admin Support",
@@ -1288,7 +1349,7 @@
                 bikePickupPh: "လက်ရှိနေရာ / Pick up at?",
                 bikeDropoffPh: "သွားမည့်နေရာ / Where to?",
                 bookBikeTxt: "🛵 Bike ခေါ်မည်",
-                routePreviewBadge: "🗺️ လမ်းကြောင်းမြေပုံ",
+                routePreviewBadge: "🗺️ Google လမ်းကြောင်းမြေပုံ",
                 routeBikeTitle: "Bike Taxi",
                 routeBookBtn: "🛵 Bike Taxi ခေါ်မည်",
                 supportCardTitle: "💬 Admin ထံ တိုက်ရိုက်စာပို့ရန်",
@@ -1446,6 +1507,125 @@
             showToast("အော်ဒါလက်ခံချိန် အသစ်သိမ်းဆည်းပြီးပါပြီ");
         }
 
+        // ==========================================
+        // HOME PROMO POSTERS (ADMIN UPLOAD & DELETE)
+        // ==========================================
+        function savePromoPosters() {
+            localStorage.setItem(PROMO_POSTERS_KEY, JSON.stringify(promoPosters));
+        }
+
+        function previewAdminPosterPhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 720;
+                    let w = img.width, h = img.height;
+                    if (w > maxW) { h *= maxW / w; w = maxW; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    tempPosterPhoto = canvas.toDataURL('image/jpeg', 0.85);
+                    document.getElementById('poster-upload-preview').innerHTML = `<img src="${tempPosterPhoto}" class="w-full h-full object-cover">`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function addAdminPromoPoster(e) {
+            e.preventDefault();
+            const title = document.getElementById('poster-shop-title').value.trim();
+            const caption = document.getElementById('poster-caption').value.trim();
+            if (!tempPosterPhoto) {
+                showToast("Poster ပုံ အရင်ရွေးချယ်ပါ");
+                document.getElementById('poster-image-file').click();
+                return;
+            }
+            if (!title) return;
+
+            promoPosters.unshift({
+                id: 'poster_' + Date.now(),
+                title,
+                caption,
+                photo: tempPosterPhoto,
+                createdAt: new Date().toLocaleDateString()
+            });
+            savePromoPosters();
+            e.target.reset();
+            tempPosterPhoto = null;
+            document.getElementById('poster-upload-preview').innerHTML = `<span>🖼️</span><span class="text-[9px]">Poster ပုံရွေး</span>`;
+            renderAdminPromoPostersList();
+            renderHomePromoPosters();
+            showToast("ဆိုင်ကြော်ငြာ Poster တင်ပြီးပါပြီ!");
+        }
+
+        function deleteAdminPromoPoster(posterId) {
+            if (!confirm("ဤကြော်ငြာ Poster ကို ဖျက်မှာ သေချာပါသလား?")) return;
+            promoPosters = promoPosters.filter(p => p.id !== posterId);
+            savePromoPosters();
+            renderAdminPromoPostersList();
+            renderHomePromoPosters();
+            showToast("Poster ဖျက်ပြီးပါပြီ");
+        }
+
+        function renderAdminPromoPostersList() {
+            const countBadge = document.getElementById('admin-posters-count');
+            if (countBadge) countBadge.textContent = promoPosters.length;
+            const list = document.getElementById('admin-posters-manage-list');
+            if (!list) return;
+
+            if (!promoPosters.length) {
+                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-8 bg-white rounded-2xl border border-slate-200">တင်ထားသော ဆိုင်ကြော်ငြာ Poster မရှိသေးပါ</p>`;
+                return;
+            }
+
+            list.innerHTML = promoPosters.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+                    <img src="${p.photo}" alt="${escapeAttr(p.title)}" class="w-full h-36 object-cover bg-slate-100">
+                    <div class="p-3 flex items-center justify-between gap-2">
+                        <div class="min-w-0">
+                            <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(p.title)}</p>
+                            ${p.caption ? `<p class="text-[11px] text-slate-500 truncate">${escapeHtml(p.caption)}</p>` : ''}
+                        </div>
+                        <button type="button" onclick="deleteAdminPromoPoster('${p.id}')" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-extrabold text-xs shrink-0">
+                            🗑️ ဖျက်မည်
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderHomePromoPosters() {
+            const sec = document.getElementById('home-promo-posters-section');
+            const list = document.getElementById('home-promo-posters-list');
+            if (!sec || !list) return;
+
+            if (!promoPosters.length) {
+                sec.classList.add('hidden');
+                return;
+            }
+
+            sec.classList.remove('hidden');
+            list.innerHTML = promoPosters.map(p => `
+                <div onclick="navigateToScreen('food')" class="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden cursor-pointer hover:border-orange-300 transition">
+                    <div class="relative">
+                        <img src="${p.photo}" alt="${escapeAttr(p.title)}" class="w-full h-36 object-cover bg-orange-50">
+                        <span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-slate-900/75 text-white text-[9px] font-extrabold">Sponsored</span>
+                    </div>
+                    <div class="px-3 py-2 flex items-center justify-between gap-2">
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(p.title)}</h4>
+                            ${p.caption ? `<p class="text-[10px] text-slate-500 truncate">${escapeHtml(p.caption)}</p>` : ''}
+                        </div>
+                        <span class="px-2.5 py-1 rounded-lg bg-orange-50 text-[#FF5722] font-extrabold text-[10px] shrink-0">မှာယူရန် →</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function renderAdminHotlinesUI() {
             const modalBox = document.getElementById('modal-admin-hotlines-box');
             const manageList = document.getElementById('admin-hotlines-manage-list');
@@ -1515,52 +1695,117 @@
             showToast("ဖုန်းနံပါတ် ဖယ်ရှားပြီးပါပြီ");
         }
 
-        function playNewOrderChime() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const playTone = (freq, start, dur) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
-                    gain.gain.setValueAtTime(0.3, ctx.currentTime + start);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(ctx.currentTime + start);
-                    osc.stop(ctx.currentTime + start + dur);
-                };
-                playTone(587.33, 0, 0.25);
-                playTone(880.00, 0.18, 0.45);
-                playTone(1046.50, 0.4, 0.5);
-            } catch (e) {}
-            if (navigator.vibrate) navigator.vibrate([300, 150, 300]);
-        }
+        // ==========================================
+        // RIDER BADGE COUNTER + NEW ORDER SOUND & PHONE SYSTEM NOTIFICATION
+        // ==========================================
+        function updateRiderHeaderOrderBadge() {
+            const availablePool = allOrders.filter(o => o.status === 'Pending' && !o.assignedRiderId);
+            const count = availablePool.length;
 
-        function triggerOrderNotification(order) {
-            playNewOrderChime();
-            if ("Notification" in window && Notification.permission === "granted") {
-                try {
-                    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-                        navigator.serviceWorker.ready.then(reg => {
-                            reg.showNotification("🛵 Thipaw Delivery - အော်ဒါအသစ်ဝင်နေပါပြီ!", {
-                                body: `${order.customerName}: ${order.details}`,
-                                icon: "./1794811370987.png",
-                                vibrate: [300, 150, 300],
-                                tag: "new-order-" + order.id
-                            });
-                        });
-                    } else {
-                        new Notification("🛵 Thipaw Delivery - အော်ဒါအသစ်ဝင်နေပါပြီ!", {
-                            body: `${order.customerName}: ${order.details}`,
-                            icon: "./1794811370987.png"
-                        });
-                    }
-                } catch (err) {}
+            const topBadge = document.getElementById('rider-header-order-badge');
+            if (topBadge) {
+                if (count > 0) {
+                    topBadge.textContent = count;
+                    topBadge.classList.remove('hidden');
+                } else {
+                    topBadge.classList.add('hidden');
+                }
+            }
+
+            const accBadge = document.getElementById('account-rider-order-badge');
+            if (accBadge) {
+                if (count > 0) {
+                    accBadge.textContent = count;
+                    accBadge.classList.remove('hidden');
+                } else {
+                    accBadge.classList.add('hidden');
+                }
             }
         }
 
-        // ENHANCED GEOLOCATION: MULTI-STAGE WATCH + RETRY SO PHONE GPS WORKS RELIABLY
+        function playNewOrderChime() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) {
+                    const ctx = new AudioCtx();
+                    if (ctx.state === 'suspended') {
+                        ctx.resume().catch(() => {});
+                    }
+                    const playTone = (freq, start, dur) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+                        gain.gain.setValueAtTime(0.35, ctx.currentTime + start);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(ctx.currentTime + start);
+                        osc.stop(ctx.currentTime + start + dur);
+                    };
+                    playTone(587.33, 0, 0.25);
+                    playTone(880.00, 0.18, 0.45);
+                    playTone(1046.50, 0.4, 0.55);
+                }
+            } catch (e) {}
+            if (navigator.vibrate) {
+                try { navigator.vibrate([400, 150, 400, 150, 400]); } catch (e) {}
+            }
+        }
+
+        function triggerOrderNotification(order) {
+            if (!order) return;
+            if (notifiedOrderIds.has(order.id)) return;
+            notifiedOrderIds.add(order.id);
+
+            playNewOrderChime();
+            updateRiderHeaderOrderBadge();
+
+            if ("Notification" in window) {
+                const sendSystemNotification = () => {
+                    const pendingCount = allOrders.filter(o => o.status === 'Pending' && !o.assignedRiderId).length;
+                    const titleText = pendingCount > 1
+                        ? `🛵 Thipaw Delivery - အော်ဒါအသစ် (${pendingCount} ခု) ဝင်နေပါပြီ!`
+                        : `🛵 Thipaw Delivery - အော်ဒါအသစ်ဝင်နေပါပြီ!`;
+                    const bodyText = `${order.customerName}: ${order.details}\n📍 ${order.dropoffAddress}`;
+                    const options = {
+                        body: bodyText,
+                        icon: "./1794811370987.png",
+                        badge: "./1794811370987.png",
+                        vibrate: [400, 150, 400, 150, 400],
+                        tag: "thipaw-order-" + order.id,
+                        renotify: true,
+                        requireInteraction: true,
+                        data: { orderId: order.id, url: window.location.href }
+                    };
+
+                    if (navigator.serviceWorker) {
+                        navigator.serviceWorker.ready
+                            .then(reg => {
+                                if (reg && reg.showNotification) {
+                                    return reg.showNotification(titleText, options);
+                                }
+                                new Notification(titleText, options);
+                            })
+                            .catch(() => {
+                                try { new Notification(titleText, options); } catch (e) {}
+                            });
+                    } else {
+                        try { new Notification(titleText, options); } catch (e) {}
+                    }
+                };
+
+                if (Notification.permission === "granted") {
+                    sendSystemNotification();
+                } else if (Notification.permission === "default") {
+                    Notification.requestPermission().then(res => {
+                        if (res === "granted") sendSystemNotification();
+                    }).catch(() => {});
+                }
+            }
+        }
+
+        // ENHANCED GEOLOCATION: HIGH-ACCURACY GPS LOCK SO PHONE PINPOINTS EXACT LOCATION
         function requestLocationPermission(callback) {
             if (!("geolocation" in navigator)) {
                 showToast("ဤ Browser တွင် Location မရရှိနိုင်ပါ");
@@ -1598,18 +1843,24 @@
                     return;
                 }
                 if (err && err.code === 1) {
-                    showToast("Chrome တွင် Site Settings > Location ကို Allow ဖွင့်ပေးပါ");
+                    showToast("ဖုန်း Location (GPS) နှင့် Browser Location ကို Allow ဖွင့်ပေးပါ");
                 } else {
-                    showToast("GPS Signal စောင့်နေပါသည် - ခဏအကြာ ထပ်နှိပ်ကြည့်ပါ");
+                    showToast("GPS Signal ရှာမတွေ့သေးပါ - Map ပေါ်တွင် Point ကို လက်နဲ့ရွှေ့ရွေးနိုင်ပါသည်");
                 }
                 if (typeof callback === 'function') callback(null, err);
             };
 
             try {
                 watchId = navigator.geolocation.watchPosition(
-                    (pos) => finishWithPos(pos),
+                    (pos) => {
+                        if (pos && pos.coords && pos.coords.accuracy <= 120) {
+                            finishWithPos(pos);
+                        } else {
+                            lastKnownGpsPos = pos;
+                        }
+                    },
                     () => {},
-                    { enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 }
+                    { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
                 );
             } catch (e) {}
 
@@ -1627,10 +1878,10 @@
                                 if (!settled) finishWithError(err2);
                             }, 3500);
                         },
-                        { enableHighAccuracy: false, timeout: 15000, maximumAge: 120000 }
+                        { enableHighAccuracy: false, timeout: 12000, maximumAge: 60000 }
                     );
                 },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
         }
 
@@ -1651,9 +1902,12 @@
             if ("Notification" in window) {
                 Notification.requestPermission().then(res => {
                     if (res === "granted") {
-                        document.getElementById('perm-noti-status').textContent = "✅ Allowed";
-                        document.getElementById('perm-noti-status').className = "text-[10px] font-bold text-emerald-600";
-                        showToast("အော်ဒါအသံနှင့် Noti ဖွင့်ပြီးပါပြီ");
+                        const notiEl = document.getElementById('perm-noti-status');
+                        if (notiEl) {
+                            notiEl.textContent = "✅ Allowed";
+                            notiEl.className = "text-[10px] font-bold text-emerald-600";
+                        }
+                        showToast("အော်ဒါအသံနှင့် ဖုန်း Noti ဖွင့်ပြီးပါပြီ");
                     }
                 });
             }
@@ -1672,27 +1926,56 @@
 
         function saveOrders() {
             localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(allOrders));
-            if (allOrders.length > lastKnownOrderCount) {
+            if (allOrders.length > lastKnownOrderCount && allOrders[0]) {
                 triggerOrderNotification(allOrders[0]);
             }
             lastKnownOrderCount = allOrders.length;
+            updateRiderHeaderOrderBadge();
+        }
+
+        function syncOrdersFromStorage() {
+            const updated = JSON.parse(localStorage.getItem(ORDERS_STORAGE_KEY)) || [];
+            const brandNewPending = updated.filter(o => !notifiedOrderIds.has(o.id) && o.status === 'Pending' && !o.assignedRiderId);
+            if (brandNewPending.length > 0) {
+                allOrders = updated;
+                lastKnownOrderCount = allOrders.length;
+                triggerOrderNotification(brandNewPending[0]);
+                brandNewPending.forEach(o => notifiedOrderIds.add(o.id));
+                refreshVisibleScreens();
+                return;
+            }
+            if (JSON.stringify(updated) !== JSON.stringify(allOrders)) {
+                allOrders = updated;
+                lastKnownOrderCount = allOrders.length;
+                refreshVisibleScreens();
+            } else {
+                updateRiderHeaderOrderBadge();
+            }
         }
 
         window.addEventListener('storage', (e) => {
             if (e.key === ORDERS_STORAGE_KEY) {
-                const updated = JSON.parse(localStorage.getItem(ORDERS_STORAGE_KEY)) || [];
-                if (updated.length > allOrders.length) triggerOrderNotification(updated[0]);
-                allOrders = updated;
-                lastKnownOrderCount = allOrders.length;
-                refreshVisibleScreens();
+                syncOrdersFromStorage();
             }
             if (e.key === SUPPORT_CHATS_KEY) {
                 supportChats = JSON.parse(localStorage.getItem(SUPPORT_CHATS_KEY)) || [];
                 if (!document.getElementById('support-chat-modal').classList.contains('hidden')) renderSupportMessages();
             }
+            if (e.key === PROMO_POSTERS_KEY) {
+                promoPosters = JSON.parse(localStorage.getItem(PROMO_POSTERS_KEY)) || [];
+                renderHomePromoPosters();
+                renderAdminPromoPostersList();
+            }
+        });
+
+        // Background & Tab Visibility Polling so new orders trigger sound + system notification even when app is minimized or switching apps
+        setInterval(syncOrdersFromStorage, 2500);
+        document.addEventListener('visibilitychange', () => {
+            syncOrdersFromStorage();
         });
 
         function refreshVisibleScreens() {
+            updateRiderHeaderOrderBadge();
             renderHomeActiveOrder();
             updateUnreadIndicators();
             if (!document.getElementById('view-activity').classList.contains('hidden')) renderUserActivity();
@@ -1706,6 +1989,16 @@
             renderGrabSuggestedPlaces();
             renderAdminHotlinesUI();
             renderOperatingHoursUI();
+            renderHomePromoPosters();
+            updateRiderHeaderOrderBadge();
+
+            if ("Notification" in window && Notification.permission === "granted") {
+                const notiEl = document.getElementById('perm-noti-status');
+                if (notiEl) {
+                    notiEl.textContent = "✅ Allowed";
+                    notiEl.className = "text-[10px] font-bold text-emerald-600";
+                }
+            }
 
             if (navigator.permissions && navigator.permissions.query) {
                 navigator.permissions.query({ name: 'geolocation' }).then(res => {
@@ -1715,7 +2008,7 @@
                             locEl.textContent = "✅ Allowed";
                             locEl.className = "text-[10px] font-bold text-emerald-600";
                         }
-                        navigator.geolocation.getCurrentPosition(pos => { lastKnownGpsPos = pos; }, () => {}, { enableHighAccuracy: false, timeout: 8000 });
+                        navigator.geolocation.getCurrentPosition(pos => { lastKnownGpsPos = pos; }, () => {}, { enableHighAccuracy: true, timeout: 8000 });
                     }
                 }).catch(() => {});
             }
@@ -1753,6 +2046,7 @@
                 document.getElementById(id).classList.add('hidden');
             });
             document.getElementById('main-scroll-area').scrollTop = 0;
+            updateRiderHeaderOrderBadge();
 
             if (screenKey === 'home') {
                 document.getElementById('main-app-shell').classList.remove('hidden');
@@ -1761,6 +2055,7 @@
                 renderOperatingHoursUI();
                 renderHomeActiveOrder();
                 renderAdminHotlinesUI();
+                renderHomePromoPosters();
             } else if (screenKey === 'food') {
                 document.getElementById('main-app-shell').classList.remove('hidden');
                 document.getElementById('view-food').classList.remove('hidden');
@@ -2237,15 +2532,9 @@
             document.getElementById('cart-grand-total').textContent = `${(itemsTotal + delivFee).toLocaleString()} Ks`;
         }
 
-        function captureFoodLocation() {
-            requestLocationPermission((pos) => {
-                if (pos) {
-                    foodCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-                    showToast(`GPS ထည့်ပြီးပါပြီ (${foodCoords.lat.toFixed(4)}, ${foodCoords.lng.toFixed(4)})`);
-                } else {
-                    foodCoords = { lat: HSIPAW_LAT, lng: HSIPAW_LNG };
-                }
-            });
+        // FOOD LOCATION PICKER (POINT ON GOOGLE MAP + PHONE GPS + MANUAL STREET TEXT)
+        function openFoodLocationPicker() {
+            openPickerStep('food');
         }
 
         function submitFoodOrder(e) {
@@ -2285,6 +2574,8 @@
             allOrders.unshift(newOrder);
             saveOrders();
             foodCart = [];
+            foodCoords = null;
+            document.getElementById('food-picked-coords-pill').classList.add('hidden');
             document.getElementById('food-checkout-form').classList.add('hidden');
             document.getElementById('btn-show-order-form').classList.remove('hidden');
             renderFoodCart();
@@ -2348,7 +2639,7 @@
         }
 
         // ==========================================
-        // BIKE TAXI: SINGLE-FINGER DRAG MAP, STEP 1 RED PIN -> STEP 2 BLUE PIN -> FULLSCREEN ROUTE WITH LINE & BOOK
+        // BIKE TAXI & FOOD: GOOGLE MAP (SATELLITE/ROAD) + POINT PICKER + ROUTE LINE
         // ==========================================
         function backToBikeInitial() {
             document.getElementById('bike-initial-box').classList.remove('hidden');
@@ -2411,21 +2702,44 @@
             });
         }
 
+        function createGoogleTileLayer(layerType) {
+            // Google Maps Tiles: lyrs=y (Satellite + Roads/Labels), lyrs=m (Standard Road Map)
+            return L.tileLayer(`https://mt1.google.com/vt/lyrs=${layerType}&x={x}&y={y}&z={z}`, {
+                maxZoom: 20,
+                attribution: '© Google Maps'
+            });
+        }
+
+        function setPickerGoogleLayer(layerType) {
+            pickerGoogleLayerType = layerType;
+            const satBtn = document.getElementById('picker-layer-sat');
+            const roadBtn = document.getElementById('picker-layer-road');
+            if (satBtn && roadBtn) {
+                satBtn.className = layerType === 'y'
+                    ? "px-2 py-1 rounded-lg bg-[#FF5722] text-white text-[10px] font-extrabold"
+                    : "px-2 py-1 rounded-lg text-slate-700 text-[10px] font-extrabold";
+                roadBtn.className = layerType === 'm'
+                    ? "px-2 py-1 rounded-lg bg-[#FF5722] text-white text-[10px] font-extrabold"
+                    : "px-2 py-1 rounded-lg text-slate-700 text-[10px] font-extrabold";
+            }
+            if (pickerLeafletMap && typeof L !== 'undefined') {
+                if (pickerGoogleTileLayer) pickerLeafletMap.removeLayer(pickerGoogleTileLayer);
+                pickerGoogleTileLayer = createGoogleTileLayer(layerType).addTo(pickerLeafletMap);
+            }
+        }
+
         function ensurePickerLeafletMap(lat, lng) {
             if (!pickerLeafletMap && typeof L !== 'undefined') {
                 pickerLeafletMap = L.map('picker-leaflet-map', {
                     center: [lat, lng],
-                    zoom: 16,
+                    zoom: 17,
                     zoomControl: false,
                     dragging: true,
                     touchZoom: true,
                     tap: true
                 });
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap'
-                }).addTo(pickerLeafletMap);
+                pickerGoogleTileLayer = createGoogleTileLayer(pickerGoogleLayerType).addTo(pickerLeafletMap);
 
                 pickerLeafletMap.on('move', () => {
                     const c = pickerLeafletMap.getCenter();
@@ -2446,7 +2760,7 @@
             if (pickerLeafletMap) {
                 setTimeout(() => {
                     pickerLeafletMap.invalidateSize();
-                    pickerLeafletMap.setView([lat, lng], 16, { animate: false });
+                    pickerLeafletMap.setView([lat, lng], 17, { animate: false });
                 }, 60);
             }
         }
@@ -2460,6 +2774,8 @@
             pickerFlowMode = mode;
             document.getElementById('picker-search-input').value = '';
             document.getElementById('picker-search-results').classList.add('hidden');
+            const foodManualWrap = document.getElementById('picker-food-manual-wrap');
+            if (foodManualWrap) foodManualWrap.classList.add('hidden');
 
             const modal = document.getElementById('gmap-picker-modal');
             modal.classList.remove('hidden');
@@ -2478,7 +2794,7 @@
                 const startLng = bikeDropoffCoords ? bikeDropoffCoords.lng : HSIPAW_LNG;
                 const startLbl = document.getElementById('bike-dropoff').value.trim() || "သီပေါမြို့မဈေး (Central Market)";
                 updatePickerLocation(startLat, startLng, startLbl);
-            } else {
+            } else if (mode === 'pickup') {
                 document.getElementById('picker-top-dot').className = "w-3 h-3 rounded-full bg-blue-600 shrink-0";
                 document.getElementById('picker-search-input').placeholder = "Pick up at? / ခေါ်ရမည့်နေရာ...";
                 document.getElementById('picker-pin-badge').textContent = "Pick up at";
@@ -2490,6 +2806,24 @@
                 const initLat = lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT;
                 const initLng = lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG;
                 updatePickerLocation(initLat, initLng, lastKnownGpsPos ? `${findNearestPlaceLabel(initLat, initLng)} • GPS` : "သီပေါမြို့ (လက်ရှိနေရာ ရွေးပါ)");
+                useLiveGpsInPicker();
+            } else if (mode === 'food') {
+                document.getElementById('picker-top-dot').className = "w-3 h-3 rounded-full bg-blue-600 shrink-0";
+                document.getElementById('picker-search-input').placeholder = "ပို့ဆောင်ရမည့် နေရာ ရှာရန် / Point ရွှေ့ရွေးရန်...";
+                document.getElementById('picker-pin-badge').textContent = "Delivery Point";
+                document.getElementById('picker-pin-badge').className = "px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-extrabold shadow-md mb-1";
+                document.getElementById('picker-pin-circle').className = "w-9 h-9 rounded-full bg-[#FF5722] text-white flex items-center justify-center text-base shadow-xl pulse-pin border-2 border-white";
+                document.getElementById('picker-step-badge').textContent = "Food Location";
+                document.getElementById('picker-confirm-btn').textContent = "အော်ဒါတင်မည်";
+
+                if (foodManualWrap) {
+                    foodManualWrap.classList.remove('hidden');
+                    document.getElementById('picker-food-manual-text').value = document.getElementById('food-address').value || "";
+                }
+
+                const initLat = foodCoords ? foodCoords.lat : (lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT);
+                const initLng = foodCoords ? foodCoords.lng : (lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG);
+                updatePickerLocation(initLat, initLng, lastKnownGpsPos ? `${findNearestPlaceLabel(initLat, initLng)} • GPS` : "သီပေါမြို့ (Point ရွှေ့၍ နေရာရွေးပါ)");
                 useLiveGpsInPicker();
             }
         }
@@ -2556,14 +2890,14 @@
 
         function useLiveGpsInPicker(e) {
             if (e) e.stopPropagation();
-            showToast("ဖုန်း Location (GPS) ဖြင့် တည်နေရာ ရှာဖွေနေပါသည်...");
+            showToast("ဖုန်း Location (GPS) ဖြင့် လက်ရှိနေရာ ရှာဖွေနေပါသည်...");
             requestLocationPermission((pos) => {
                 if (pos) {
                     const lat = pos.coords.latitude;
                     const lng = pos.coords.longitude;
                     const detailed = `${findNearestPlaceLabel(lat, lng)} • GPS`;
                     updatePickerLocation(lat, lng, detailed);
-                    showToast("လက်ရှိတည်နေရာ ရှာတွေ့ပါပြီ!");
+                    showToast("လက်ရှိတည်နေရာ အတိအကျ ရှာတွေ့ပါပြီ!");
                 }
             });
         }
@@ -2582,12 +2916,28 @@
                 document.getElementById('bike-dropoff').value = chosenLabel;
                 recalculateBikeFare();
                 openPickerStep('pickup');
-            } else {
+            } else if (pickerFlowMode === 'pickup') {
                 bikePickupCoords = { lat: tempPickedLat, lng: tempPickedLng };
                 document.getElementById('bike-pickup').value = chosenLabel;
                 recalculateBikeFare();
                 closeGoogleMapPicker();
                 showBikeRouteConfirmationScreen();
+            } else if (pickerFlowMode === 'food') {
+                foodCoords = { lat: tempPickedLat, lng: tempPickedLng };
+                const manualStreet = document.getElementById('picker-food-manual-text').value.trim();
+                const finalAddress = manualStreet
+                    ? `${manualStreet} (${chosenLabel})`
+                    : `${chosenLabel} (${tempPickedLat.toFixed(4)}, ${tempPickedLng.toFixed(4)})`;
+                document.getElementById('food-address').value = finalAddress;
+                const pill = document.getElementById('food-picked-coords-pill');
+                const pillTxt = document.getElementById('food-picked-coords-text');
+                if (pill && pillTxt) {
+                    pill.classList.remove('hidden');
+                    pillTxt.textContent = `📍 ${finalAddress}`;
+                }
+                recalculateFoodCartTotals();
+                closeGoogleMapPicker();
+                submitFoodOrder({ preventDefault: () => {} });
             }
         }
 
@@ -2597,13 +2947,11 @@
             if (!routeLeafletMap) {
                 routeLeafletMap = L.map('bike-route-leaflet-map', {
                     center: [(pLat + dLat) / 2, (pLng + dLng) / 2],
-                    zoom: 15,
+                    zoom: 16,
                     zoomControl: false
                 });
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap'
-                }).addTo(routeLeafletMap);
+                // Google Satellite + Roads Hybrid Map
+                createGoogleTileLayer('y').addTo(routeLeafletMap);
                 routeLayersGroup = L.layerGroup().addTo(routeLeafletMap);
             }
 
@@ -2638,16 +2986,15 @@
                 L.marker([pLat, pLng], { icon: bluePinIcon }).addTo(routeLayersGroup);
                 L.marker([dLat, dLng], { icon: redPinIcon }).addTo(routeLayersGroup);
 
-                // Draw direct polyline immediately as fallback, then upgrade to real road geometry via OSRM
                 let routeLine = L.polyline([[pLat, pLng], [dLat, dLng]], {
-                    color: '#00B14F',
+                    color: '#00E676',
                     weight: 5,
                     opacity: 0.9,
                     dashArray: '8, 8'
                 }).addTo(routeLayersGroup);
 
                 const bounds = L.latLngBounds([[pLat, pLng], [dLat, dLng]]);
-                routeLeafletMap.fitBounds(bounds, { padding: [75, 55], maxZoom: 16 });
+                routeLeafletMap.fitBounds(bounds, { padding: [75, 55], maxZoom: 17 });
 
                 try {
                     const url = `https://router.project-osrm.org/route/v1/driving/${pLng},${pLat};${dLng},${dLat}?overview=full&geometries=geojson`;
@@ -2657,11 +3004,11 @@
                         const latLngs = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
                         routeLayersGroup.removeLayer(routeLine);
                         const roadLine = L.polyline(latLngs, {
-                            color: '#00B14F',
+                            color: '#00E676',
                             weight: 6,
                             opacity: 0.95
                         }).addTo(routeLayersGroup);
-                        routeLeafletMap.fitBounds(roadLine.getBounds(), { padding: [75, 55], maxZoom: 16 });
+                        routeLeafletMap.fitBounds(roadLine.getBounds(), { padding: [75, 55], maxZoom: 17 });
                     }
                 } catch (err) {}
             }, 80);
@@ -2789,7 +3136,7 @@
 
             let statusBanner = `<span class="text-xs font-extrabold text-amber-700">⏳ Rider ရှာဖွေနေပါသည်...</span>`;
             if (activeRide.status === 'Accepted') {
-                statusBanner = `<span class="text-xs font-extrabold text-blue-700">🛵 Rider (${escapeHtml(activeRide.assignedRiderName)}) ခုလာခေါ်နေပါပြီ!</span>`;
+                statusBanner = `<span class="text-xs font-extrabold text-blue-700">🛵 Rider (${escapeHtml(activeRide.assignedRiderName)}) သင့်ဆီသို့ လာခေါ်နေပါပြီ!</span>`;
             } else if (activeRide.status === 'On the way') {
                 statusBanner = `<span class="text-xs font-extrabold text-emerald-700">🚀 ခရီးစဉ် စတင်နေပါပြီ</span>`;
             }
@@ -2801,7 +3148,7 @@
                         <button onclick="openChatModal(${activeRide.id}, 'customer')" class="px-3 py-1.5 rounded-xl bg-slate-900 text-white font-bold text-xs">💬 Chat</button>
                     </div>
                     <div class="w-full h-48 rounded-2xl overflow-hidden border border-slate-200 relative">
-                        <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?saddr=${pLat},${pLng}&daddr=${dLat},${dLng}&t=m&z=15&output=embed"></iframe>
+                        <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?saddr=${pLat},${pLng}&daddr=${dLat},${dLng}&t=k&z=16&output=embed"></iframe>
                         <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
                             <div class="flex flex-col items-center">
                                 <span class="px-2 py-0.5 rounded bg-emerald-600 text-white text-[9px] font-extrabold shadow mb-0.5">Rider 🛵</span>
@@ -2892,7 +3239,7 @@
         }
 
         // ==========================================
-        // RIDER DISPATCH & BACKGROUND NOTIFICATIONS
+        // RIDER DISPATCH: STEP 1 (GO TO PASSENGER) -> STEP 2 (START TRIP TO DESTINATION)
         // ==========================================
         function openRiderPortalGate() {
             if (myRiderSession && myRiderSession.pinVerified) { navigateToScreen('rider'); return; }
@@ -2971,25 +3318,54 @@
                 myWrap.innerHTML = `<h2 class="text-xs font-extrabold text-emerald-800 uppercase tracking-wider">လက်ရှိပို့ဆောင်နေသော အော်ဒါများ (${myActive.length})</h2>` +
                 myActive.map(order => {
                     const isBike = order.type === 'bike';
+                    const isHeadingToPassenger = (isBike && order.status === 'Accepted');
+                    const rLat = order.riderLiveLat || (lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT);
+                    const rLng = order.riderLiveLng || (lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG);
 
-                    const startTripBtn = (isBike && order.status === 'Accepted')
-                        ? `<button onclick="startBikeTripByRider(${order.id})" class="w-full py-3 rounded-xl bg-blue-600 text-white font-extrabold text-xs shadow-sm">🚀 ငှားသူထံရောက်ပြီ - လမ်းကြောင်း (Directions) စတင်မည်</button>`
+                    // Stage 1: Rider -> Passenger Pickup Location (before clicking "ငှားသူထံရောက်ပြီ")
+                    // Stage 2: Passenger Pickup -> Destination (after clicking "ငှားသူထံရောက်ပြီ")
+                    const mapSrc = isHeadingToPassenger
+                        ? `https://maps.google.com/maps?saddr=${rLat},${rLng}&daddr=${order.pickupLat},${order.pickupLng}&t=k&z=16&output=embed`
+                        : `https://maps.google.com/maps?saddr=${order.pickupLat},${order.pickupLng}&daddr=${order.dropoffLat},${order.dropoffLng}&t=k&z=16&output=embed`;
+
+                    const gmapsDirectionsHref = isHeadingToPassenger
+                        ? `https://www.google.com/maps/dir/?api=1&origin=${rLat},${rLng}&destination=${order.pickupLat},${order.pickupLng}&travelmode=driving`
+                        : `https://www.google.com/maps/dir/?api=1&origin=${order.pickupLat},${order.pickupLng}&destination=${order.dropoffLat},${order.dropoffLng}&travelmode=driving`;
+
+                    const stageBannerHtml = isHeadingToPassenger
+                        ? `<div class="bg-blue-50 border border-blue-200 p-2.5 rounded-xl text-[11px] font-bold text-blue-900 flex items-center justify-between gap-2">
+                                <span>🧭 အဆင့် (၁): ငှားသူ (${escapeHtml(order.pickupAddress)}) ထံ အရင်သွားပါ</span>
+                                <a href="${gmapsDirectionsHref}" target="_blank" class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-extrabold shrink-0">Google Map ကြည့်မည် ↗</a>
+                           </div>`
+                        : isBike
+                        ? `<div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl text-[11px] font-bold text-emerald-900">
+                                🚀 အဆင့် (၂): ငှားသူသွားလိုသည့် (${escapeHtml(order.dropoffAddress)}) သို့ လမ်းကြောင်း
+                           </div>`
+                        : '';
+
+                    const startTripBtn = isHeadingToPassenger
+                        ? `<button onclick="startBikeTripByRider(${order.id})" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-sm">🚀 ငှားသူထံရောက်ပြီ - လမ်းကြောင်း (Directions) စတင်မည်</button>`
                         : '';
 
                     return `
                         <div class="bg-white p-4 rounded-2xl border-2 border-emerald-500 shadow-sm space-y-3">
                             <div class="flex items-center justify-between"><span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">${escapeHtml(order.status)}</span><span class="text-xs font-extrabold text-slate-900">${escapeHtml(order.fareText)}</span></div>
                             <div>
-                                <p class="text-sm font-extrabold text-slate-900">${escapeHtml(order.customerName)} (${escapeHtml(order.customerPhone)})</p>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-extrabold text-slate-900">${escapeHtml(order.customerName)}</p>
+                                    <a href="tel:${escapeAttr(order.customerPhone)}" class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-extrabold text-xs">📞 ${escapeHtml(order.customerPhone)}</a>
+                                </div>
                                 <p class="text-xs text-slate-700 whitespace-pre-line mt-1">${escapeHtml(order.details)}</p>
-                                <p class="text-xs text-slate-500 mt-1">📍 ပို့ရမည့်နေရာ: ${escapeHtml(order.dropoffAddress)}</p>
+                                <p class="text-xs text-blue-700 font-bold mt-1">🔵 ခေါ်ရမည့်နေရာ (Pickup): ${escapeHtml(order.pickupAddress)}</p>
+                                <p class="text-xs text-[#FF5722] font-bold mt-0.5">🔴 ပို့ရမည့်နေရာ (Destination): ${escapeHtml(order.dropoffAddress)}</p>
                             </div>
-                            <div class="w-full h-44 rounded-2xl overflow-hidden border border-slate-200 relative">
-                                <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?saddr=${order.pickupLat},${order.pickupLng}&daddr=${order.dropoffLat},${order.dropoffLng}&t=m&z=15&output=embed"></iframe>
+                            ${stageBannerHtml}
+                            <div class="w-full h-48 rounded-2xl overflow-hidden border border-slate-200 relative">
+                                <iframe width="100%" height="100%" frameborder="0" style="border:0" src="${mapSrc}"></iframe>
                             </div>
                             ${startTripBtn}
                             <div class="grid grid-cols-2 gap-2">
-                                <a href="https://maps.google.com/maps?saddr=${order.pickupLat},${order.pickupLng}&daddr=${order.dropoffLat},${order.dropoffLng}" target="_blank" class="py-2.5 rounded-xl bg-blue-50 text-blue-700 font-bold text-xs text-center">🧭 Google Directions လမ်းညွှန်</a>
+                                <a href="${gmapsDirectionsHref}" target="_blank" class="py-2.5 rounded-xl bg-blue-50 text-blue-700 font-bold text-xs text-center">${isHeadingToPassenger ? '🧭 ငှားသူဆီသွားမည့် Map' : '🧭 Google Directions လမ်းညွှန်'}</a>
                                 <button onclick="openChatModal(${order.id}, 'admin')" class="py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs">💬 စာပို့မည်</button>
                             </div>
                             <button onclick="completeOrderByRider(${order.id})" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">✅ ပို့ဆောင်ပြီးစီးကြောင်း အတည်ပြုမည်</button>
@@ -3000,6 +3376,7 @@
 
             const availablePool = allOrders.filter(o => o.status === 'Pending' && !o.assignedRiderId);
             document.getElementById('rider-pool-count').textContent = availablePool.length;
+            updateRiderHeaderOrderBadge();
             const availList = document.getElementById('rider-available-list');
 
             if (availablePool.length === 0) {
@@ -3032,11 +3409,16 @@
             order.assignedRiderPhone = me.phone;
             order.status = 'Accepted';
 
+            if (lastKnownGpsPos) {
+                order.riderLiveLat = lastKnownGpsPos.coords.latitude;
+                order.riderLiveLng = lastKnownGpsPos.coords.longitude;
+            }
+
             if (!order.messages) order.messages = [];
             order.messages.push({
                 sender: 'admin',
                 text: order.type === 'bike'
-                    ? `🛵 ဝန်ထမ်း (${me.name}) မှ သင့် Bike Taxi ကို လက်ခံလိုက်ပါပြီ။ ခုလာခေါ်နေပါပြီခင်ဗျာ!`
+                    ? `🛵 ဝန်ထမ်း (${me.name}) မှ သင့် Bike Taxi ကို လက်ခံလိုက်ပါပြီ။ သင့်နေရာသို့ ခုလာခေါ်နေပါပြီခင်ဗျာ!`
                     : `🛵 ဝန်ထမ်း (${me.name}) မှ သင့်အော်ဒါကို လက်ခံလိုက်ပါပြီခင်ဗျာ!`,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 readByCustomer: false,
@@ -3046,7 +3428,7 @@
             saveOrders();
             startTrackingRiderLocation(order.id);
             renderRiderPortalState();
-            showToast("အော်ဒါလက်ခံပြီးပါပြီ!");
+            showToast("အော်ဒါလက်ခံပြီးပါပြီ! ငှားသူထံ သွားမည့်လမ်းကြောင်းကို ပြပေးထားပါသည်");
         }
 
         function startBikeTripByRider(orderId) {
@@ -3056,7 +3438,7 @@
             if (!order.messages) order.messages = [];
             order.messages.push({
                 sender: 'admin',
-                text: "🚀 ခရီးစဉ် စတင်နေပါပြီ (Directions လမ်းကြောင်းနှင့် မြေပုံတွင် တိုက်ရိုက်ကြည့်ရှုနိုင်ပါသည်)",
+                text: "🚀 ငှားသူထံရောက်ရှိပြီး ခရီးစဉ် စတင်နေပါပြီ",
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 readByCustomer: false,
                 readByAdmin: true
@@ -3064,20 +3446,25 @@
             saveOrders();
             startTrackingRiderLocation(order.id);
             renderRiderPortalState();
-            showToast("ခရီးစဉ် စတင်ပါပြီ!");
+            showToast("ခရီးစဉ် စတင်ပါပြီ! Google Map လမ်းညွှန် ဖွင့်နေပါသည်");
+
+            // Open Google Maps turn-by-turn navigation from Pickup to Destination
+            const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${order.pickupLat},${order.pickupLng}&destination=${order.dropoffLat},${order.dropoffLng}&travelmode=driving`;
+            window.open(navUrl, '_blank');
         }
 
         function startTrackingRiderLocation(orderId) {
             if ("geolocation" in navigator) {
                 if (riderLiveWatchId) navigator.geolocation.clearWatch(riderLiveWatchId);
                 riderLiveWatchId = navigator.geolocation.watchPosition((pos) => {
+                    lastKnownGpsPos = pos;
                     const order = allOrders.find(o => o.id === orderId && o.status !== 'Delivered');
                     if (order) {
                         order.riderLiveLat = pos.coords.latitude;
                         order.riderLiveLng = pos.coords.longitude;
                         saveOrders();
                     }
-                });
+                }, () => {}, { enableHighAccuracy: true });
             }
         }
 
@@ -3118,8 +3505,8 @@
         function exitAdmin() { enterMainApp(); }
 
         function switchAdminTab(tab) {
-            ['admin-view-orders', 'admin-view-staff', 'admin-view-support', 'admin-view-hotlines', 'admin-view-rates'].forEach(id => document.getElementById(id).classList.add('hidden'));
-            ['adm-tab-orders', 'adm-tab-staff', 'adm-tab-support', 'adm-tab-hotlines', 'adm-tab-rates'].forEach(id => {
+            ['admin-view-orders', 'admin-view-posters', 'admin-view-staff', 'admin-view-support', 'admin-view-hotlines', 'admin-view-rates'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            ['adm-tab-orders', 'adm-tab-posters', 'adm-tab-staff', 'adm-tab-support', 'adm-tab-hotlines', 'adm-tab-rates'].forEach(id => {
                 document.getElementById(id).className = "px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 whitespace-nowrap text-xs font-bold";
             });
 
@@ -3127,6 +3514,7 @@
             document.getElementById(`adm-tab-${tab}`).className = "px-3 py-1.5 rounded-lg bg-slate-900 text-white whitespace-nowrap text-xs font-bold";
 
             if (tab === 'orders') renderAdminOrders();
+            else if (tab === 'posters') renderAdminPromoPostersList();
             else if (tab === 'staff') renderAdminStaffList();
             else if (tab === 'support') renderAdminSupportThreads();
             else if (tab === 'hotlines') renderAdminHotlinesUI();
@@ -3136,6 +3524,7 @@
         function renderAdminOrders() {
             const activeOrders = allOrders.filter(o => o.status !== 'Delivered' && o.status !== 'Cancelled');
             document.getElementById('admin-count').textContent = activeOrders.length;
+            document.getElementById('admin-posters-count').textContent = promoPosters.length;
             document.getElementById('admin-staff-pending-badge').textContent = allRiders.filter(r => !r.approved).length;
 
             const container = document.getElementById('admin-orders-container');
@@ -3244,10 +3633,10 @@
             if (!box) return;
             const routes = appConfig.customBikeRoutes || [];
             if (!routes.length) { box.innerHTML = `<p class="text-[11px] text-slate-400">လမ်းကြောင်းသစ် မရှိသေးပါ</p>`; return; }
-            box.innerHTML = routes.map((r, idx) => `
-                <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl border border-slate-200 text-xs">
-                    <span class="font-bold text-slate-800">🛵 ${escapeHtml(r.from)} → ${escapeHtml(r.to)} : <b class="text-[#FF5722]">${Number(r.price).toLocaleString()} Ks</b></span>
-                    <button type="button" onclick="removeBikeRoutePrice(${idx})" class="px-2 py-1 rounded-lg bg-red-50 text-red-600 font-bold text-[11px]">ဖျက်မည်</button>
+            box.innerHTML = routes.map((r, i) => `
+                <div class="flex items-center justify-between bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                    <span class="font-bold text-slate-900">🛵 ${escapeHtml(r.from)} → ${escapeHtml(r.to)} : <strong class="text-[#FF5722]">${Number(r.price).toLocaleString()} Ks</strong></span>
+                    <button type="button" onclick="deleteBikeRoutePrice(${i})" class="text-red-600 font-bold">✕</button>
                 </div>
             `).join('');
         }
@@ -3256,18 +3645,18 @@
             e.preventDefault();
             const from = document.getElementById('route-from').value.trim();
             const to = document.getElementById('route-to').value.trim();
-            const price = Number(document.getElementById('route-price').value) || 0;
+            const price = Number(document.getElementById('route-price').value);
             if (!from || !to || !price) return;
             if (!appConfig.customBikeRoutes) appConfig.customBikeRoutes = [];
-            appConfig.customBikeRoutes.unshift({ from, to, price });
+            appConfig.customBikeRoutes.push({ from, to, price });
             saveConfig();
             e.target.reset();
             renderAdminBikeRoutesList();
             renderGrabSuggestedPlaces();
-            showToast("Bike လမ်းကြောင်းဈေးနှုန်း ထည့်ပြီးပါပြီ");
+            showToast("Bike Taxi ခရီးစဉ်နှုန်းထား အသစ်ထည့်ပြီးပါပြီ");
         }
 
-        function removeBikeRoutePrice(idx) {
+        function deleteBikeRoutePrice(idx) {
             appConfig.customBikeRoutes.splice(idx, 1);
             saveConfig();
             renderAdminBikeRoutesList();
@@ -3276,15 +3665,15 @@
 
         function saveAdminRates(e) {
             e.preventDefault();
-            appConfig.orderTown = Number(document.getElementById('cfg-order-town').value) || 2000;
-            appConfig.orderOuter = Number(document.getElementById('cfg-order-outer').value) || 3000;
-            appConfig.orderExtraStop = Number(document.getElementById('cfg-order-extrastop').value) || 500;
-            appConfig.bikeTown = Number(document.getElementById('cfg-bike-town').value) || 4000;
-            appConfig.bikeOuter = Number(document.getElementById('cfg-bike-outer').value) || 5000;
-            appConfig.bikeBawgyo = Number(document.getElementById('cfg-bike-bawgyo').value) || 8000;
+            appConfig.orderTown = Number(document.getElementById('cfg-order-town').value);
+            appConfig.orderOuter = Number(document.getElementById('cfg-order-outer').value);
+            appConfig.orderExtraStop = Number(document.getElementById('cfg-order-extrastop').value);
+            appConfig.bikeTown = Number(document.getElementById('cfg-bike-town').value);
+            appConfig.bikeOuter = Number(document.getElementById('cfg-bike-outer').value);
+            appConfig.bikeBawgyo = Number(document.getElementById('cfg-bike-bawgyo').value);
             saveConfig();
             renderDynamicRatesAndRules();
-            showToast("နှုန်းထားအသစ်များ သိမ်းဆည်းပြီးပါပြီ!");
+            showToast("နှုန်းထားအသစ်များ သိမ်းဆည်းပြီးပါပြီ");
         }
 
         function saveAdminRules(e) {
@@ -3292,19 +3681,93 @@
             appConfig.rules = document.getElementById('cfg-rules-textarea').value.split('\n').map(l => l.trim()).filter(Boolean);
             saveConfig();
             renderDynamicRatesAndRules();
-            showToast("စည်းကမ်းချက်များ ပြင်ဆင်ပြီးပါပြီ!");
+            showToast("စည်းကမ်းချက်များ အသစ်ပြင်ဆင်ပြီးပါပြီ");
         }
 
         // ==========================================
-        // MERCHANT SHOP PAGE
+        // DIRECT ADMIN SUPPORT CHAT
+        // ==========================================
+        function openSupportChatModal(role, targetPhone = null) {
+            activeSupportRole = role;
+            activeSupportUserPhone = role === 'customer' ? userProfile.phone : targetPhone;
+            document.getElementById('support-chat-title').textContent = role === 'customer' ? "💬 Admin တိုက်ရိုက်စာပို့ရန်" : `💬 Chat with ${targetPhone}`;
+            const m = document.getElementById('support-chat-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            renderSupportMessages();
+        }
+
+        function closeSupportChatModal() {
+            document.getElementById('support-chat-modal').classList.add('hidden');
+            document.getElementById('support-chat-modal').classList.remove('flex');
+        }
+
+        function renderSupportMessages() {
+            const feed = document.getElementById('support-messages-feed');
+            const thread = supportChats.filter(m => m.userPhone === activeSupportUserPhone);
+            if (!thread.length) { feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-10">Admin ထံ စာရေးပို့နိုင်ပါသည်</p>`; return; }
+
+            feed.innerHTML = thread.map(m => {
+                const isMe = m.sender === activeSupportRole;
+                return `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[80%] px-3.5 py-2.5 rounded-2xl ${isMe ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-900'}">
+                            <p class="text-xs leading-relaxed">${escapeHtml(m.text)}</p>
+                            <span class="text-[9px] opacity-70 block text-right mt-1">${m.time}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function sendSupportMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('support-text-input');
+            const text = input.value.trim();
+            if (!text) return;
+            supportChats.push({
+                userPhone: activeSupportUserPhone,
+                userName: activeSupportRole === 'customer' ? userProfile.name : 'Admin',
+                sender: activeSupportRole,
+                text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            saveSupportChats();
+            input.value = "";
+            renderSupportMessages();
+        }
+
+        function renderAdminSupportThreads() {
+            const box = document.getElementById('admin-support-threads');
+            const users = [...new Set(supportChats.map(m => m.userPhone))];
+            if (!users.length) { box.innerHTML = `<p class="text-xs text-slate-400 py-6 text-center">စာပို့ထားသူ မရှိသေးပါ</p>`; return; }
+
+            box.innerHTML = users.map(phone => {
+                const msgs = supportChats.filter(m => m.userPhone === phone);
+                const lastMsg = msgs[msgs.length - 1];
+                return `
+                    <div onclick="openSupportChatModal('admin', '${escapeAttr(phone)}')" class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between cursor-pointer hover:bg-orange-50">
+                        <div class="min-w-0">
+                            <p class="text-xs font-extrabold text-slate-900">${escapeHtml(lastMsg.userName || phone)} (${escapeHtml(phone)})</p>
+                            <p class="text-[11px] text-slate-500 truncate">${escapeHtml(lastMsg.text)}</p>
+                        </div>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#FF5722] text-white font-bold text-xs shrink-0">စာပြန်မည်</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // MERCHANT SHOP PAGE MANAGER
         // ==========================================
         function openShopPortal() {
             if (shopUnlocked) { navigateToScreen('shop-manager'); return; }
             document.getElementById('shop-pass-input').value = "";
             document.getElementById('shop-pass-error').classList.add('hidden');
-            const modal = document.getElementById('shop-pass-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            const m = document.getElementById('shop-pass-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
             setTimeout(() => document.getElementById('shop-pass-input').focus(), 100);
         }
 
@@ -3321,21 +3784,31 @@
             } else { document.getElementById('shop-pass-error').classList.remove('hidden'); }
         }
 
-        function toggleMerchantCreateBox(show) {
-            const box = document.getElementById('merchant-create-box');
-            if (show) box.classList.remove('hidden');
-            else box.classList.add('hidden');
-        }
-
         function previewShopPhoto(event) {
             const file = event.target.files[0];
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                tempShopPhoto = e.target.result;
-                document.getElementById('shop-photo-preview').innerHTML = `<img src="${tempShopPhoto}" class="w-full h-full object-cover">`;
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 360;
+                    let w = img.width, h = img.height;
+                    if (w > maxW) { h *= maxW / w; w = maxW; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    tempShopPhoto = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('shop-photo-preview').innerHTML = `<img src="${tempShopPhoto}" class="w-full h-full object-cover">`;
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
+        }
+
+        function toggleMerchantCreateBox(show) {
+            const box = document.getElementById('merchant-create-box');
+            if (show) box.classList.remove('hidden');
+            else box.classList.add('hidden');
         }
 
         function saveShopChannel(e) {
@@ -3345,14 +3818,13 @@
             const address = document.getElementById('shop-address-input').value.trim();
             if (!name || !phone || !address) return;
 
-            allShops.unshift({ id: 'shop_' + Date.now(), name, phone, address, photo: tempShopPhoto, items: [] });
+            allShops.unshift({ id: 'shop_' + Date.now(), name, phone, address, photo: tempShopPhoto || DEFAULT_SHOP_IMG, items: [] });
             saveShops();
             e.target.reset();
             tempShopPhoto = DEFAULT_SHOP_IMG;
             document.getElementById('shop-photo-preview').innerHTML = `<span>📷</span><span class="text-[9px]">ဆိုင်ပုံထည့်</span>`;
-            toggleMerchantCreateBox(false);
             renderMerchantManagerUI();
-            showToast(`"${name}" ဆိုင်Page ဖွင့်လှစ်ပြီးပါပြီ!`);
+            showToast("ဆိုင်အကောင့် ဖွင့်လှစ်ပြီးပါပြီ!");
         }
 
         function openEditShopModal(shopId) {
@@ -3364,7 +3836,6 @@
             document.getElementById('edit-shop-address').value = shop.address;
             document.getElementById('edit-shop-img-preview').src = shop.photo || DEFAULT_SHOP_IMG;
             tempEditShopPhoto = shop.photo || DEFAULT_SHOP_IMG;
-
             const m = document.getElementById('edit-shop-modal');
             m.classList.remove('hidden');
             m.classList.add('flex');
@@ -3380,16 +3851,26 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                tempEditShopPhoto = e.target.result;
-                document.getElementById('edit-shop-img-preview').src = tempEditShopPhoto;
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 360;
+                    let w = img.width, h = img.height;
+                    if (w > maxW) { h *= maxW / w; w = maxW; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    tempEditShopPhoto = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('edit-shop-img-preview').src = tempEditShopPhoto;
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
 
         function saveEditedShopDetails(e) {
             e.preventDefault();
-            const id = document.getElementById('edit-shop-id').value;
-            const shop = allShops.find(s => s.id === id);
+            const shopId = document.getElementById('edit-shop-id').value;
+            const shop = allShops.find(s => s.id === shopId);
             if (!shop) return;
             shop.name = document.getElementById('edit-shop-name').value.trim();
             shop.phone = document.getElementById('edit-shop-phone').value.trim();
@@ -3401,217 +3882,162 @@
             showToast("ဆိုင်အချက်အလက် ပြင်ဆင်ပြီးပါပြီ");
         }
 
-        function deleteEntireShopAccount(shopId, shopName) {
-            if (!confirm(`"${shopName}" ဆိုင်အကောင့်ကို အပြီးတိုင် ဖျက်ပစ်မှာ သေချာပါပြီလား?`)) return;
+        function deleteShopAccount(shopId) {
+            if (!confirm("ဤဆိုင်အကောင့်နှင့် မီနူးအားလုံးကို ဖျက်မှာ သေချာပါသလား?")) return;
             allShops = allShops.filter(s => s.id !== shopId);
             saveShops();
             renderMerchantManagerUI();
-            showToast("ဆိုင်အကောင့် ဖျက်သိမ်းပြီးပါပြီ");
+            showToast("ဆိုင်အကောင့် ဖျက်ပြီးပါပြီ");
         }
 
-        function addMenuItemToShop(event, shopId) {
-            event.preventDefault();
-            const form = event.target;
-            const itemName = form.querySelector('.menu-name-input').value.trim();
-            const itemPrice = parseInt(form.querySelector('.menu-price-input').value, 10) || 0;
-            const itemCat = form.querySelector('.menu-cat-select').value || 'food';
-            const photoData = form.dataset.photoData || DEFAULT_SHOP_IMG;
-
+        function addMenuItemToShop(e, shopId) {
+            e.preventDefault();
             const shop = allShops.find(s => s.id === shopId);
-            if (!shop || !itemName || !itemPrice) return;
-            if (!shop.items) shop.items = [];
+            if (!shop) return;
+            const nameInput = document.getElementById(`item-name-${shopId}`);
+            const priceInput = document.getElementById(`item-price-${shopId}`);
+            const catInput = document.getElementById(`item-cat-${shopId}`);
+            const photoInput = document.getElementById(`item-photo-${shopId}`);
 
-            shop.items.unshift({ id: 'item_' + Date.now(), name: itemName, category: itemCat, priceNum: itemPrice, rating: 5.0, ratingCount: 1, photo: photoData });
-            saveShops();
-            renderMerchantManagerUI();
-            showToast("စားသောက်ကုန် အသစ်တင်ပြီးပါပြီ");
-        }
+            const name = nameInput.value.trim();
+            const priceNum = Number(priceInput.value);
+            const category = catInput.value;
+            if (!name || !priceNum) return;
 
-        function handleMenuItemPhotoChange(event, formId) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const form = document.getElementById(formId);
-                form.dataset.photoData = e.target.result;
-                form.querySelector('.menu-photo-label').textContent = "✅ ပုံရွေးပြီးပါပြီ";
+            const finalizeAdd = (photoData) => {
+                if (!shop.items) shop.items = [];
+                shop.items.unshift({
+                    id: 'item_' + Date.now(),
+                    name,
+                    priceNum,
+                    category,
+                    photo: photoData || DEFAULT_SHOP_IMG,
+                    rating: 5.0,
+                    ratingCount: 1
+                });
+                saveShops();
+                nameInput.value = '';
+                priceInput.value = '';
+                photoInput.value = '';
+                renderMerchantManagerUI();
+                showToast("မီနူးအသစ် တင်ပြီးပါပြီ!");
             };
-            reader.readAsDataURL(file);
+
+            const file = photoInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const maxW = 360;
+                        let w = img.width, h = img.height;
+                        if (w > maxW) { h *= maxW / w; w = maxW; }
+                        canvas.width = w; canvas.height = h;
+                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                        finalizeAdd(canvas.toDataURL('image/jpeg', 0.8));
+                    };
+                    img.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else { finalizeAdd(DEFAULT_SHOP_IMG); }
         }
 
-        function deleteMenuItem(shopId, itemId) {
-            if (!confirm("ဤပစ္စည်းကို ဖျက်မှာ သေချာပါသလား?")) return;
+        function deleteShopMenuItem(shopId, itemId) {
             const shop = allShops.find(s => s.id === shopId);
             if (!shop) return;
             shop.items = shop.items.filter(i => i.id !== itemId);
             saveShops();
             renderMerchantManagerUI();
-            showToast("ဖျက်ပြီးပါပြီ");
+            showToast("မီနူး ဖျက်ပြီးပါပြီ");
         }
 
         function renderMerchantManagerUI() {
             const createBox = document.getElementById('merchant-create-box');
             const cancelBtn = document.getElementById('btn-cancel-new-shop');
-            const container = document.getElementById('merchant-pages-list');
+            const list = document.getElementById('merchant-pages-list');
 
             if (allShops.length === 0) {
                 createBox.classList.remove('hidden');
                 cancelBtn.classList.add('hidden');
-                container.innerHTML = `<div class="bg-white p-6 rounded-3xl text-center space-y-2 border border-slate-200"><p class="text-sm font-bold text-slate-700">သင့်ဆိုင် Page မရှိသေးပါ</p><p class="text-xs text-slate-400">အထက်ပါ ဖောင်တွင် ဆိုင်နာမည်နှင့် အချက်အလက်ဖြည့်၍ ဆိုင်ဖွင့်ပါ</p></div>`;
+                list.innerHTML = '';
                 return;
-            } else {
-                createBox.classList.add('hidden');
-                cancelBtn.classList.remove('hidden');
             }
 
-            container.innerHTML = `
+            createBox.classList.add('hidden');
+            cancelBtn.classList.remove('hidden');
+
+            list.innerHTML = `
                 <div class="flex items-center justify-between">
-                    <h2 class="text-sm font-extrabold text-slate-900">🏪 သင့်ဆိုင် Page များ</h2>
-                    <button type="button" onclick="toggleMerchantCreateBox(true)" class="px-3 py-1.5 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">+ ဆိုင်အသစ်ထပ်ဖွင့်မည်</button>
+                    <h3 class="text-xs font-extrabold text-slate-500 uppercase">သင့်ဆိုင် စာမျက်နှာများ (My Shop Pages)</h3>
+                    <button type="button" onclick="toggleMerchantCreateBox(true)" class="px-3 py-1.5 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">+ နောက်ထပ်ဆိုင်ဖွင့်မည်</button>
                 </div>
-            ` + allShops.map(shop => {
-                const formId = `add-menu-form-${shop.id}`;
-                const itemsHtml = (shop.items || []).map(item => `
-                    <div class="bg-slate-50 p-2.5 rounded-2xl border border-slate-200 flex items-center justify-between gap-2.5">
-                        <div class="flex items-center gap-2.5 min-w-0">
-                            <img src="${item.photo || DEFAULT_SHOP_IMG}" class="w-12 h-12 rounded-xl object-cover border border-slate-200">
-                            <div class="min-w-0">
-                                <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(item.name)}</p>
-                                <p class="text-[11px] font-bold text-[#FF5722]">${Number(item.priceNum || 0).toLocaleString()} Ks</p>
+            ` + allShops.map(shop => `
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                    <!-- SHOP PROFILE HEADER (FACEBOOK/TIKTOK PAGE STYLE) -->
+                    <div class="p-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100 space-y-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <img src="${shop.photo || DEFAULT_SHOP_IMG}" class="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm shrink-0">
+                                <div class="min-w-0">
+                                    <h3 class="text-base font-extrabold text-slate-900 truncate">${escapeHtml(shop.name)}</h3>
+                                    <p class="text-[11px] text-slate-600 truncate">📍 ${escapeHtml(shop.address)}</p>
+                                    <p class="text-[11px] font-bold text-[#FF5722]">📞 ${escapeHtml(shop.phone)}</p>
+                                </div>
                             </div>
                         </div>
-                        <button type="button" onclick="deleteMenuItem('${shop.id}', '${item.id}')" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-xs font-extrabold">ဖျက်မည်</button>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="openEditShopModal('${shop.id}')" class="flex-1 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs shadow-2xs">✏️ ဆိုင်အချက်အလက်ပြင်ရန်</button>
+                            <button type="button" onclick="deleteShopAccount('${shop.id}')" class="px-3 py-2 rounded-xl bg-red-50 text-red-600 font-extrabold text-xs">🗑️ ဆိုင်ဖျက်မည်</button>
+                        </div>
                     </div>
-                `).join('');
 
-                return `
-                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="h-20 bg-gradient-to-r from-orange-500 to-[#FF5722]"></div>
-                        <div class="px-4 pb-4">
-                            <div class="flex items-end justify-between -mt-8 mb-3">
-                                <div class="relative">
-                                    <img src="${shop.photo || DEFAULT_SHOP_IMG}" class="w-20 h-20 rounded-2xl object-cover border-4 border-white shadow-md bg-white">
-                                    <button type="button" onclick="openEditShopModal('${shop.id}')" title="ဆိုင်အချက်အလက် ပြင်ဆင်ရန်"
-                                        class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs shadow-md border-2 border-white">
-                                        ✏️
-                                    </button>
-                                </div>
-                                <button type="button" onclick="deleteEntireShopAccount('${shop.id}', '${escapeAttr(shop.name)}')"
-                                    class="px-3 py-1.5 rounded-xl bg-red-50 text-red-600 font-extrabold text-[11px] border border-red-200">
-                                    🗑️ ဆိုင်ဖျက်မည်
-                                </button>
+                    <!-- ADD NEW MENU POST FORM -->
+                    <div class="p-4 space-y-4">
+                        <form onsubmit="addMenuItemToShop(event, '${shop.id}')" class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-2.5 text-xs">
+                            <p class="font-extrabold text-slate-900">+ မီနူးအသစ် တင်ရန် (Post New Item)</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="item-name-${shop.id}" required placeholder="အစားအသောက် နာမည်" class="rounded-xl border border-slate-300 bg-white px-3 py-2 font-bold">
+                                <input type="number" id="item-price-${shop.id}" required placeholder="ဈေးနှုန်း (ကျပ်)" class="rounded-xl border border-slate-300 bg-white px-3 py-2 font-bold">
                             </div>
-                            <div class="space-y-0.5 mb-4">
-                                <div class="flex items-center gap-1.5">
-                                    <h3 class="text-base font-extrabold text-slate-900">${escapeHtml(shop.name)}</h3>
-                                    <button type="button" onclick="openEditShopModal('${shop.id}')" class="text-xs text-slate-400">✏️</button>
-                                </div>
-                                <p class="text-xs text-slate-500">📍 ${escapeHtml(shop.address)} • 📞 ${escapeHtml(shop.phone)}</p>
-                            </div>
-
-                            <form id="${formId}" onsubmit="addMenuItemToShop(event, '${shop.id}')" class="bg-orange-50/80 p-3.5 rounded-2xl border border-orange-200 space-y-2.5 mb-4">
-                                <p class="text-xs font-extrabold text-[#FF5722]">+ စားသောက်ကုန် အသစ်တင်မည်</p>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <input type="text" required placeholder="စားစရာ နာမည်" class="menu-name-input rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-950">
-                                    <input type="number" required placeholder="ဈေးနှုန်း (ကျပ်)" class="menu-price-input rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-950">
-                                </div>
-                                <select class="menu-cat-select w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-800">
+                            <div class="grid grid-cols-2 gap-2">
+                                <select id="item-cat-${shop.id}" class="rounded-xl border border-slate-300 bg-white px-3 py-2 font-bold text-slate-800">
                                     <option value="food">🍜 စားစရာ (Food)</option>
                                     <option value="drink">🥤 သောက်စရာ (Drink)</option>
                                     <option value="icecream">🍦 ရေခဲမုန့် (Ice Cream)</option>
                                 </select>
-                                <div class="flex items-center gap-2">
-                                    <label class="menu-photo-label flex-1 cursor-pointer py-2 px-3 rounded-xl bg-white border border-slate-300 text-slate-700 text-xs font-bold text-center">
-                                        📷 ပုံထည့်မည်
-                                        <input type="file" accept="image/*" class="hidden" onchange="handleMenuItemPhotoChange(event, '${formId}')">
-                                    </label>
-                                    <button type="submit" class="px-5 py-2 rounded-xl bg-[#FF5722] text-white text-xs font-extrabold shadow-xs">တင်မည်</button>
-                                </div>
-                            </form>
+                                <label class="rounded-xl border border-dashed border-orange-300 bg-orange-50 text-[#FF5722] font-bold px-3 py-2 text-center cursor-pointer truncate">
+                                    📷 ပုံရွေးရန်
+                                    <input type="file" id="item-photo-${shop.id}" accept="image/*" class="hidden">
+                                </label>
+                            </div>
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold shadow-xs">မီနူး တင်မည်</button>
+                        </form>
 
-                            <div class="space-y-2">
-                                <p class="text-xs font-extrabold text-slate-700">တင်ထားသော စားသောက်ကုန်များ (${(shop.items || []).length})</p>
-                                ${itemsHtml || `<p class="text-xs text-slate-400 text-center py-3">ပစ္စည်း မတင်ရသေးပါ</p>`}
+                        <!-- SHOP POSTED ITEMS GRID -->
+                        <div class="space-y-2">
+                            <p class="text-[11px] font-extrabold text-slate-500">တင်ထားသော မီနူးများ (${(shop.items || []).length})</p>
+                            <div class="grid grid-cols-2 gap-2.5">
+                                ${(shop.items || []).map(item => `
+                                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+                                        <img src="${item.photo || DEFAULT_SHOP_IMG}" class="w-full h-24 object-cover bg-orange-50">
+                                        <div class="p-2 space-y-1">
+                                            <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(item.name)}</p>
+                                            <p class="text-[11px] font-extrabold text-[#FF5722]">${Number(item.priceNum).toLocaleString()} Ks</p>
+                                            <button type="button" onclick="deleteShopMenuItem('${shop.id}', '${item.id}')" class="w-full py-1 rounded-lg bg-red-50 text-red-600 font-bold text-[10px]">ဖျက်မည်</button>
+                                        </div>
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
         // ==========================================
-        // SUPPORT CHAT & UTILS
+        // SATELLITE MAP & ORDER CHAT
         // ==========================================
-        function openSupportChatModal(role, targetPhone) {
-            activeSupportRole = role;
-            activeSupportUserPhone = targetPhone || (userProfile ? userProfile.phone : 'guest');
-            const m = document.getElementById('support-chat-modal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
-            document.getElementById('support-chat-title').textContent = role === 'admin' ? `💬 Customer (${activeSupportUserPhone})` : `💬 Admin တိုက်ရိုက်စာပို့ရန်`;
-            renderSupportMessages();
-        }
-
-        function closeSupportChatModal() {
-            document.getElementById('support-chat-modal').classList.add('hidden');
-            document.getElementById('support-chat-modal').classList.remove('flex');
-        }
-
-        function renderSupportMessages() {
-            const feed = document.getElementById('support-messages-feed');
-            const thread = supportChats.filter(m => m.userPhone === activeSupportUserPhone);
-            if (!thread.length) {
-                feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-10">အဆင်မပြေမှုများ ရှိပါက Admin ထံ စာရေးပို့နိုင်ပါသည်</p>`;
-                return;
-            }
-            feed.innerHTML = thread.map(msg => {
-                const isMine = msg.sender === activeSupportRole;
-                return `
-                    <div class="flex flex-col ${isMine ? 'items-end' : 'items-start'}">
-                        <span class="text-[10px] text-slate-400 mb-0.5">${msg.time}</span>
-                        <div class="max-w-[80%] rounded-2xl px-4 py-2.5 text-xs font-bold ${isMine ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-900'}">${escapeHtml(msg.text)}</div>
-                    </div>
-                `;
-            }).join('');
-            feed.scrollTop = feed.scrollHeight;
-        }
-
-        function sendSupportMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('support-text-input');
-            const text = input.value.trim();
-            if (!text) return;
-            input.value = "";
-            supportChats.push({
-                userPhone: activeSupportUserPhone,
-                userName: userProfile ? userProfile.name : "User",
-                sender: activeSupportRole,
-                text,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            });
-            saveSupportChats();
-            renderSupportMessages();
-        }
-
-        function renderAdminSupportThreads() {
-            const box = document.getElementById('admin-support-threads');
-            const uniquePhones = [...new Set(supportChats.map(m => m.userPhone))];
-            if (!uniquePhones.length) { box.innerHTML = `<p class="text-xs text-slate-400 py-6 text-center">စာပို့ထားသူ မရှိသေးပါ</p>`; return; }
-            box.innerHTML = uniquePhones.map(ph => {
-                const msgs = supportChats.filter(m => m.userPhone === ph);
-                const last = msgs[msgs.length - 1];
-                return `
-                    <button onclick="openSupportChatModal('admin', '${escapeAttr(ph)}')" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-left">
-                        <div class="min-w-0">
-                            <p class="text-xs font-extrabold text-slate-900">👤 ${escapeHtml(last.userName)} (${escapeHtml(ph)})</p>
-                            <p class="text-[11px] text-slate-500 truncate">${escapeHtml(last.text)}</p>
-                        </div>
-                        <span class="px-3 py-1.5 rounded-lg bg-[#FF5722] text-white font-bold text-xs shrink-0">စာပြန်မည်</span>
-                    </button>
-                `;
-            }).join('');
-        }
-
         function setMainGoogleMapType(type) {
             mainMapType = type;
             document.getElementById('btn-map-sat').className = type === 'k' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
@@ -3620,9 +4046,13 @@
         }
 
         function refreshMainGoogleMapIframe() {
-            document.getElementById('main-google-map-iframe').src = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}&z=16&output=embed`;
-            document.getElementById('main-map-coords').textContent = `${mainMapLat.toFixed(4)}, ${mainMapLng.toFixed(4)}`;
-            document.getElementById('main-map-gmaps-link').href = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}`;
+            const iframe = document.getElementById('main-google-map-iframe');
+            const coordsEl = document.getElementById('main-map-coords');
+            const linkEl = document.getElementById('main-map-gmaps-link');
+            if (!iframe) return;
+            iframe.src = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}&z=16&output=embed`;
+            if (coordsEl) coordsEl.textContent = `${mainMapLat.toFixed(5)}, ${mainMapLng.toFixed(5)}`;
+            if (linkEl) linkEl.href = `https://www.google.com/maps/search/?api=1&query=${mainMapLat},${mainMapLng}`;
         }
 
         function locateUserOnGoogleSatelliteMap() {
@@ -3630,27 +4060,21 @@
                 if (pos) {
                     mainMapLat = pos.coords.latitude;
                     mainMapLng = pos.coords.longitude;
-                } else {
-                    mainMapLat = HSIPAW_LAT;
-                    mainMapLng = HSIPAW_LNG;
+                    refreshMainGoogleMapIframe();
+                    showToast("လက်ရှိတည်နေရာ ပြသပြီးပါပြီ");
                 }
-                refreshMainGoogleMapIframe();
             });
         }
 
-        const ADMIN_QUICK_REPLIES = ["ပစ္စည်းဝယ်ပြီးပါပြီ", "ခုလာပို့နေပါပြီ", "အိမ်ရှေ့ရောက်ပါပြီ", "ဆိုင်ပိတ်ထားပါတယ်", "ကယ်ရီထွက်လာပါပြီ"];
-        const CUSTOMER_QUICK_REPLIES = ["ဘယ်နားရောက်ပြီလဲ?", "အိမ်ရှေ့ရောက်ရင် ဖုန်းဆက်ပေးပါ", "မြန်မြန်လေးလာပေးပါ", "ကျေးဇူးတင်ပါတယ်"];
-
         function countUnreadForOrder(order, role) {
             if (!order.messages) return 0;
-            return order.messages.filter(m => role === 'customer' ? (m.sender === 'admin' && !m.readByCustomer) : (m.sender === 'customer' && !m.readByAdmin)).length;
+            return role === 'customer' ? order.messages.filter(m => m.sender === 'admin' && !m.readByCustomer).length : order.messages.filter(m => m.sender === 'customer' && !m.readByAdmin).length;
         }
 
         function updateUnreadIndicators() {
-            let totalCustUnread = 0;
-            allOrders.forEach(o => { totalCustUnread += countUnreadForOrder(o, 'customer'); });
+            const totalCustomerUnread = allOrders.reduce((sum, o) => sum + countUnreadForOrder(o, 'customer'), 0);
             const navDot = document.getElementById('nav-unread-dot');
-            if (navDot) { if (totalCustUnread > 0) navDot.classList.remove('hidden'); else navDot.classList.add('hidden'); }
+            if (navDot) navDot.classList.toggle('hidden', totalCustomerUnread === 0);
         }
 
         function openChatModal(orderId, role) {
@@ -3658,62 +4082,87 @@
             activeChatRole = role;
             const order = allOrders.find(o => o.id === orderId);
             if (!order) return;
-            if (!order.messages) order.messages = [];
-            order.messages.forEach(m => { if (role === 'customer' && m.sender === 'admin') m.readByCustomer = true; if (role === 'admin' && m.sender === 'customer') m.readByAdmin = true; });
-            saveOrders();
-            updateUnreadIndicators();
 
-            document.getElementById('chat-header-title').textContent = role === 'admin' ? `💬 Chat with ${order.customerName}` : `💬 Chat with Rider (${order.assignedRiderName || 'Dispatch'})`;
-            document.getElementById('chat-header-subtitle').textContent = `${order.status} • ${order.fareText}`;
-            document.getElementById('chat-order-summary').innerHTML = `<span class="font-bold truncate">${escapeHtml(order.details)}</span><span class="font-extrabold text-[#FF5722] shrink-0 ml-2">${escapeHtml(order.status)}</span>`;
+            if (order.messages) {
+                order.messages.forEach(m => {
+                    if (role === 'customer' && m.sender === 'admin') m.readByCustomer = true;
+                    if (role === 'admin' && m.sender === 'customer') m.readByAdmin = true;
+                });
+                saveOrders();
+            }
 
-            const quickList = role === 'admin' ? ADMIN_QUICK_REPLIES : CUSTOMER_QUICK_REPLIES;
-            document.getElementById('chat-quick-replies').innerHTML = quickList.map(txt => `<button type="button" onclick="sendQuickReply('${escapeAttr(txt)}')" class="px-3 py-1.5 rounded-full bg-orange-50 text-[#FF5722] border border-orange-200 text-xs font-bold whitespace-nowrap">${escapeHtml(txt)}</button>`).join('');
+            document.getElementById('chat-header-title').textContent = role === 'customer' ? `💬 ${order.assignedRiderName || 'Thipaw Dispatch'}` : `💬 ${order.customerName}`;
+            document.getElementById('chat-order-summary').innerHTML = `<span class="font-bold truncate">${escapeHtml(order.details)}</span><span class="px-2 py-0.5 rounded-full bg-white text-[#FF5722] font-extrabold shrink-0">${escapeHtml(order.status)}</span>`;
 
-            renderChatMessages(order);
-            const modal = document.getElementById('chat-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            const chips = role === 'customer'
+                ? ["ဘယ်နားရောက်ပြီလဲ?", "အိမ်ရှေ့ရောက်ရင် ဖုန်းဆက်ပါ", "ကျေးဇူးတင်ပါတယ်"]
+                : ["အော်ဒါဝယ်နေပါပြီ", "လမ်းခုလတ်ရောက်ပါပြီ", "အိမ်ရှေ့ရောက်ပါပြီ"];
+            document.getElementById('chat-quick-replies').innerHTML = chips.map(t => `<button type="button" onclick="sendQuickReply('${escapeAttr(t)}')" class="px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF5722] text-xs font-bold whitespace-nowrap">${escapeHtml(t)}</button>`).join('');
+
+            const m = document.getElementById('chat-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            renderChatMessages();
         }
 
         function closeChatModal() {
+            activeChatOrderId = null;
             document.getElementById('chat-modal').classList.add('hidden');
             document.getElementById('chat-modal').classList.remove('flex');
-            activeChatOrderId = null;
         }
 
-        function renderChatMessages(order) {
+        function renderChatMessages() {
+            const order = allOrders.find(o => o.id === activeChatOrderId);
             const feed = document.getElementById('chat-messages-feed');
-            if (!order.messages || order.messages.length === 0) {
-                feed.innerHTML = `<div class="text-center py-10 space-y-1.5"><div class="text-3xl">💬</div><p class="text-xs font-bold text-slate-500">စကားပြောဆိုမှု မရှိသေးပါ</p></div>`;
-                return;
-            }
-            feed.innerHTML = order.messages.map(msg => {
-                const isMine = msg.sender === activeChatRole;
-                return `<div class="flex flex-col ${isMine ? 'items-end' : 'items-start'}"><span class="text-[10px] font-bold text-slate-400 mb-1 px-1">${msg.time}</span><div class="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm shadow-2xs ${isMine ? 'bg-[#FF5722] text-white rounded-br-xs' : 'bg-white text-slate-900 border border-slate-200/80 rounded-bl-xs'}">${escapeHtml(msg.text)}</div></div>`;
+            if (!order || !feed) return;
+            const msgs = order.messages || [];
+            if (msgs.length === 0) { feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">စာတိုပေးပို့နိုင်ပါသည်</p>`; return; }
+
+            feed.innerHTML = msgs.map(m => {
+                const isMine = m.sender === activeChatRole;
+                return `
+                    <div class="flex ${isMine ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[80%] px-3.5 py-2.5 rounded-2xl ${isMine ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-900'}">
+                            <p class="text-xs leading-relaxed">${escapeHtml(m.text)}</p>
+                            <span class="text-[9px] opacity-70 block text-right mt-1">${m.time}</span>
+                        </div>
+                    </div>
+                `;
             }).join('');
             feed.scrollTop = feed.scrollHeight;
         }
 
-        function sendQuickReply(text) { appendChatMessageToOrder(text); }
-        function sendChatMessage(e) { e.preventDefault(); const input = document.getElementById('chat-text-input'); const text = input.value.trim(); if (!text) return; input.value = ""; appendChatMessageToOrder(text); }
+        function sendQuickReply(text) {
+            document.getElementById('chat-text-input').value = text;
+            sendChatMessage({ preventDefault: () => {} });
+        }
 
-        function appendChatMessageToOrder(text) {
+        function sendChatMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-text-input');
+            const text = input.value.trim();
+            if (!text || !activeChatOrderId) return;
             const order = allOrders.find(o => o.id === activeChatOrderId);
             if (!order) return;
             if (!order.messages) order.messages = [];
-            order.messages.push({ sender: activeChatRole, text, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), readByCustomer: activeChatRole === 'customer', readByAdmin: activeChatRole === 'admin' });
+            order.messages.push({
+                sender: activeChatRole,
+                text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                readByCustomer: activeChatRole === 'customer',
+                readByAdmin: activeChatRole === 'admin'
+            });
             saveOrders();
-            renderChatMessages(order);
+            input.value = '';
+            renderChatMessages();
         }
 
         function escapeHtml(str) {
-            if (!str) return "";
-            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+            if (!str) return '';
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
-
         function escapeAttr(str) {
-            if (!str) return "";
+            if (!str) return '';
             return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
         }
     </script>
