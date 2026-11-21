@@ -22,7 +22,8 @@
         @keyframes pulseRing { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(255, 87, 34, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); } }
         .pulse-pin { animation: pulseRing 2s infinite; }
         /* Single Finger Map Touch Optimization */
-        .interactive-map-container { touch-action: pan-x pan-y; }
+        .interactive-map-container { touch-action: none; }
+        #picker-touch-pad { touch-action: none; }
     </style>
     <script>
       if ('serviceWorker' in navigator) {
@@ -327,7 +328,7 @@
                     </div>
                 </div>
 
-                <!-- BIKE TAXI VIEW (INITIAL SEARCH BARS + CHOOSE ON MAP FLOW + ROUTE & BOOKING FLOW) -->
+                <!-- BIKE TAXI VIEW (INITIAL SEARCH BARS + CHOOSE ON MAP FLOW + FULLSCREEN ROUTE & BOOKING FLOW) -->
                 <div id="view-bike" class="p-3.5 space-y-3 hidden fade-in">
                     <!-- ACTIVE RIDE LIVE TRACKING CARD WITH DIRECTIONS & MOVING MOTO -->
                     <div id="customer-active-ride-tracker" class="hidden"></div>
@@ -369,44 +370,49 @@
                         </form>
                     </div>
 
-                    <!-- 3. ROUTE & BIKE TAXI CONFIRMATION SCREEN (AFTER CHOOSE THIS PICKUP) -->
-                    <div id="bike-route-confirm-box" class="bg-white rounded-3xl p-4 shadow-md border-2 border-emerald-500 space-y-3 hidden fade-in">
-                        <div class="flex items-center justify-between">
-                            <button type="button" onclick="backToBikeInitial()" class="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-700 font-extrabold text-xs">← Back</button>
+                    <!-- 3. FULLSCREEN ROUTE & BIKE TAXI CONFIRMATION SCREEN (AFTER CHOOSE THIS PICKUP) -->
+                    <div id="bike-route-confirm-box" class="fixed inset-0 bg-white z-50 flex flex-col hidden fade-in">
+                        <!-- TOP HEADER BAR OVER FULLSCREEN ROUTE MAP -->
+                        <div class="bg-white border-b border-slate-200 px-3.5 py-2.5 flex items-center justify-between shrink-0 shadow-xs z-20">
+                            <button type="button" onclick="backToBikeInitial()" class="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs flex items-center gap-1">
+                                ← Back
+                            </button>
                             <span id="t-route-preview-badge" class="text-xs font-extrabold text-emerald-700">🗺️ Route Preview</span>
-                            <span id="route-confirm-fare-top" class="text-xs font-extrabold text-[#FF5722]">4,000 Ks</span>
+                            <span id="route-confirm-fare-top" class="px-2.5 py-1 rounded-full bg-orange-100 text-[#FF5722] text-xs font-extrabold">4,000 Ks</span>
                         </div>
 
-                        <!-- TOP HALF: ROUTE MAP SHOWING BOTH POINTS & ROUTE -->
-                        <div class="w-full h-48 rounded-2xl overflow-hidden border border-slate-200 relative interactive-map-container bg-slate-100">
+                        <!-- FULLSCREEN ROUTE MAP SHOWING BOTH POINTS & ROUTE -->
+                        <div class="flex-1 w-full relative interactive-map-container bg-slate-100 overflow-hidden">
                             <iframe id="bike-route-map-iframe" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
-                            <div class="pointer-events-none absolute top-2 left-2 right-2 flex flex-col gap-1">
-                                <div class="bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2 text-[11px]">
-                                    <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                            <div class="pointer-events-none absolute top-3 left-3 right-3 flex flex-col gap-1.5 z-10">
+                                <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0"></span>
                                     <span id="route-summary-pickup" class="font-bold text-slate-800 truncate">Pickup</span>
                                 </div>
-                                <div class="bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2 text-[11px]">
-                                    <span class="w-2 h-2 rounded-full bg-[#FF5722] shrink-0"></span>
+                                <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-[#FF5722] shrink-0"></span>
                                     <span id="route-summary-dropoff" class="font-extrabold text-slate-900 truncate">Destination</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- BOTTOM HALF: BIKE TAXI CARD + GREEN BOOK BUTTON -->
-                        <div class="bg-emerald-50/70 border-2 border-emerald-500 rounded-2xl p-3 flex items-center justify-between gap-3">
-                            <div class="flex items-center gap-3 min-w-0">
-                                <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-xs shrink-0">🛵</div>
-                                <div class="min-w-0">
-                                    <h3 id="t-route-bike-title" class="text-sm font-extrabold text-slate-900 truncate">Bike Taxi</h3>
-                                    <p id="route-confirm-zone" class="text-[11px] font-bold text-emerald-800 truncate">Town Base Zone</p>
+                        <!-- BOTTOM SHEET: BIKE TAXI FARE CARD + GREEN BOOK BUTTON -->
+                        <div class="bg-white border-t border-slate-200 p-4 space-y-3 shrink-0 shadow-2xl z-20">
+                            <div class="bg-emerald-50/80 border-2 border-emerald-500 rounded-2xl p-3 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-xs shrink-0">🛵</div>
+                                    <div class="min-w-0">
+                                        <h3 id="t-route-bike-title" class="text-sm font-extrabold text-slate-900 truncate">Bike Taxi</h3>
+                                        <p id="route-confirm-zone" class="text-[11px] font-bold text-emerald-800 truncate">Town Base Zone</p>
+                                    </div>
                                 </div>
+                                <span id="route-confirm-fare-price" class="text-lg font-extrabold text-slate-950 shrink-0">4,000 Ks</span>
                             </div>
-                            <span id="route-confirm-fare-price" class="text-base font-extrabold text-slate-950 shrink-0">4,000 Ks</span>
-                        </div>
 
-                        <button type="button" onclick="confirmBookBikeFromRoute()" id="t-route-book-btn" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md transition">
-                            🛵 Bike Taxi ခေါ်မည် (Book Now)
-                        </button>
+                            <button type="button" onclick="confirmBookBikeFromRoute()" id="t-route-book-btn" class="w-full py-3.5 rounded-full bg-[#00B14F] hover:bg-emerald-600 text-white font-extrabold text-sm shadow-md transition">
+                                🛵 Bike Taxi ခေါ်မည် (Book Now)
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -842,23 +848,30 @@
             <!-- SEARCH SUGGESTIONS DROPDOWN -->
             <div id="picker-search-results" class="hidden bg-white border-b border-slate-200 max-h-40 overflow-y-auto z-20 divide-y divide-slate-100"></div>
 
-            <!-- FULLSCREEN INTERACTIVE GOOGLE MAP + DRAGGABLE/MOVABLE PIN + BOTTOM-RIGHT LIVE GPS BUTTON -->
+            <!-- FULLSCREEN INTERACTIVE GOOGLE MAP + SINGLE-FINGER DRAGGABLE PIN + BOTTOM-RIGHT LIVE GPS BUTTON -->
             <div id="picker-map-canvas" class="flex-1 relative bg-slate-200 overflow-hidden interactive-map-container select-none">
                 <iframe id="picker-google-map-iframe" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
 
-                <!-- TRANSPARENT TOUCH/DRAG OVERLAY FOR SMOOTH SINGLE-FINGER PIN MOVEMENT -->
+                <!-- TRANSPARENT SINGLE-FINGER TOUCH/DRAG OVERLAY -->
                 <div id="picker-touch-pad"
                     onpointerdown="onPickerPointerDown(event)"
                     onpointermove="onPickerPointerMove(event)"
                     onpointerup="onPickerPointerUp(event)"
+                    onpointercancel="onPickerPointerUp(event)"
                     class="absolute inset-0 z-10 cursor-grab active:cursor-grabbing flex items-center justify-center">
                     <!-- PIN MARKER (RED FOR DESTINATION, BLUE FOR PICKUP) -->
-                    <div id="picker-pin-visual" class="flex flex-col items-center -mt-7 pointer-events-none transition-transform duration-100">
+                    <div id="picker-pin-visual" class="flex flex-col items-center -mt-7 pointer-events-none transition-transform duration-75">
                         <span id="picker-pin-badge" class="px-2.5 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-extrabold shadow-md mb-1">Destination</span>
                         <div id="picker-pin-circle" class="w-9 h-9 rounded-full bg-[#FF5722] text-white flex items-center justify-center text-base shadow-xl pulse-pin border-2 border-white">
                             <span class="w-3 h-3 rounded-full bg-white"></span>
                         </div>
+                        <div class="w-1 h-2.5 bg-slate-800 rounded-b-full -mt-0.5"></div>
                     </div>
+                </div>
+
+                <!-- HELPER HINT -->
+                <div class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 bg-slate-900/75 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                    👆 လက်တစ်ချောင်းတည်းဖြင့် ဖိဆွဲ၍ Point ရွှေ့နိုင်ပါသည်
                 </div>
 
                 <!-- BOTTOM-RIGHT CURRENT LOCATION TARGET BUTTON (TRIGGERS PHONE LOCATION & DETAILED ADDRESS) -->
@@ -1161,11 +1174,13 @@
         let tempPickedLng = HSIPAW_LNG;
         let tempPickedLabel = 'သီပေါမြို့မဈေး (Central Market)';
         let isDraggingPin = false;
+        let activeTouchId = null;
         let dragStartX = 0;
         let dragStartY = 0;
         let dragOriginLat = HSIPAW_LAT;
         let dragOriginLng = HSIPAW_LNG;
         let riderLiveWatchId = null;
+        let lastKnownGpsPos = null;
 
         let tempShopPhoto = DEFAULT_SHOP_IMG;
         let tempEditShopPhoto = null;
@@ -1552,28 +1567,61 @@
             }
         }
 
+        // IMPROVED GEOLOCATION WITH HIGH-ACCURACY -> NETWORK FALLBACK & PERMISSION CHECK
         function requestLocationPermission(callback) {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        const locEl = document.getElementById('perm-loc-status');
-                        if (locEl) {
-                            locEl.textContent = "✅ Allowed";
-                            locEl.className = "text-[10px] font-bold text-emerald-600";
-                        }
-                        if (typeof callback === 'function') callback(pos);
-                        else showToast("Location & GPS ဖွင့်ပြီးပါပြီ");
-                    },
-                    (err) => {
-                        showToast("ကျေးဇူးပြု၍ ဖုန်း Location (GPS) ဖွင့်ပေးပါ။");
-                        if (typeof callback === 'function') callback(null, err);
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                );
-            } else {
+            if (!("geolocation" in navigator)) {
                 showToast("ဤ Browser တွင် Location မရရှိနိုင်ပါ");
                 if (typeof callback === 'function') callback(null);
+                return;
             }
+
+            const markAllowed = (pos) => {
+                lastKnownGpsPos = pos;
+                const locEl = document.getElementById('perm-loc-status');
+                if (locEl) {
+                    locEl.textContent = "✅ Allowed";
+                    locEl.className = "text-[10px] font-bold text-emerald-600";
+                }
+                if (typeof callback === 'function') callback(pos);
+                else showToast("Location & GPS ဖွင့်ပြီးပါပြီ");
+            };
+
+            const handleFinalError = (err) => {
+                if (err && err.code === 1) {
+                    showToast("Chrome Address Bar ဘယ်ဘက်ရှိ 🔒 ကိုနှိပ်ပြီး Location ကို Allow လုပ်ပေးပါ။");
+                } else if (lastKnownGpsPos) {
+                    markAllowed(lastKnownGpsPos);
+                    return;
+                } else {
+                    showToast("ဖုန်း Location (GPS) ဖွင့်ပြီး စက္ကန့်အနည်းငယ်စောင့်၍ ပြန်နှိပ်ပါ။");
+                }
+                if (typeof callback === 'function') callback(null, err);
+            };
+
+            // Step 1: Try Fast Network/Cached Position first or High Accuracy with fallback
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    markAllowed(pos);
+                },
+                (err) => {
+                    if (err && err.code === 1) {
+                        // Permission explicitly denied by browser
+                        handleFinalError(err);
+                        return;
+                    }
+                    // Step 2: Fallback to standard accuracy (works reliably indoors & on all Android Chrome builds)
+                    navigator.geolocation.getCurrentPosition(
+                        (fallbackPos) => {
+                            markAllowed(fallbackPos);
+                        },
+                        (fallbackErr) => {
+                            handleFinalError(fallbackErr);
+                        },
+                        { enableHighAccuracy: false, timeout: 12000, maximumAge: 60000 }
+                    );
+                },
+                { enableHighAccuracy: true, timeout: 6000, maximumAge: 15000 }
+            );
         }
 
         async function requestCameraPermission() {
@@ -1648,6 +1696,20 @@
             renderGrabSuggestedPlaces();
             renderAdminHotlinesUI();
             renderOperatingHoursUI();
+
+            // Pre-warm GPS status silently if already granted
+            if (navigator.permissions && navigator.permissions.query) {
+                navigator.permissions.query({ name: 'geolocation' }).then(res => {
+                    if (res.state === 'granted') {
+                        const locEl = document.getElementById('perm-loc-status');
+                        if (locEl) {
+                            locEl.textContent = "✅ Allowed";
+                            locEl.className = "text-[10px] font-bold text-emerald-600";
+                        }
+                        navigator.geolocation.getCurrentPosition(pos => { lastKnownGpsPos = pos; }, () => {}, { enableHighAccuracy: false, timeout: 5000 });
+                    }
+                }).catch(() => {});
+            }
 
             const todayStr = new Date().toISOString().split('T')[0];
             if (document.getElementById('admin-rider-log-date')) {
@@ -1742,7 +1804,7 @@
             const box = document.getElementById('toast-box');
             box.textContent = msg;
             box.classList.remove('hidden');
-            setTimeout(() => box.classList.add('hidden'), 2800);
+            setTimeout(() => box.classList.add('hidden'), 3200);
         }
 
         function renderDynamicRatesAndRules() {
@@ -2277,11 +2339,12 @@
         }
 
         // ==========================================
-        // BIKE TAXI: INITIAL SCREEN, CHOOSE ON MAP FLOW & ROUTE BOOKING
+        // BIKE TAXI: INITIAL SCREEN, CHOOSE ON MAP FLOW & FULLSCREEN ROUTE BOOKING
         // ==========================================
         function backToBikeInitial() {
             document.getElementById('bike-initial-box').classList.remove('hidden');
             document.getElementById('bike-route-confirm-box').classList.add('hidden');
+            document.getElementById('bike-route-confirm-box').classList.remove('flex');
         }
 
         function renderGrabSuggestedPlaces() {
@@ -2331,18 +2394,15 @@
                     const lat = pos.coords.latitude;
                     const lng = pos.coords.longitude;
                     bikePickupCoords = { lat, lng };
-                    document.getElementById('bike-pickup').value = `လက်ရှိနေရာ (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+                    document.getElementById('bike-pickup').value = `${findNearestPlaceLabel(lat, lng)} (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
                     activeBikeField = 'dropoff';
                     recalculateBikeFare();
                     showToast("လက်ရှိတည်နေရာ ရယူပြီးပါပြီ");
-                } else {
-                    bikePickupCoords = { lat: HSIPAW_LAT, lng: HSIPAW_LNG };
-                    document.getElementById('bike-pickup').value = "သီပေါမြို့လယ် (Hsipaw Town)";
                 }
             });
         }
 
-        // Start full Choose on Map flow: Step 1 (Red Pin -> Choose This Destination) -> Step 2 (Blue Pin -> Choose This Pickup) -> Step 3 (Route & Bike Taxi)
+        // Start full Choose on Map flow: Step 1 (Red Pin -> Choose This Destination) -> Step 2 (Blue Pin -> Choose This Pickup) -> Step 3 (Fullscreen Route & Bike Taxi)
         function startChooseOnMapFlow() {
             isChoosingOnMapFlow = true;
             openPickerStep('destination');
@@ -2352,6 +2412,7 @@
             pickerFlowMode = mode;
             document.getElementById('picker-search-input').value = '';
             document.getElementById('picker-search-results').classList.add('hidden');
+            resetPinVisualTransform();
 
             const modal = document.getElementById('gmap-picker-modal');
             modal.classList.remove('hidden');
@@ -2380,9 +2441,16 @@
                 document.getElementById('picker-step-badge').textContent = "Step 2/2";
                 document.getElementById('picker-confirm-btn').textContent = "Choose This Pickup";
 
-                updatePickerLocation(HSIPAW_LAT, HSIPAW_LNG, "လက်ရှိနေရာ ရှာနေပါသည်...");
+                const initLat = lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT;
+                const initLng = lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG;
+                updatePickerLocation(initLat, initLng, lastKnownGpsPos ? `${findNearestPlaceLabel(initLat, initLng)} • GPS (${initLat.toFixed(4)}, ${initLng.toFixed(4)})` : "လက်ရှိနေရာ ရှာနေပါသည်...");
                 useLiveGpsInPicker();
             }
+        }
+
+        function resetPinVisualTransform() {
+            const pinVis = document.getElementById('picker-pin-visual');
+            if (pinVis) pinVis.style.transform = 'translate3d(0px, 0px, 0px)';
         }
 
         function updatePickerLocation(lat, lng, label) {
@@ -2391,6 +2459,7 @@
             tempPickedLabel = label || findNearestPlaceLabel(tempPickedLat, tempPickedLng);
             document.getElementById('picker-selected-label').textContent = tempPickedLabel;
             document.getElementById('picker-coords-display').textContent = `${tempPickedLat.toFixed(4)}, ${tempPickedLng.toFixed(4)}`;
+            resetPinVisualTransform();
             document.getElementById('picker-google-map-iframe').src = `https://maps.google.com/maps?q=${tempPickedLat},${tempPickedLng}&t=m&z=16&output=embed`;
         }
 
@@ -2405,10 +2474,13 @@
             return `သီပေါမြို့ (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
         }
 
-        // Single-finger drag on map overlay moves pin & updates coordinates/location smoothly
+        // Single-finger drag on map overlay moves pin visually & updates coordinates/location smoothly
         function onPickerPointerDown(e) {
             if (e.target.closest('button')) return;
+            // Only track primary single finger/pointer
+            if (isDraggingPin) return;
             isDraggingPin = true;
+            activeTouchId = e.pointerId;
             dragStartX = e.clientX;
             dragStartY = e.clientY;
             dragOriginLat = tempPickedLat;
@@ -2417,10 +2489,18 @@
         }
 
         function onPickerPointerMove(e) {
-            if (!isDraggingPin) return;
+            if (!isDraggingPin || e.pointerId !== activeTouchId) return;
             const dx = e.clientX - dragStartX;
             const dy = e.clientY - dragStartY;
-            const scale = 0.000045;
+
+            // Move the Red/Blue Pin marker smoothly with the single finger
+            const pinVis = document.getElementById('picker-pin-visual');
+            if (pinVis) {
+                pinVis.style.transform = `translate3d(${dx}px, ${dy}px, 0px) scale(1.08)`;
+            }
+
+            // Convert pixel drag into accurate lat/lng offset at zoom 16
+            const scale = 0.000022;
             const nextLat = Math.max(21.5, Math.min(23.5, dragOriginLat - dy * scale));
             const nextLng = Math.max(96.5, Math.min(98.5, dragOriginLng + dx * scale));
             tempPickedLat = nextLat;
@@ -2431,9 +2511,11 @@
         }
 
         function onPickerPointerUp(e) {
-            if (!isDraggingPin) return;
+            if (!isDraggingPin || e.pointerId !== activeTouchId) return;
             isDraggingPin = false;
+            activeTouchId = null;
             try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (err) {}
+            // Re-center Google Map iframe onto the newly dropped pin location
             updatePickerLocation(tempPickedLat, tempPickedLng, tempPickedLabel);
         }
 
@@ -2488,8 +2570,6 @@
                     const detailed = `${findNearestPlaceLabel(lat, lng)} • GPS (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
                     updatePickerLocation(lat, lng, detailed);
                     showToast("လက်ရှိတည်နေရာ အသေးစိတ် ရှာတွေ့ပါပြီ!");
-                } else {
-                    updatePickerLocation(HSIPAW_LAT, HSIPAW_LNG, `သီပေါမြို့လယ် (Hsipaw Town) • ${HSIPAW_LAT.toFixed(4)}, ${HSIPAW_LNG.toFixed(4)}`);
                 }
             });
         }
@@ -2514,7 +2594,7 @@
                 document.getElementById('bike-pickup').value = chosenLabel;
                 recalculateBikeFare();
                 closeGoogleMapPicker();
-                // Move to Step 3: Route Map + Bike Taxi Fare + Green Book Button
+                // Move to Step 3: Fullscreen Route Map + Bike Taxi Fare + Green Book Button
                 showBikeRouteConfirmationScreen();
             }
         }
@@ -2531,7 +2611,9 @@
             const dLng = bikeDropoffCoords ? bikeDropoffCoords.lng : HSIPAW_LNG;
 
             document.getElementById('bike-initial-box').classList.add('hidden');
-            document.getElementById('bike-route-confirm-box').classList.remove('hidden');
+            const routeBox = document.getElementById('bike-route-confirm-box');
+            routeBox.classList.remove('hidden');
+            routeBox.classList.add('flex');
 
             document.getElementById('route-summary-pickup').textContent = pickup;
             document.getElementById('route-summary-dropoff').textContent = dropoff;
@@ -2912,7 +2994,7 @@
                 readByAdmin: true
             });
             saveOrders();
-            startTrackingRiderLocation(orderId);
+            startTrackingRiderLocation(order.id);
             renderRiderPortalState();
             showToast("ခရီးစဉ် စတင်ပါပြီ!");
         }
@@ -3542,19 +3624,19 @@
             saveOrders();
 
             const feed = document.getElementById('chat-messages-feed');
+            feed.innerHTML = "";
             if (order.messages.length === 0) {
-                feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-10">စာတို မရှိသေးပါ</p>`;
+                feed.innerHTML = `<div class="text-center py-10 text-xs text-slate-400">စာတို စတင်ပေးပို့နိုင်ပါသည်</div>`;
                 return;
             }
-            feed.innerHTML = order.messages.map(msg => {
+
+            order.messages.forEach(msg => {
                 const isMine = msg.sender === activeChatRole;
-                return `
-                    <div class="flex flex-col ${isMine ? 'items-end' : 'items-start'}">
-                        <span class="text-[10px] text-slate-400 mb-0.5">${msg.time}</span>
-                        <div class="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm ${isMine ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-900'}">${escapeHtml(msg.text)}</div>
-                    </div>
-                `;
-            }).join('');
+                const bubble = isMine
+                    ? `<div class="flex flex-col items-end"><span class="text-[10px] text-slate-400 mb-0.5">${msg.time}</span><div class="max-w-[80%] rounded-2xl rounded-br-xs bg-[#FF5722] text-white px-4 py-2.5 text-sm shadow-2xs">${escapeHtml(msg.text)}</div></div>`
+                    : `<div class="flex flex-col items-start"><span class="text-[10px] text-slate-400 mb-0.5">${msg.time}</span><div class="max-w-[80%] rounded-2xl rounded-bl-xs bg-white border border-slate-200/80 text-slate-900 px-4 py-2.5 text-sm shadow-2xs">${escapeHtml(msg.text)}</div></div>`;
+                feed.insertAdjacentHTML('beforeend', bubble);
+            });
             feed.scrollTop = feed.scrollHeight;
         }
 
@@ -3573,24 +3655,23 @@
             if (!order.messages) order.messages = [];
             order.messages.push({
                 sender: activeChatRole,
-                text,
+                text: text,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 readByCustomer: activeChatRole === 'customer',
                 readByAdmin: activeChatRole === 'admin'
             });
             saveOrders();
             renderChatMessages();
-            updateUnreadIndicators();
         }
 
         function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str == null ? '' : String(str);
-            return div.innerHTML;
+            if (!str) return "";
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
         function escapeAttr(str) {
-            return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            if (!str) return "";
+            return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
         }
     </script>
 </body>
