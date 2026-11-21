@@ -12,6 +12,10 @@
     <link rel="manifest" href="manifest.json">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Leaflet Interactive Map (Single-Finger Smooth Pan & Route Drawing) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', 'Pyidaungsu', sans-serif; }
@@ -21,6 +25,7 @@
         .fade-in { animation: fadeIn 0.25s ease-out forwards; }
         @keyframes pulseRing { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(255, 87, 34, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); } }
         .pulse-pin { animation: pulseRing 2s infinite; }
+        .leaflet-control-attribution { font-size: 9px !important; }
     </style>
     <script>
       if ('serviceWorker' in navigator) {
@@ -325,7 +330,7 @@
                     </div>
                 </div>
 
-                <!-- BIKE TAXI VIEW (INITIAL SEARCH BARS + CHOOSE ON MAP FLOW + FULLSCREEN ROUTE & BOOKING FLOW) -->
+                <!-- BIKE TAXI VIEW (INITIAL SEARCH BARS + CHOOSE ON MAP FLOW) -->
                 <div id="view-bike" class="p-3.5 space-y-3 hidden fade-in">
                     <!-- ACTIVE RIDE LIVE TRACKING CARD WITH DIRECTIONS & MOVING MOTO -->
                     <div id="customer-active-ride-tracker" class="hidden"></div>
@@ -365,51 +370,6 @@
                             </button>
                             <p id="bike-zone-label" class="text-[10px] text-center font-bold text-slate-400">Town Base Zone</p>
                         </form>
-                    </div>
-
-                    <!-- 3. FULLSCREEN ROUTE & BIKE TAXI CONFIRMATION SCREEN (AFTER CHOOSE THIS PICKUP) -->
-                    <div id="bike-route-confirm-box" class="fixed inset-0 bg-white z-50 flex flex-col hidden fade-in">
-                        <!-- TOP HEADER BAR OVER FULLSCREEN ROUTE MAP -->
-                        <div class="bg-white border-b border-slate-200 px-3.5 py-2.5 flex items-center justify-between shrink-0 shadow-xs z-20">
-                            <button type="button" onclick="backToBikeInitial()" class="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs flex items-center gap-1">
-                                ← Back
-                            </button>
-                            <span id="t-route-preview-badge" class="text-xs font-extrabold text-emerald-700">🗺️ Route Preview</span>
-                            <span id="route-confirm-fare-top" class="px-2.5 py-1 rounded-full bg-orange-100 text-[#FF5722] text-xs font-extrabold">4,000 Ks</span>
-                        </div>
-
-                        <!-- FULLSCREEN ROUTE MAP SHOWING BOTH POINTS & ROUTE -->
-                        <div class="flex-1 w-full relative bg-slate-100 overflow-hidden">
-                            <iframe id="bike-route-map-iframe" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
-                            <div class="pointer-events-none absolute top-3 left-3 right-3 flex flex-col gap-1.5 z-10">
-                                <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0"></span>
-                                    <span id="route-summary-pickup" class="font-bold text-slate-800 truncate">Pickup</span>
-                                </div>
-                                <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-[#FF5722] shrink-0"></span>
-                                    <span id="route-summary-dropoff" class="font-extrabold text-slate-900 truncate">Destination</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- BOTTOM SHEET: BIKE TAXI FARE CARD + GREEN BOOK BUTTON -->
-                        <div class="bg-white border-t border-slate-200 p-4 space-y-3 shrink-0 shadow-2xl z-20">
-                            <div class="bg-emerald-50/80 border-2 border-emerald-500 rounded-2xl p-3 flex items-center justify-between gap-3">
-                                <div class="flex items-center gap-3 min-w-0">
-                                    <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-xs shrink-0">🛵</div>
-                                    <div class="min-w-0">
-                                        <h3 id="t-route-bike-title" class="text-sm font-extrabold text-slate-900 truncate">Bike Taxi</h3>
-                                        <p id="route-confirm-zone" class="text-[11px] font-bold text-emerald-800 truncate">Town Base Zone</p>
-                                    </div>
-                                </div>
-                                <span id="route-confirm-fare-price" class="text-lg font-extrabold text-slate-950 shrink-0">4,000 Ks</span>
-                            </div>
-
-                            <button type="button" onclick="confirmBookBikeFromRoute()" id="t-route-book-btn" class="w-full py-3.5 rounded-full bg-[#00B14F] hover:bg-emerald-600 text-white font-extrabold text-sm shadow-md transition">
-                                🛵 Bike Taxi ခေါ်မည် (Book Now)
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -827,7 +787,7 @@
             </div>
         </div>
 
-        <!-- 6. CHOOSE ON MAP MODAL (PAN MAP -> CENTER PIN MOVES WITH MAP -> STEP 1 RED PIN DESTINATION -> STEP 2 BLUE PIN PICKUP) -->
+        <!-- 6. CHOOSE ON MAP MODAL (ONE-FINGER SMOOTH DRAG MAP -> STEP 1 RED PIN DESTINATION -> STEP 2 BLUE PIN PICKUP) -->
         <div id="gmap-picker-modal" class="fixed inset-0 bg-white z-50 hidden flex-col">
             <!-- TOP SEARCH BAR + BACK BUTTON -->
             <div class="bg-white border-b border-slate-200 px-3 py-2.5 flex items-center gap-2 shrink-0 shadow-xs z-20">
@@ -845,11 +805,11 @@
             <!-- SEARCH SUGGESTIONS DROPDOWN -->
             <div id="picker-search-results" class="hidden bg-white border-b border-slate-200 max-h-40 overflow-y-auto z-20 divide-y divide-slate-100"></div>
 
-            <!-- FULLSCREEN GOOGLE MAP + FIXED CENTER PIN THAT FOLLOWS AS YOU PAN THE MAP + BOTTOM-RIGHT LIVE GPS BUTTON -->
+            <!-- FULLSCREEN INTERACTIVE MAP (DRAG WITH ONE FINGER -> CENTER PIN UPDATES EXACT COORDINATES) -->
             <div id="picker-map-canvas" class="flex-1 relative bg-slate-200 overflow-hidden select-none">
-                <iframe id="picker-google-map-iframe" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
+                <div id="picker-leaflet-map" class="w-full h-full z-0"></div>
 
-                <!-- CENTER PIN MARKER (NO TOUCH BLOCKING ON MAP PANNING; MOVES WITH MAP PANNING/SEARCH/GPS) -->
+                <!-- CENTER PIN MARKER (FOLLOWS ONE-FINGER MAP DRAGGING) -->
                 <div id="picker-pin-visual" class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
                     <div class="flex flex-col items-center -mt-7 transition-transform duration-150">
                         <span id="picker-pin-badge" class="px-2.5 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-extrabold shadow-md mb-1">Destination</span>
@@ -861,8 +821,8 @@
                 </div>
 
                 <!-- HELPER HINT -->
-                <div class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 bg-slate-900/75 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
-                    🗺️ Map ရွှေ့သည့်နေရာသို့ Point ပါလိုက်သွားပါမည်
+                <div class="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 bg-slate-900/80 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                    ☝️ လက်တစ်ချောင်းတည်းဖြင့် Map ကို လွယ်ကူစွာ ရွှေ့နိုင်ပါသည်
                 </div>
 
                 <!-- BOTTOM-RIGHT CURRENT LOCATION TARGET BUTTON -->
@@ -872,7 +832,7 @@
                 </button>
             </div>
 
-            <!-- BOTTOM SHEET WITH DETAILED LOCATION, COORDINATE NUDGE/SYNC & GREEN CONFIRM BUTTON -->
+            <!-- BOTTOM SHEET WITH DETAILED LOCATION & GREEN CONFIRM BUTTON -->
             <div class="bg-white border-t border-slate-200 p-4 space-y-3 shrink-0 shadow-2xl z-20">
                 <!-- QUICK LANDMARK CHIPS -->
                 <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
@@ -882,24 +842,63 @@
                     <button type="button" onclick="selectHsipawLandmark(22.6580, 97.2650, 'ဘော်ကြိုဘုရား (Bawgyo Pagoda)')" class="px-2.5 py-1 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-bold text-[11px] whitespace-nowrap">📍 ဘော်ကြိုဘုရား</button>
                 </div>
 
-                <!-- SELECTED LOCATION NAME & COORDINATES + DIRECTIONAL NUDGE SO PIN MATCHES PANNED MAP VIEW -->
+                <!-- SELECTED LOCATION NAME & COORDINATES -->
                 <div class="bg-slate-50 px-3.5 py-2 rounded-2xl border border-slate-200 flex items-center justify-between gap-2">
                     <div class="min-w-0">
                         <p id="picker-selected-label" class="text-xs font-extrabold text-slate-900 truncate">သီပေါမြို့မဈေး (Central Market)</p>
                         <p id="picker-coords-display" class="text-[10px] font-mono text-slate-500">22.6238, 97.3005</p>
                     </div>
-                    <div class="flex items-center gap-1 shrink-0">
-                        <button type="button" onclick="nudgeMapCenter(-0.0012, 0)" title="North" class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-xs font-extrabold">↑</button>
-                        <button type="button" onclick="nudgeMapCenter(0.0012, 0)" title="South" class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-xs font-extrabold">↓</button>
-                        <button type="button" onclick="nudgeMapCenter(0, -0.0012)" title="West" class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-xs font-extrabold">←</button>
-                        <button type="button" onclick="nudgeMapCenter(0, 0.0012)" title="East" class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-xs font-extrabold">→</button>
-                        <span id="picker-step-badge" class="px-2 py-1 rounded-lg bg-orange-100 text-[#FF5722] text-[10px] font-extrabold">Step 1/2</span>
-                    </div>
+                    <span id="picker-step-badge" class="px-2.5 py-1 rounded-lg bg-orange-100 text-[#FF5722] text-[10px] font-extrabold shrink-0">Step 1/2</span>
                 </div>
 
                 <!-- GREEN ACTION BUTTON: "Choose This Destination" -> "Choose This Pickup" -->
                 <button type="button" id="picker-confirm-btn" onclick="confirmGoogleMapPickerSelection()" class="w-full py-3.5 rounded-full bg-[#00B14F] hover:bg-emerald-600 text-white font-extrabold text-sm shadow-md transition">
                     Choose This Destination
+                </button>
+            </div>
+        </div>
+
+        <!-- 6B. FULLSCREEN ROUTE & BIKE TAXI CONFIRMATION SCREEN (SHOWS MAP + BLUE & RED PINS + ROUTE LINE + PRICE + BOOK BUTTON) -->
+        <div id="bike-route-confirm-box" class="fixed inset-0 bg-white z-50 hidden flex-col fade-in">
+            <!-- TOP HEADER BAR OVER FULLSCREEN ROUTE MAP -->
+            <div class="bg-white border-b border-slate-200 px-3.5 py-2.5 flex items-center justify-between shrink-0 shadow-xs z-20">
+                <button type="button" onclick="backToBikeInitial()" class="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs flex items-center gap-1">
+                    ← Back
+                </button>
+                <span id="t-route-preview-badge" class="text-xs font-extrabold text-emerald-700">🗺️ Route Preview</span>
+                <span id="route-confirm-fare-top" class="px-2.5 py-1 rounded-full bg-orange-100 text-[#FF5722] text-xs font-extrabold">4,000 Ks</span>
+            </div>
+
+            <!-- FULLSCREEN ROUTE MAP SHOWING BLUE PIN, RED PIN & DRAWN ROUTE LINE -->
+            <div class="flex-1 w-full relative bg-slate-100 overflow-hidden">
+                <div id="bike-route-leaflet-map" class="w-full h-full z-0"></div>
+                <div class="pointer-events-none absolute top-3 left-3 right-3 flex flex-col gap-1.5 z-10">
+                    <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
+                        <span class="w-3 h-3 rounded-full bg-blue-600 border-2 border-white shadow shrink-0"></span>
+                        <span id="route-summary-pickup" class="font-bold text-slate-800 truncate">Pickup</span>
+                    </div>
+                    <div class="bg-white/95 backdrop-blur-xs px-3 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2.5 text-xs">
+                        <span class="w-3 h-3 rounded-full bg-[#FF5722] border-2 border-white shadow shrink-0"></span>
+                        <span id="route-summary-dropoff" class="font-extrabold text-slate-900 truncate">Destination</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM SHEET: BIKE TAXI FARE CARD + GREEN BOOK BUTTON -->
+            <div class="bg-white border-t border-slate-200 p-4 space-y-3 shrink-0 shadow-2xl z-20">
+                <div class="bg-emerald-50/80 border-2 border-emerald-500 rounded-2xl p-3 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-xs shrink-0">🛵</div>
+                        <div class="min-w-0">
+                            <h3 id="t-route-bike-title" class="text-sm font-extrabold text-slate-900 truncate">Bike Taxi</h3>
+                            <p id="route-confirm-zone" class="text-[11px] font-bold text-emerald-800 truncate">Town Base Zone</p>
+                        </div>
+                    </div>
+                    <span id="route-confirm-fare-price" class="text-lg font-extrabold text-slate-950 shrink-0">4,000 Ks</span>
+                </div>
+
+                <button type="button" onclick="confirmBookBikeFromRoute()" id="t-route-book-btn" class="w-full py-3.5 rounded-full bg-[#00B14F] hover:bg-emerald-600 text-white font-extrabold text-sm shadow-md transition">
+                    🛵 Bike Taxi ခေါ်မည် (Book Now)
                 </button>
             </div>
         </div>
@@ -1164,7 +1163,10 @@
         let mainMapLng = HSIPAW_LNG;
         let mainMapType = 'k';
 
-        // Choose-on-Map flow state: 'destination' (Step 1) -> 'pickup' (Step 2)
+        // Choose-on-Map & Route Preview Leaflet Map Instances
+        let pickerLeafletMap = null;
+        let routeLeafletMap = null;
+        let routeLayersGroup = null;
         let pickerFlowMode = 'destination';
         let isChoosingOnMapFlow = false;
         let tempPickedLat = HSIPAW_LAT;
@@ -1558,7 +1560,7 @@
             }
         }
 
-        // RELIABLE GEOLOCATION WITH FAST WATCH/GET FALLBACK & PERMISSION HANDLING
+        // ENHANCED GEOLOCATION: MULTI-STAGE WATCH + RETRY SO PHONE GPS WORKS RELIABLY
         function requestLocationPermission(callback) {
             if (!("geolocation" in navigator)) {
                 showToast("ဤ Browser တွင် Location မရရှိနိုင်ပါ");
@@ -1592,14 +1594,13 @@
                     try { navigator.geolocation.clearWatch(watchId); } catch (e) {}
                 }
                 if (lastKnownGpsPos) {
-                    lastKnownGpsPos = lastKnownGpsPos;
                     if (typeof callback === 'function') callback(lastKnownGpsPos);
                     return;
                 }
                 if (err && err.code === 1) {
-                    showToast("Chrome တွင် Location ကို Allow နှိပ်ပေးပါ (သို့မဟုတ် Phone Location ဖွင့်ပါ)");
+                    showToast("Chrome တွင် Site Settings > Location ကို Allow ဖွင့်ပေးပါ");
                 } else {
-                    showToast("ဖုန်း Location (GPS) ဖွင့်ထားကြောင်း သေချာစစ်ဆေးပြီး ထပ်နှိပ်ပါ");
+                    showToast("GPS Signal စောင့်နေပါသည် - ခဏအကြာ ထပ်နှိပ်ကြည့်ပါ");
                 }
                 if (typeof callback === 'function') callback(null, err);
             };
@@ -1608,7 +1609,7 @@
                 watchId = navigator.geolocation.watchPosition(
                     (pos) => finishWithPos(pos),
                     () => {},
-                    { enableHighAccuracy: false, timeout: 8000, maximumAge: 30000 }
+                    { enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 }
                 );
             } catch (e) {}
 
@@ -1624,12 +1625,12 @@
                         (err2) => {
                             setTimeout(() => {
                                 if (!settled) finishWithError(err2);
-                            }, 1500);
+                            }, 3500);
                         },
-                        { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+                        { enableHighAccuracy: false, timeout: 15000, maximumAge: 120000 }
                     );
                 },
-                { enableHighAccuracy: true, timeout: 6000, maximumAge: 20000 }
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
             );
         }
 
@@ -1714,7 +1715,7 @@
                             locEl.textContent = "✅ Allowed";
                             locEl.className = "text-[10px] font-bold text-emerald-600";
                         }
-                        navigator.geolocation.getCurrentPosition(pos => { lastKnownGpsPos = pos; }, () => {}, { enableHighAccuracy: false, timeout: 5000 });
+                        navigator.geolocation.getCurrentPosition(pos => { lastKnownGpsPos = pos; }, () => {}, { enableHighAccuracy: false, timeout: 8000 });
                     }
                 }).catch(() => {});
             }
@@ -2347,7 +2348,7 @@
         }
 
         // ==========================================
-        // BIKE TAXI: INITIAL SCREEN, CHOOSE ON MAP FLOW & FULLSCREEN ROUTE BOOKING
+        // BIKE TAXI: SINGLE-FINGER DRAG MAP, STEP 1 RED PIN -> STEP 2 BLUE PIN -> FULLSCREEN ROUTE WITH LINE & BOOK
         // ==========================================
         function backToBikeInitial() {
             document.getElementById('bike-initial-box').classList.remove('hidden');
@@ -2410,7 +2411,46 @@
             });
         }
 
-        // Start full Choose on Map flow: Step 1 (Red Pin -> Choose This Destination) -> Step 2 (Blue Pin -> Choose This Pickup) -> Step 3 (Fullscreen Route & Bike Taxi)
+        function ensurePickerLeafletMap(lat, lng) {
+            if (!pickerLeafletMap && typeof L !== 'undefined') {
+                pickerLeafletMap = L.map('picker-leaflet-map', {
+                    center: [lat, lng],
+                    zoom: 16,
+                    zoomControl: false,
+                    dragging: true,
+                    touchZoom: true,
+                    tap: true
+                });
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+                }).addTo(pickerLeafletMap);
+
+                pickerLeafletMap.on('move', () => {
+                    const c = pickerLeafletMap.getCenter();
+                    tempPickedLat = c.lat;
+                    tempPickedLng = c.lng;
+                    document.getElementById('picker-coords-display').textContent = `${c.lat.toFixed(5)}, ${c.lng.toFixed(5)}`;
+                });
+
+                pickerLeafletMap.on('moveend', () => {
+                    const c = pickerLeafletMap.getCenter();
+                    tempPickedLat = c.lat;
+                    tempPickedLng = c.lng;
+                    tempPickedLabel = findNearestPlaceLabel(c.lat, c.lng);
+                    document.getElementById('picker-selected-label').textContent = tempPickedLabel;
+                    document.getElementById('picker-coords-display').textContent = `${c.lat.toFixed(5)}, ${c.lng.toFixed(5)}`;
+                });
+            }
+            if (pickerLeafletMap) {
+                setTimeout(() => {
+                    pickerLeafletMap.invalidateSize();
+                    pickerLeafletMap.setView([lat, lng], 16, { animate: false });
+                }, 60);
+            }
+        }
+
         function startChooseOnMapFlow() {
             isChoosingOnMapFlow = true;
             openPickerStep('destination');
@@ -2449,7 +2489,7 @@
 
                 const initLat = lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT;
                 const initLng = lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG;
-                updatePickerLocation(initLat, initLng, lastKnownGpsPos ? `${findNearestPlaceLabel(initLat, initLng)} • GPS (${initLat.toFixed(4)}, ${initLng.toFixed(4)})` : "လက်ရှိနေရာ ရှာနေပါသည်...");
+                updatePickerLocation(initLat, initLng, lastKnownGpsPos ? `${findNearestPlaceLabel(initLat, initLng)} • GPS` : "သီပေါမြို့ (လက်ရှိနေရာ ရွေးပါ)");
                 useLiveGpsInPicker();
             }
         }
@@ -2459,14 +2499,8 @@
             tempPickedLng = Number(lng);
             tempPickedLabel = label || findNearestPlaceLabel(tempPickedLat, tempPickedLng);
             document.getElementById('picker-selected-label').textContent = tempPickedLabel;
-            document.getElementById('picker-coords-display').textContent = `${tempPickedLat.toFixed(4)}, ${tempPickedLng.toFixed(4)}`;
-            document.getElementById('picker-google-map-iframe').src = `https://maps.google.com/maps?q=${tempPickedLat},${tempPickedLng}&t=m&z=16&output=embed`;
-        }
-
-        function nudgeMapCenter(dLat, dLng) {
-            const nextLat = Math.max(21.0, Math.min(24.0, tempPickedLat + dLat));
-            const nextLng = Math.max(96.0, Math.min(99.0, tempPickedLng + dLng));
-            updatePickerLocation(nextLat, nextLng, findNearestPlaceLabel(nextLat, nextLng));
+            document.getElementById('picker-coords-display').textContent = `${tempPickedLat.toFixed(5)}, ${tempPickedLng.toFixed(5)}`;
+            ensurePickerLeafletMap(tempPickedLat, tempPickedLng);
         }
 
         function findNearestPlaceLabel(lat, lng) {
@@ -2511,7 +2545,6 @@
             } else {
                 tempPickedLabel = `${q}, သီပေါမြို့`;
                 document.getElementById('picker-selected-label').textContent = tempPickedLabel;
-                document.getElementById('picker-google-map-iframe').src = `https://maps.google.com/maps?q=${encodeURIComponent(q + ' Hsipaw Myanmar')}&t=m&z=15&output=embed`;
                 document.getElementById('picker-search-results').classList.add('hidden');
             }
         }
@@ -2528,9 +2561,9 @@
                 if (pos) {
                     const lat = pos.coords.latitude;
                     const lng = pos.coords.longitude;
-                    const detailed = `${findNearestPlaceLabel(lat, lng)} • GPS (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+                    const detailed = `${findNearestPlaceLabel(lat, lng)} • GPS`;
                     updatePickerLocation(lat, lng, detailed);
-                    showToast("လက်ရှိတည်နေရာ အသေးစိတ် ရှာတွေ့ပါပြီ!");
+                    showToast("လက်ရှိတည်နေရာ ရှာတွေ့ပါပြီ!");
                 }
             });
         }
@@ -2558,6 +2591,82 @@
             }
         }
 
+        async function renderRouteMapWithBlueAndRedPins(pLat, pLng, dLat, dLng) {
+            if (typeof L === 'undefined') return;
+
+            if (!routeLeafletMap) {
+                routeLeafletMap = L.map('bike-route-leaflet-map', {
+                    center: [(pLat + dLat) / 2, (pLng + dLng) / 2],
+                    zoom: 15,
+                    zoomControl: false
+                });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+                }).addTo(routeLeafletMap);
+                routeLayersGroup = L.layerGroup().addTo(routeLeafletMap);
+            }
+
+            setTimeout(async () => {
+                routeLeafletMap.invalidateSize();
+                routeLayersGroup.clearLayers();
+
+                // Blue Pin Icon (Pickup)
+                const bluePinIcon = L.divIcon({
+                    className: '',
+                    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
+                            <span style="background:#2563EB;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.3);margin-bottom:2px;white-space:nowrap;">Pickup</span>
+                            <div style="width:24px;height:24px;border-radius:999px;background:#2563EB;border:3px solid #fff;box-shadow:0 3px 10px rgba(37,99,235,0.6);display:flex;align-items:center;justify-content:center;">
+                                <div style="width:8px;height:8px;border-radius:999px;background:#fff;"></div>
+                            </div>
+                           </div>`,
+                    iconSize: [0, 0]
+                });
+
+                // Red Pin Icon (Destination)
+                const redPinIcon = L.divIcon({
+                    className: '',
+                    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
+                            <span style="background:#FF5722;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.3);margin-bottom:2px;white-space:nowrap;">Destination</span>
+                            <div style="width:24px;height:24px;border-radius:999px;background:#FF5722;border:3px solid #fff;box-shadow:0 3px 10px rgba(255,87,34,0.6);display:flex;align-items:center;justify-content:center;">
+                                <div style="width:8px;height:8px;border-radius:999px;background:#fff;"></div>
+                            </div>
+                           </div>`,
+                    iconSize: [0, 0]
+                });
+
+                L.marker([pLat, pLng], { icon: bluePinIcon }).addTo(routeLayersGroup);
+                L.marker([dLat, dLng], { icon: redPinIcon }).addTo(routeLayersGroup);
+
+                // Draw direct polyline immediately as fallback, then upgrade to real road geometry via OSRM
+                let routeLine = L.polyline([[pLat, pLng], [dLat, dLng]], {
+                    color: '#00B14F',
+                    weight: 5,
+                    opacity: 0.9,
+                    dashArray: '8, 8'
+                }).addTo(routeLayersGroup);
+
+                const bounds = L.latLngBounds([[pLat, pLng], [dLat, dLng]]);
+                routeLeafletMap.fitBounds(bounds, { padding: [75, 55], maxZoom: 16 });
+
+                try {
+                    const url = `https://router.project-osrm.org/route/v1/driving/${pLng},${pLat};${dLng},${dLat}?overview=full&geometries=geojson`;
+                    const resp = await fetch(url);
+                    const data = await resp.json();
+                    if (data && data.routes && data.routes[0] && data.routes[0].geometry) {
+                        const latLngs = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                        routeLayersGroup.removeLayer(routeLine);
+                        const roadLine = L.polyline(latLngs, {
+                            color: '#00B14F',
+                            weight: 6,
+                            opacity: 0.95
+                        }).addTo(routeLayersGroup);
+                        routeLeafletMap.fitBounds(roadLine.getBounds(), { padding: [75, 55], maxZoom: 16 });
+                    }
+                } catch (err) {}
+            }, 80);
+        }
+
         function showBikeRouteConfirmationScreen() {
             const pickup = document.getElementById('bike-pickup').value.trim() || "သီပေါမြို့လယ်";
             const dropoff = document.getElementById('bike-dropoff').value.trim() || "သီပေါမြို့မဈေး";
@@ -2566,10 +2675,9 @@
 
             const pLat = bikePickupCoords ? bikePickupCoords.lat : HSIPAW_LAT;
             const pLng = bikePickupCoords ? bikePickupCoords.lng : HSIPAW_LNG;
-            const dLat = bikeDropoffCoords ? bikeDropoffCoords.lat : HSIPAW_LAT;
-            const dLng = bikeDropoffCoords ? bikeDropoffCoords.lng : HSIPAW_LNG;
+            const dLat = bikeDropoffCoords ? bikeDropoffCoords.lat : (HSIPAW_LAT + 0.004);
+            const dLng = bikeDropoffCoords ? bikeDropoffCoords.lng : (HSIPAW_LNG + 0.004);
 
-            document.getElementById('bike-initial-box').classList.add('hidden');
             const routeBox = document.getElementById('bike-route-confirm-box');
             routeBox.classList.remove('hidden');
             routeBox.classList.add('flex');
@@ -2579,7 +2687,8 @@
             document.getElementById('route-confirm-fare-top').textContent = fareStr;
             document.getElementById('route-confirm-fare-price').textContent = fareStr;
             document.getElementById('route-confirm-zone').textContent = zoneStr;
-            document.getElementById('bike-route-map-iframe').src = `https://maps.google.com/maps?saddr=${pLat},${pLng}&daddr=${dLat},${dLng}&t=m&z=14&output=embed`;
+
+            renderRouteMapWithBlueAndRedPins(pLat, pLng, dLat, dLng);
         }
 
         function confirmBookBikeFromRoute() {
@@ -3529,98 +3638,73 @@
             });
         }
 
-        const ADMIN_QUICK_REPLIES = ["ပစ္စည်းဝယ်ပြီးပါပြီ", "ခုလာပို့နေပါပြီ", "အိမ်ရှေ့ရောက်ပါပြီ", "ခဏစောင့်ပေးပါခင်ဗျာ"];
-        const CUSTOMER_QUICK_REPLIES = ["ဟုတ်ကဲ့ ကျေးဇူးပါ", "မြန်မြန်လေး လာပေးပါ", "အပြင်မှာ စောင့်နေပါတယ်"];
+        const ADMIN_QUICK_REPLIES = ["ပစ္စည်းဝယ်ပြီးပါပြီ", "ခုလာပို့နေပါပြီ", "အိမ်ရှေ့ရောက်ပါပြီ", "ဆိုင်ပိတ်ထားပါတယ်", "ကယ်ရီထွက်လာပါပြီ"];
+        const CUSTOMER_QUICK_REPLIES = ["ဘယ်နားရောက်ပြီလဲ?", "အိမ်ရှေ့ရောက်ရင် ဖုန်းဆက်ပေးပါ", "မြန်မြန်လေးလာပေးပါ", "ကျေးဇူးတင်ပါတယ်"];
 
-        function countUnreadForOrder(order, viewerRole) {
+        function countUnreadForOrder(order, role) {
             if (!order.messages) return 0;
-            return order.messages.filter(m => viewerRole === 'customer' ? (m.sender === 'admin' && !m.readByCustomer) : (m.sender === 'customer' && !m.readByAdmin)).length;
+            return order.messages.filter(m => role === 'customer' ? (m.sender === 'admin' && !m.readByCustomer) : (m.sender === 'customer' && !m.readByAdmin)).length;
         }
 
         function updateUnreadIndicators() {
-            const totalUnread = allOrders.reduce((sum, o) => sum + countUnreadForOrder(o, 'customer'), 0);
-            const dot = document.getElementById('nav-unread-dot');
-            if (totalUnread > 0) dot.classList.remove('hidden');
-            else dot.classList.add('hidden');
+            let totalCustUnread = 0;
+            allOrders.forEach(o => { totalCustUnread += countUnreadForOrder(o, 'customer'); });
+            const navDot = document.getElementById('nav-unread-dot');
+            if (navDot) { if (totalCustUnread > 0) navDot.classList.remove('hidden'); else navDot.classList.add('hidden'); }
         }
 
         function openChatModal(orderId, role) {
             activeChatOrderId = orderId;
             activeChatRole = role;
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+            if (!order.messages) order.messages = [];
+            order.messages.forEach(m => { if (role === 'customer' && m.sender === 'admin') m.readByCustomer = true; if (role === 'admin' && m.sender === 'customer') m.readByAdmin = true; });
+            saveOrders();
+            updateUnreadIndicators();
+
+            document.getElementById('chat-header-title').textContent = role === 'admin' ? `💬 Chat with ${order.customerName}` : `💬 Chat with Rider (${order.assignedRiderName || 'Dispatch'})`;
+            document.getElementById('chat-header-subtitle').textContent = `${order.status} • ${order.fareText}`;
+            document.getElementById('chat-order-summary').innerHTML = `<span class="font-bold truncate">${escapeHtml(order.details)}</span><span class="font-extrabold text-[#FF5722] shrink-0 ml-2">${escapeHtml(order.status)}</span>`;
+
+            const quickList = role === 'admin' ? ADMIN_QUICK_REPLIES : CUSTOMER_QUICK_REPLIES;
+            document.getElementById('chat-quick-replies').innerHTML = quickList.map(txt => `<button type="button" onclick="sendQuickReply('${escapeAttr(txt)}')" class="px-3 py-1.5 rounded-full bg-orange-50 text-[#FF5722] border border-orange-200 text-xs font-bold whitespace-nowrap">${escapeHtml(txt)}</button>`).join('');
+
+            renderChatMessages(order);
             const modal = document.getElementById('chat-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-
-            const order = allOrders.find(o => o.id === orderId);
-            if (order) {
-                document.getElementById('chat-header-title').textContent = role === 'admin' ? `💬 ${order.customerName}` : `💬 Rider / Dispatch`;
-                document.getElementById('chat-header-subtitle').textContent = `Status: ${order.status}`;
-                document.getElementById('chat-order-summary').innerHTML = `<span class="truncate font-bold">📦 ${escapeHtml(order.details)}</span>`;
-                const replies = role === 'admin' ? ADMIN_QUICK_REPLIES : CUSTOMER_QUICK_REPLIES;
-                document.getElementById('chat-quick-replies').innerHTML = replies.map(txt =>
-                    `<button type="button" onclick="pushMessageToOrder('${txt}')" class="px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF5722] font-bold text-xs whitespace-nowrap">${txt}</button>`
-                ).join('');
-            }
-            renderChatMessages();
         }
 
         function closeChatModal() {
-            activeChatOrderId = null;
             document.getElementById('chat-modal').classList.add('hidden');
             document.getElementById('chat-modal').classList.remove('flex');
-            refreshVisibleScreens();
+            activeChatOrderId = null;
         }
 
-        function renderChatMessages() {
-            const order = allOrders.find(o => o.id === activeChatOrderId);
-            if (!order) return;
-            if (!order.messages) order.messages = [];
-
-            order.messages.forEach(m => {
-                if (activeChatRole === 'customer' && m.sender === 'admin') m.readByCustomer = true;
-                if (activeChatRole === 'admin' && m.sender === 'customer') m.readByAdmin = true;
-            });
-            saveOrders();
-
+        function renderChatMessages(order) {
             const feed = document.getElementById('chat-messages-feed');
-            feed.innerHTML = "";
-            if (order.messages.length === 0) {
-                feed.innerHTML = `<div class="text-center py-10 text-xs text-slate-400">စာတို စတင်ပေးပို့နိုင်ပါသည်</div>`;
+            if (!order.messages || order.messages.length === 0) {
+                feed.innerHTML = `<div class="text-center py-10 space-y-1.5"><div class="text-3xl">💬</div><p class="text-xs font-bold text-slate-500">စကားပြောဆိုမှု မရှိသေးပါ</p></div>`;
                 return;
             }
-
-            order.messages.forEach(msg => {
+            feed.innerHTML = order.messages.map(msg => {
                 const isMine = msg.sender === activeChatRole;
-                const bubble = isMine
-                    ? `<div class="flex flex-col items-end"><span class="text-[10px] text-slate-400 mb-0.5">${msg.time}</span><div class="max-w-[80%] rounded-2xl rounded-br-xs bg-[#FF5722] text-white px-4 py-2.5 text-sm shadow-2xs">${escapeHtml(msg.text)}</div></div>`
-                    : `<div class="flex flex-col items-start"><span class="text-[10px] text-slate-400 mb-0.5">${msg.time}</span><div class="max-w-[80%] rounded-2xl rounded-bl-xs bg-white border border-slate-200/80 text-slate-900 px-4 py-2.5 text-sm shadow-2xs">${escapeHtml(msg.text)}</div></div>`;
-                feed.insertAdjacentHTML('beforeend', bubble);
-            });
+                return `<div class="flex flex-col ${isMine ? 'items-end' : 'items-start'}"><span class="text-[10px] font-bold text-slate-400 mb-1 px-1">${msg.time}</span><div class="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm shadow-2xs ${isMine ? 'bg-[#FF5722] text-white rounded-br-xs' : 'bg-white text-slate-900 border border-slate-200/80 rounded-bl-xs'}">${escapeHtml(msg.text)}</div></div>`;
+            }).join('');
             feed.scrollTop = feed.scrollHeight;
         }
 
-        function sendChatMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('chat-text-input');
-            const text = input.value.trim();
-            if (!text) return;
-            input.value = "";
-            pushMessageToOrder(text);
-        }
+        function sendQuickReply(text) { appendChatMessageToOrder(text); }
+        function sendChatMessage(e) { e.preventDefault(); const input = document.getElementById('chat-text-input'); const text = input.value.trim(); if (!text) return; input.value = ""; appendChatMessageToOrder(text); }
 
-        function pushMessageToOrder(text) {
+        function appendChatMessageToOrder(text) {
             const order = allOrders.find(o => o.id === activeChatOrderId);
             if (!order) return;
             if (!order.messages) order.messages = [];
-            order.messages.push({
-                sender: activeChatRole,
-                text: text,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                readByCustomer: activeChatRole === 'customer',
-                readByAdmin: activeChatRole === 'admin'
-            });
+            order.messages.push({ sender: activeChatRole, text, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), readByCustomer: activeChatRole === 'customer', readByAdmin: activeChatRole === 'admin' });
             saveOrders();
-            renderChatMessages();
+            renderChatMessages(order);
         }
 
         function escapeHtml(str) {
@@ -3630,7 +3714,7 @@
 
         function escapeAttr(str) {
             if (!str) return "";
-            return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+            return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
         }
     </script>
 </body>
