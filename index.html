@@ -148,43 +148,43 @@
             <!-- SCROLLABLE BODY (STAYS INSIDE SINGLE SCREEN ABOVE FIXED BOTTOM BAR) -->
             <div id="main-scroll-area" class="flex-1 min-h-0 overflow-y-auto pb-2">
 
-                <!-- HOME VIEW (ORIGINAL FULL-SIZE ELEMENTS + AUTO-SLIDING CUSTOM-SIZE SHOP PROMO POSTERS) -->
-                <div id="view-home" class="p-3.5 space-y-3 fade-in">
+                <!-- HOME VIEW (COMPACT SINGLE-VIEW LAYOUT + SHOP PROMO POSTERS) -->
+                <div id="view-home" class="p-3 space-y-2.5 fade-in">
                     <!-- SEARCH BAR -->
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 text-xs">🔍</span>
                         <input type="text" id="t-search-placeholder" placeholder="ဆိုင်နှင့် အစားအသောက် ရှာဖွေမည်..." onclick="navigateToScreen('food')"
-                            class="w-full rounded-2xl bg-white border border-slate-200/85 pl-9 pr-4 py-2.5 text-xs text-slate-900 shadow-2xs outline-none focus:border-[#FF5722]">
+                            class="w-full rounded-2xl bg-white border border-slate-200/85 pl-9 pr-4 py-2 text-xs text-slate-900 shadow-2xs outline-none focus:border-[#FF5722]">
                     </div>
 
                     <!-- ACTIVE ORDER BANNER -->
                     <div id="home-active-order-wrap" class="hidden"></div>
 
                     <!-- SERVICES GRID -->
-                    <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="navigateToScreen('food')" class="bg-white p-3.5 rounded-2xl border border-slate-200/80 flex items-center gap-3 text-left shadow-2xs hover:border-orange-300 transition">
-                            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">🍜</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="navigateToScreen('food')" class="bg-white p-3 rounded-2xl border border-slate-200/80 flex items-center gap-2.5 text-left shadow-2xs hover:border-orange-300 transition">
+                            <div class="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-lg shrink-0">🍜</div>
                             <div class="min-w-0">
                                 <span id="t-svc-food" class="text-xs font-extrabold text-slate-950 block truncate">Food</span>
                                 <span id="t-svc-food-sub" class="text-[10px] text-slate-400 block truncate">ဆိုင်မီနူးများ</span>
                             </div>
                         </button>
-                        <button onclick="navigateToScreen('custom')" class="bg-white p-3.5 rounded-2xl border border-slate-200/80 flex items-center gap-3 text-left shadow-2xs hover:border-orange-300 transition">
-                            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">🛍️</div>
+                        <button onclick="navigateToScreen('custom')" class="bg-white p-3 rounded-2xl border border-slate-200/80 flex items-center gap-2.5 text-left shadow-2xs hover:border-orange-300 transition">
+                            <div class="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-lg shrink-0">🛍️</div>
                             <div class="min-w-0">
                                 <span id="t-svc-custom" class="text-xs font-extrabold text-slate-950 block truncate">မှာမည်</span>
                                 <span id="t-svc-custom-sub" class="text-[10px] text-slate-400 block truncate">တခြားဝယ်ခိုင်းရန်</span>
                             </div>
                         </button>
-                        <button onclick="navigateToScreen('bike')" class="bg-white p-3.5 rounded-2xl border border-slate-200/80 flex items-center gap-3 text-left shadow-2xs hover:border-orange-300 transition">
-                            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">🛵</div>
+                        <button onclick="navigateToScreen('bike')" class="bg-white p-3 rounded-2xl border border-slate-200/80 flex items-center gap-2.5 text-left shadow-2xs hover:border-orange-300 transition">
+                            <div class="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-lg shrink-0">🛵</div>
                             <div class="min-w-0">
                                 <span id="t-svc-bike" class="text-xs font-extrabold text-slate-950 block truncate">Bike Taxi</span>
                                 <span id="t-svc-bike-sub" class="text-[10px] text-slate-400 block truncate">ဆိုင်ကယ်ကယ်ရီ</span>
                             </div>
                         </button>
-                        <button onclick="navigateToScreen('map')" class="bg-white p-3.5 rounded-2xl border border-slate-200/80 flex items-center gap-3 text-left shadow-2xs hover:border-orange-300 transition">
-                            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">🛰️</div>
+                        <button onclick="navigateToScreen('map')" class="bg-white p-3 rounded-2xl border border-slate-200/80 flex items-center gap-2.5 text-left shadow-2xs hover:border-orange-300 transition">
+                            <div class="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-lg shrink-0">🛰️</div>
                             <div class="min-w-0">
                                 <span id="t-svc-map" class="text-xs font-extrabold text-slate-950 block truncate">Satellite Map</span>
                                 <span id="t-svc-map-sub" class="text-[10px] text-slate-400 block truncate">ဂြိုဟ်တုမြေပုံ</span>
@@ -193,18 +193,18 @@
                     </div>
 
                     <!-- MERCHANT / SHOP PORTAL ENTRY -->
-                    <div class="bg-gradient-to-r from-orange-500 to-[#FF5722] rounded-2xl p-3.5 text-white shadow-sm flex items-center justify-between gap-2">
+                    <div class="bg-gradient-to-r from-orange-500 to-[#FF5722] rounded-2xl p-3 text-white shadow-sm flex items-center justify-between gap-2">
                         <div class="space-y-0.5 min-w-0">
                             <h3 id="t-svc-shop" class="text-xs font-extrabold truncate">ဆိုင်ရှင်များအတွက် (Merchant Portal)</h3>
                             <p id="t-svc-shop-sub" class="text-[10px] text-orange-100 truncate">သင့်ဆိုင်မီနူးနှင့် ဈေးနှုန်းများကို ကိုယ်တိုင်တင်ပါ</p>
                         </div>
-                        <button onclick="openShopPortal()" id="t-open-shop-btn" class="px-3.5 py-2 rounded-xl bg-white text-[#FF5722] font-extrabold text-xs shadow-2xs shrink-0">
+                        <button onclick="openShopPortal()" id="t-open-shop-btn" class="px-3 py-1.5 rounded-xl bg-white text-[#FF5722] font-extrabold text-xs shadow-2xs shrink-0">
                             ဆိုင်ဖွင့်မည်
                         </button>
                     </div>
 
                     <!-- INFO & PHONE CALL BUTTON ON HOME (PHONES HIDDEN UNTIL CLICKED) -->
-                    <div class="bg-white rounded-2xl p-3.5 border border-slate-200/80 flex items-center justify-between gap-2">
+                    <div class="bg-white rounded-2xl p-3 border border-slate-200/80 flex items-center justify-between gap-2">
                         <div>
                             <span id="t-home-rate-lbl" class="text-[10px] font-bold text-slate-500 block">မြို့တွင်း ပို့ဆောင်ခ</span>
                             <span id="home-town-rate-val" class="text-xs font-extrabold text-[#FF5722]">Town: 2,000 Ks</span>
@@ -214,15 +214,13 @@
                         </button>
                     </div>
 
-                    <!-- SHOP PROMOTION POSTERS CAROUSEL SECTION ON HOME (AUTO-ROTATING + CUSTOM SIZE) -->
-                    <div id="home-promo-posters-section" class="space-y-2 pt-1 hidden">
+                    <!-- SHOP PROMOTION POSTERS SECTION ON HOME (MANAGED BY ADMIN) -->
+                    <div id="home-promo-posters-section" class="space-y-2 pt-0.5 hidden">
                         <div class="flex items-center justify-between px-1">
-                            <span class="text-xs font-extrabold text-slate-800">📢 ဆိုင်ကြော်ငြာများ (Featured Posters)</span>
-                            <div class="flex items-center gap-1.5">
-                                <span id="home-poster-counter" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-orange-100 text-[#FF5722]">1 / 1</span>
-                            </div>
+                            <span class="text-[11px] font-extrabold text-slate-800">📢 ဆိုင်ကြော်ငြာများ (Featured Posters)</span>
+                            <span class="text-[10px] font-bold text-[#FF5722]">Thipaw Ads</span>
                         </div>
-                        <div id="home-promo-posters-carousel" class="relative"></div>
+                        <div id="home-promo-posters-list" class="space-y-2.5"></div>
                     </div>
                 </div>
 
@@ -389,14 +387,14 @@
                     </div>
                 </div>
 
-                <!-- MERCHANT SHOP PAGE MANAGER VIEW (FACEBOOK / TIKTOK PAGE STYLE + SHOP GPS LOCATION) -->
+                <!-- MERCHANT SHOP PAGE MANAGER VIEW (FACEBOOK / TIKTOK PAGE STYLE) -->
                 <div id="view-shop-manager" class="p-4 space-y-4 hidden fade-in">
                     <!-- STEP 1: CREATE SHOP ACCOUNT FORM -->
                     <div id="merchant-create-box" class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="text-sm font-extrabold text-slate-900">🏪 စျေးဆိုင် အကောင့်ဖွင့်ရန် (Create Shop Page)</h3>
-                                <p class="text-[11px] text-slate-500">ဆိုင်နာမည်၊ ဆိုင်ပုံ၊ ဖုန်းနံပါတ်၊ လိပ်စာနှင့် ဆိုင် Location ထည့်၍ ဆိုင်ဖွင့်ပါ</p>
+                                <p class="text-[11px] text-slate-500">ဆိုင်နာမည်၊ ဆိုင်ပုံ၊ ဖုန်းနံပါတ်နှင့် လိပ်စာထည့်၍ ဆိုင်ဖွင့်ပါ</p>
                             </div>
                             <button type="button" id="btn-cancel-new-shop" onclick="toggleMerchantCreateBox(false)" class="hidden px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">ပိတ်မည်</button>
                         </div>
@@ -411,19 +409,7 @@
                                     <input type="tel" id="shop-phone-input" required placeholder="ဆိုင်ဖုန်းနံပါတ် (09xxxxxxxxx)" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
                                 </div>
                             </div>
-                            <input type="text" id="shop-address-input" required placeholder="ဆိုင်နေရာ / လိပ်စာ / ရပ်ကွက် (ဥပမာ - ဈေးပိုင်းရပ်ကွက်၊ ဗိုလ်ချုပ်လမ်း)" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
-                            
-                            <!-- SHOP MAP LOCATION PICKER BUTTON & STATUS -->
-                            <div class="space-y-1.5">
-                                <button type="button" onclick="openShopLocationPicker('create')" class="w-full py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-extrabold text-xs flex items-center justify-center gap-1.5 transition">
-                                    <span>📍</span><span>ဆိုင် Location ထည့်မည် (Map Point / GPS)</span>
-                                </button>
-                                <div id="shop-create-coords-pill" class="hidden bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-[11px] font-bold text-emerald-800 flex items-center justify-between">
-                                    <span id="shop-create-coords-text">📍 ဆိုင် Location ရွေးပြီးပါပြီ</span>
-                                    <button type="button" onclick="openShopLocationPicker('create')" class="underline text-[#FF5722] font-extrabold ml-2">ပြန်ရွေးမည်</button>
-                                </div>
-                            </div>
-
+                            <input type="text" id="shop-address-input" required placeholder="ဆိုင်လိပ်စာ / ရပ်ကွက်" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
                             <button type="submit" class="w-full py-3 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs shadow-md">
                                 ဆိုင်အကောင့် ဖွင့်လှစ်မည်
                             </button>
@@ -659,12 +645,12 @@
                     <div id="admin-orders-container" class="space-y-3"></div>
                 </div>
 
-                <!-- TAB NEW: SHOP PROMO POSTERS UPLOAD, CUSTOM SIZE & DELETE -->
+                <!-- TAB NEW: SHOP PROMO POSTERS UPLOAD & DELETE -->
                 <div id="admin-view-posters" class="space-y-4 hidden">
                     <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
                         <div>
                             <h3 class="text-xs font-extrabold text-slate-900">🖼️ Home စာမျက်နှာ ဆိုင်ကြော်ငြာ Poster များ တင်ရန်</h3>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Poster Size / အချိုးအစားကို စိတ်ကြိုက်ရွေးချယ်တင်နိုင်ပြီး Home စာမျက်နှာတွင် တစ်ခုပြီးတစ်ခု အလိုအလျောက် ပြောင်းလဲပြသပေးပါမည်။</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Home စာမျက်နှာ အောက်ဘက်တွင် ပေါ်မည့် ဆိုင်ကြော်ငြာ ပိုစတာပုံများကို တင်ခြင်း / ဖျက်ခြင်း ပြုလုပ်နိုင်ပါသည်။</p>
                         </div>
                         <form onsubmit="addAdminPromoPoster(event)" class="space-y-3 text-xs">
                             <div class="flex items-center gap-3">
@@ -677,15 +663,6 @@
                                     <input type="text" id="poster-shop-title" required placeholder="ဆိုင်နာမည် / ကြော်ငြာခေါင်းစဉ်" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 font-bold text-slate-950 outline-none">
                                     <input type="text" id="poster-caption" placeholder="အထူးလျှော့ဈေး / အသေးစိတ် (မထည့်လည်းရသည်)" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-950 outline-none">
                                 </div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[11px] font-extrabold text-slate-700">📐 Poster Size / အချိုးအစား (Aspect Ratio)</label>
-                                <select id="poster-aspect-ratio" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 font-bold text-slate-900 outline-none">
-                                    <option value="16/9">16:9 (Widescreen Banner)</option>
-                                    <option value="4/3">4:3 (Standard Poster)</option>
-                                    <option value="1/1">1:1 (Square Post)</option>
-                                    <option value="auto">Full Original Size (ပုံအပြည့်အစုံ အကြီး)</option>
-                                </select>
                             </div>
                             <button type="submit" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs shadow-xs">
                                 + Poster အသစ်တင်မည်
@@ -853,7 +830,7 @@
             </div>
         </div>
 
-        <!-- 6. GOOGLE MAP PICKER MODAL (FOR BIKE TAXI, FOOD DELIVERY & SHOP LOCATION SELECTION) -->
+        <!-- 6. GOOGLE MAP PICKER MODAL (FOR BIKE TAXI & FOOD DELIVERY POINT SELECTION) -->
         <div id="gmap-picker-modal" class="fixed inset-0 bg-white z-50 hidden flex-col">
             <!-- TOP SEARCH BAR + BACK BUTTON -->
             <div class="bg-white border-b border-slate-200 px-3 py-2.5 flex items-center gap-2 shrink-0 shadow-xs z-20">
@@ -981,7 +958,7 @@
             </div>
         </div>
 
-        <!-- 7. EDIT SHOP DETAILS MODAL (WITH SHOP GPS LOCATION PICKER) -->
+        <!-- 7. EDIT SHOP DETAILS MODAL -->
         <div id="edit-shop-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
             <div class="bg-white rounded-3xl max-w-[400px] w-full p-5 shadow-2xl space-y-4 fade-in">
                 <div class="flex items-center justify-between">
@@ -1006,14 +983,8 @@
                         <input type="tel" id="edit-shop-phone" required class="w-full mt-1 rounded-xl border border-slate-300 px-3 py-2 font-bold">
                     </div>
                     <div>
-                        <label class="font-bold text-slate-700">ဆိုင်နေရာ / လိပ်စာ</label>
+                        <label class="font-bold text-slate-700">ဆိုင်လိပ်စာ</label>
                         <input type="text" id="edit-shop-address" required class="w-full mt-1 rounded-xl border border-slate-300 px-3 py-2 font-bold">
-                    </div>
-                    <div class="space-y-1">
-                        <button type="button" onclick="openShopLocationPicker('edit')" class="w-full py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-extrabold text-xs flex items-center justify-center gap-1.5">
-                            <span>📍</span><span>ဆိုင် Location ပြောင်းလဲရန် (Map Point / GPS)</span>
-                        </button>
-                        <p id="edit-shop-coords-display" class="text-[11px] font-bold text-emerald-700 text-center"></p>
                     </div>
                     <button type="submit" class="w-full py-3 rounded-xl bg-[#FF5722] text-white font-extrabold">ပြင်ဆင်မှု သိမ်းဆည်းမည်</button>
                 </form>
@@ -1041,7 +1012,7 @@
                         <img src="./1794811370987.png" onerror="this.src='https://i.ibb.co/B5NfCWH9/1794811370987.jpg'" alt="TD" class="w-10 h-10 rounded-xl border border-slate-200">
                         <div>
                             <h3 id="t-about-title" class="text-base font-extrabold text-slate-900">Thipaw Delivery အကြောင်း</h3>
-                            <p class="text-[11px] text-slate-500">Version 3.2 • Hsipaw Local Super-App</p>
+                            <p class="text-[11px] text-slate-500">Version 3.1 • Hsipaw Local Super-App</p>
                         </div>
                     </div>
                     <button onclick="closeAboutModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
@@ -1242,14 +1213,6 @@
         let activeStorefrontShopId = null;
         let customCoords = null;
 
-        // Shop Location State (for Create & Edit Shop)
-        let tempCreateShopCoords = null;
-        let tempEditShopCoords = null;
-
-        // Home Promo Poster Carousel State
-        let currentHomePosterIndex = 0;
-        let homePosterAutoSlideTimer = null;
-
         let activeBikeField = 'dropoff';
         let bikePickupCoords = null;
         let bikeDropoffCoords = null;
@@ -1263,7 +1226,7 @@
         let pickerGoogleLayerType = 'y'; // 'y' = Google Satellite Hybrid, 'm' = Google Road
         let routeLeafletMap = null;
         let routeLayersGroup = null;
-        let pickerFlowMode = 'destination'; // 'destination' | 'pickup' | 'food' | 'shop-create' | 'shop-edit'
+        let pickerFlowMode = 'destination'; // 'destination' | 'pickup' | 'food'
         let isChoosingOnMapFlow = false;
         let tempPickedLat = HSIPAW_LAT;
         let tempPickedLng = HSIPAW_LNG;
@@ -1545,7 +1508,7 @@
         }
 
         // ==========================================
-        // HOME PROMO POSTERS (CUSTOM ASPECT RATIO + AUTO-SLIDE CAROUSEL)
+        // HOME PROMO POSTERS (ADMIN UPLOAD & DELETE)
         // ==========================================
         function savePromoPosters() {
             localStorage.setItem(PROMO_POSTERS_KEY, JSON.stringify(promoPosters));
@@ -1559,12 +1522,12 @@
                 const img = new Image();
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const maxW = 900;
+                    const maxW = 720;
                     let w = img.width, h = img.height;
                     if (w > maxW) { h *= maxW / w; w = maxW; }
                     canvas.width = w; canvas.height = h;
                     canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                    tempPosterPhoto = canvas.toDataURL('image/jpeg', 0.88);
+                    tempPosterPhoto = canvas.toDataURL('image/jpeg', 0.85);
                     document.getElementById('poster-upload-preview').innerHTML = `<img src="${tempPosterPhoto}" class="w-full h-full object-cover">`;
                 };
                 img.src = e.target.result;
@@ -1576,7 +1539,6 @@
             e.preventDefault();
             const title = document.getElementById('poster-shop-title').value.trim();
             const caption = document.getElementById('poster-caption').value.trim();
-            const aspectRatio = document.getElementById('poster-aspect-ratio').value || '16/9';
             if (!tempPosterPhoto) {
                 showToast("Poster ပုံ အရင်ရွေးချယ်ပါ");
                 document.getElementById('poster-image-file').click();
@@ -1588,7 +1550,6 @@
                 id: 'poster_' + Date.now(),
                 title,
                 caption,
-                aspectRatio,
                 photo: tempPosterPhoto,
                 createdAt: new Date().toLocaleDateString()
             });
@@ -1596,7 +1557,6 @@
             e.target.reset();
             tempPosterPhoto = null;
             document.getElementById('poster-upload-preview').innerHTML = `<span>🖼️</span><span class="text-[9px]">Poster ပုံရွေး</span>`;
-            currentHomePosterIndex = 0;
             renderAdminPromoPostersList();
             renderHomePromoPosters();
             showToast("ဆိုင်ကြော်ငြာ Poster တင်ပြီးပါပြီ!");
@@ -1606,28 +1566,9 @@
             if (!confirm("ဤကြော်ငြာ Poster ကို ဖျက်မှာ သေချာပါသလား?")) return;
             promoPosters = promoPosters.filter(p => p.id !== posterId);
             savePromoPosters();
-            currentHomePosterIndex = 0;
             renderAdminPromoPostersList();
             renderHomePromoPosters();
             showToast("Poster ဖျက်ပြီးပါပြီ");
-        }
-
-        function updatePosterAspectRatio(posterId, newRatio) {
-            const p = promoPosters.find(x => x.id === posterId);
-            if (!p) return;
-            p.aspectRatio = newRatio;
-            savePromoPosters();
-            renderAdminPromoPostersList();
-            renderHomePromoPosters();
-            showToast("Poster Size ပြောင်းလဲပြီးပါပြီ");
-        }
-
-        function getPosterImageStyle(aspectRatio) {
-            const ratio = aspectRatio || '16/9';
-            if (ratio === 'auto') {
-                return `width:100%; height:auto; display:block;`;
-            }
-            return `width:100%; aspect-ratio:${ratio}; object-fit:cover; display:block;`;
         }
 
         function renderAdminPromoPostersList() {
@@ -1641,129 +1582,48 @@
                 return;
             }
 
-            list.innerHTML = promoPosters.map(p => {
-                const ratio = p.aspectRatio || '16/9';
-                return `
-                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
-                        <img src="${p.photo}" alt="${escapeAttr(p.title)}" style="${getPosterImageStyle(ratio)}" class="bg-slate-100">
-                        <div class="p-3 space-y-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="min-w-0">
-                                    <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(p.title)}</p>
-                                    ${p.caption ? `<p class="text-[11px] text-slate-500 truncate">${escapeHtml(p.caption)}</p>` : ''}
-                                </div>
-                                <button type="button" onclick="deleteAdminPromoPoster('${p.id}')" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-extrabold text-xs shrink-0">
-                                    🗑️ ဖျက်မည်
-                                </button>
-                            </div>
-                            <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-slate-100 text-[11px]">
-                                <span class="font-bold text-slate-600">📐 Size ပြင်ရန်:</span>
-                                <select onchange="updatePosterAspectRatio('${p.id}', this.value)" class="rounded-lg border border-slate-300 bg-slate-50 px-2 py-1 font-bold text-slate-800">
-                                    <option value="16/9" ${ratio === '16/9' ? 'selected' : ''}>16:9 (Widescreen)</option>
-                                    <option value="4/3" ${ratio === '4/3' ? 'selected' : ''}>4:3 (Standard)</option>
-                                    <option value="1/1" ${ratio === '1/1' ? 'selected' : ''}>1:1 (Square)</option>
-                                    <option value="auto" ${ratio === 'auto' ? 'selected' : ''}>Full Original Size</option>
-                                </select>
-                            </div>
+            list.innerHTML = promoPosters.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+                    <img src="${p.photo}" alt="${escapeAttr(p.title)}" class="w-full h-36 object-cover bg-slate-100">
+                    <div class="p-3 flex items-center justify-between gap-2">
+                        <div class="min-w-0">
+                            <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(p.title)}</p>
+                            ${p.caption ? `<p class="text-[11px] text-slate-500 truncate">${escapeHtml(p.caption)}</p>` : ''}
                         </div>
+                        <button type="button" onclick="deleteAdminPromoPoster('${p.id}')" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-extrabold text-xs shrink-0">
+                            🗑️ ဖျက်မည်
+                        </button>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
-        function stepHomePromoPoster(delta) {
-            if (!promoPosters.length) return;
-            currentHomePosterIndex = (currentHomePosterIndex + delta + promoPosters.length) % promoPosters.length;
-            renderHomePromoPosters(true);
-            restartHomePosterAutoSlide();
-        }
-
-        function goToHomePromoPoster(idx) {
-            if (!promoPosters.length) return;
-            currentHomePosterIndex = idx % promoPosters.length;
-            renderHomePromoPosters(true);
-            restartHomePosterAutoSlide();
-        }
-
-        function restartHomePosterAutoSlide() {
-            if (homePosterAutoSlideTimer) {
-                clearInterval(homePosterAutoSlideTimer);
-                homePosterAutoSlideTimer = null;
-            }
-            if (promoPosters.length > 1) {
-                homePosterAutoSlideTimer = setInterval(() => {
-                    const homeView = document.getElementById('view-home');
-                    if (homeView && !homeView.classList.contains('hidden') && promoPosters.length > 1) {
-                        currentHomePosterIndex = (currentHomePosterIndex + 1) % promoPosters.length;
-                        renderHomePromoPosters(true);
-                    }
-                }, 4000);
-            }
-        }
-
-        function renderHomePromoPosters(skipTimerRestart = false) {
+        function renderHomePromoPosters() {
             const sec = document.getElementById('home-promo-posters-section');
-            const carousel = document.getElementById('home-promo-posters-carousel');
-            const counter = document.getElementById('home-poster-counter');
-            if (!sec || !carousel) return;
+            const list = document.getElementById('home-promo-posters-list');
+            if (!sec || !list) return;
 
             if (!promoPosters.length) {
                 sec.classList.add('hidden');
-                if (homePosterAutoSlideTimer) {
-                    clearInterval(homePosterAutoSlideTimer);
-                    homePosterAutoSlideTimer = null;
-                }
                 return;
             }
 
             sec.classList.remove('hidden');
-            if (currentHomePosterIndex >= promoPosters.length) currentHomePosterIndex = 0;
-            const p = promoPosters[currentHomePosterIndex];
-            const ratio = p.aspectRatio || '16/9';
-
-            if (counter) {
-                counter.textContent = `${currentHomePosterIndex + 1} / ${promoPosters.length}`;
-            }
-
-            const navControlsHtml = promoPosters.length > 1 ? `
-                <button type="button" onclick="event.stopPropagation(); stepHomePromoPoster(-1)" aria-label="Previous Poster"
-                    class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/65 hover:bg-slate-900 text-white font-extrabold text-sm flex items-center justify-center shadow-md z-10">
-                    ‹
-                </button>
-                <button type="button" onclick="event.stopPropagation(); stepHomePromoPoster(1)" aria-label="Next Poster"
-                    class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/65 hover:bg-slate-900 text-white font-extrabold text-sm flex items-center justify-center shadow-md z-10">
-                    ›
-                </button>
-            ` : '';
-
-            const dotsHtml = promoPosters.length > 1 ? `
-                <div class="flex items-center justify-center gap-1.5 pt-2">
-                    ${promoPosters.map((_, i) => `
-                        <button type="button" onclick="event.stopPropagation(); goToHomePromoPoster(${i})"
-                            class="h-1.5 rounded-full transition-all ${i === currentHomePosterIndex ? 'w-5 bg-[#FF5722]' : 'w-1.5 bg-slate-300'}"></button>
-                    `).join('')}
-                </div>
-            ` : '';
-
-            carousel.innerHTML = `
-                <div onclick="navigateToScreen('food')" class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden cursor-pointer hover:border-orange-300 transition fade-in">
-                    <div class="relative bg-orange-50">
-                        <img src="${p.photo}" alt="${escapeAttr(p.title)}" style="${getPosterImageStyle(ratio)}">
-                        <span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-slate-900/75 text-white text-[10px] font-extrabold">Sponsored</span>
-                        ${navControlsHtml}
+            list.innerHTML = promoPosters.map(p => `
+                <div onclick="navigateToScreen('food')" class="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden cursor-pointer hover:border-orange-300 transition">
+                    <div class="relative">
+                        <img src="${p.photo}" alt="${escapeAttr(p.title)}" class="w-full h-36 object-cover bg-orange-50">
+                        <span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-slate-900/75 text-white text-[9px] font-extrabold">Sponsored</span>
                     </div>
-                    <div class="p-3 flex items-center justify-between gap-2">
+                    <div class="px-3 py-2 flex items-center justify-between gap-2">
                         <div class="min-w-0">
                             <h4 class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(p.title)}</h4>
-                            ${p.caption ? `<p class="text-[11px] text-slate-500 mt-0.5 leading-snug">${escapeHtml(p.caption)}</p>` : ''}
+                            ${p.caption ? `<p class="text-[10px] text-slate-500 truncate">${escapeHtml(p.caption)}</p>` : ''}
                         </div>
-                        <span class="px-3 py-1.5 rounded-xl bg-orange-50 text-[#FF5722] font-extrabold text-xs shrink-0">မှာယူရန် →</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-orange-50 text-[#FF5722] font-extrabold text-[10px] shrink-0">မှာယူရန် →</span>
                     </div>
                 </div>
-                ${dotsHtml}
-            `;
-
-            if (!skipTimerRestart) restartHomePosterAutoSlide();
+            `).join('');
         }
 
         function renderAdminHotlinesUI() {
@@ -2108,6 +1968,7 @@
             }
         });
 
+        // Background & Tab Visibility Polling so new orders trigger sound + system notification even when app is minimized or switching apps
         setInterval(syncOrdersFromStorage, 2500);
         document.addEventListener('visibilitychange', () => {
             syncOrdersFromStorage();
@@ -2560,20 +2421,13 @@
             const shop = allShops.find(s => s.id === activeStorefrontShopId);
             if (!shop) return;
 
-            const gmapsShopLink = (shop.lat && shop.lng)
-                ? `<a href="https://www.google.com/maps/search/?api=1&query=${shop.lat},${shop.lng}" target="_blank" class="inline-flex items-center gap-1 mt-1.5 ml-1 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-bold text-[11px]">📍 Google Map ကြည့်ရန် ↗</a>`
-                : '';
-
             document.getElementById('storefront-header-card').innerHTML = `
                 <div class="flex items-center gap-3.5">
                     <img src="${shop.photo || DEFAULT_SHOP_IMG}" class="w-16 h-16 rounded-2xl object-cover border-2 border-orange-200">
                     <div class="min-w-0 flex-1">
                         <h2 class="text-base font-extrabold text-slate-900 truncate">${escapeHtml(shop.name)}</h2>
                         <p class="text-xs text-slate-500 mt-0.5">📍 ${escapeHtml(shop.address)}</p>
-                        <div class="flex flex-wrap items-center">
-                            <a href="tel:${shop.phone}" class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-[11px]">📞 ${escapeHtml(shop.phone)}</a>
-                            ${gmapsShopLink}
-                        </div>
+                        <a href="tel:${shop.phone}" class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-[11px]">📞 ${escapeHtml(shop.phone)}</a>
                     </div>
                 </div>
             `;
@@ -2689,21 +2543,6 @@
             const address = document.getElementById('food-address').value.trim();
             if (!address) return;
 
-            const uniqueShopIds = [...new Set(foodCart.map(c => c.shopId))];
-            const shopStops = uniqueShopIds.map(sid => {
-                const sObj = allShops.find(s => s.id === sid);
-                const cItem = foodCart.find(c => c.shopId === sid);
-                return {
-                    shopId: sid,
-                    shopName: sObj ? sObj.name : (cItem ? cItem.shopName : 'Shop'),
-                    shopAddress: sObj ? sObj.address : 'သီပေါမြို့',
-                    shopPhone: sObj ? sObj.phone : '',
-                    lat: (sObj && sObj.lat) ? Number(sObj.lat) : HSIPAW_LAT,
-                    lng: (sObj && sObj.lng) ? Number(sObj.lng) : HSIPAW_LNG
-                };
-            });
-
-            const firstShopStop = shopStops[0] || { lat: HSIPAW_LAT, lng: HSIPAW_LNG };
             const uniqueShops = [...new Set(foodCart.map(c => c.shopName))];
             const itemsTotal = foodCart.reduce((sum, c) => sum + (c.price * c.qty), 0);
             const delivFee = computeOrderDeliveryFee(address, uniqueShops.length);
@@ -2718,9 +2557,8 @@
                 details: summaryLines,
                 pickupAddress: uniqueShops.join(' + '),
                 dropoffAddress: address,
-                shopStops: shopStops,
-                pickupLat: firstShopStop.lat,
-                pickupLng: firstShopStop.lng,
+                pickupLat: HSIPAW_LAT,
+                pickupLng: HSIPAW_LNG,
                 dropoffLat: foodCoords ? foodCoords.lat : HSIPAW_LAT,
                 dropoffLng: foodCoords ? foodCoords.lng : HSIPAW_LNG,
                 fareText: `ပို့ခ: ${delivFee.toLocaleString()} Ks | စုစုပေါင်း: ${(itemsTotal + delivFee).toLocaleString()} Ks`,
@@ -2801,7 +2639,7 @@
         }
 
         // ==========================================
-        // BIKE TAXI, FOOD & SHOP: GOOGLE MAP (SATELLITE/ROAD) + POINT PICKER + ROUTE LINE
+        // BIKE TAXI & FOOD: GOOGLE MAP (SATELLITE/ROAD) + POINT PICKER + ROUTE LINE
         // ==========================================
         function backToBikeInitial() {
             document.getElementById('bike-initial-box').classList.remove('hidden');
@@ -2865,6 +2703,7 @@
         }
 
         function createGoogleTileLayer(layerType) {
+            // Google Maps Tiles: lyrs=y (Satellite + Roads/Labels), lyrs=m (Standard Road Map)
             return L.tileLayer(`https://mt1.google.com/vt/lyrs=${layerType}&x={x}&y={y}&z={z}`, {
                 maxZoom: 20,
                 attribution: '© Google Maps'
@@ -2924,10 +2763,6 @@
                     pickerLeafletMap.setView([lat, lng], 17, { animate: false });
                 }, 60);
             }
-        }
-
-        function openShopLocationPicker(contextMode) {
-            openPickerStep(contextMode === 'edit' ? 'shop-edit' : 'shop-create');
         }
 
         function startChooseOnMapFlow() {
@@ -2990,20 +2825,6 @@
                 const initLng = foodCoords ? foodCoords.lng : (lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG);
                 updatePickerLocation(initLat, initLng, lastKnownGpsPos ? `${findNearestPlaceLabel(initLat, initLng)} • GPS` : "သီပေါမြို့ (Point ရွှေ့၍ နေရာရွေးပါ)");
                 useLiveGpsInPicker();
-            } else if (mode === 'shop-create' || mode === 'shop-edit') {
-                document.getElementById('picker-top-dot').className = "w-3 h-3 rounded-full bg-blue-600 shrink-0";
-                document.getElementById('picker-search-input').placeholder = "ဆိုင်တည်နေရာ ရှာရန် / Map ပေါ်တွင် ရွှေ့ရွေးပါ...";
-                document.getElementById('picker-pin-badge').textContent = "Shop Location";
-                document.getElementById('picker-pin-badge').className = "px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-extrabold shadow-md mb-1";
-                document.getElementById('picker-pin-circle').className = "w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-base shadow-xl pulse-pin border-2 border-white";
-                document.getElementById('picker-step-badge').textContent = "Shop GPS";
-                document.getElementById('picker-confirm-btn').textContent = "ဆိုင် Location အတည်ပြုမည်";
-
-                const existing = (mode === 'shop-edit' && tempEditShopCoords) ? tempEditShopCoords : tempCreateShopCoords;
-                const initLat = existing ? existing.lat : (lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT);
-                const initLng = existing ? existing.lng : (lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG);
-                updatePickerLocation(initLat, initLng, findNearestPlaceLabel(initLat, initLng));
-                if (!existing) useLiveGpsInPicker();
             }
         }
 
@@ -3117,28 +2938,6 @@
                 recalculateFoodCartTotals();
                 closeGoogleMapPicker();
                 submitFoodOrder({ preventDefault: () => {} });
-            } else if (pickerFlowMode === 'shop-create') {
-                tempCreateShopCoords = { lat: tempPickedLat, lng: tempPickedLng };
-                const addrInput = document.getElementById('shop-address-input');
-                if (addrInput && !addrInput.value.trim()) {
-                    addrInput.value = chosenLabel;
-                }
-                const pill = document.getElementById('shop-create-coords-pill');
-                const pillTxt = document.getElementById('shop-create-coords-text');
-                if (pill && pillTxt) {
-                    pill.classList.remove('hidden');
-                    pillTxt.textContent = `📍 ${chosenLabel} (${tempPickedLat.toFixed(4)}, ${tempPickedLng.toFixed(4)})`;
-                }
-                closeGoogleMapPicker();
-                showToast("ဆိုင် Location မှတ်သားပြီးပါပြီ");
-            } else if (pickerFlowMode === 'shop-edit') {
-                tempEditShopCoords = { lat: tempPickedLat, lng: tempPickedLng };
-                const disp = document.getElementById('edit-shop-coords-display');
-                if (disp) {
-                    disp.textContent = `📍 ${chosenLabel} (${tempPickedLat.toFixed(4)}, ${tempPickedLng.toFixed(4)})`;
-                }
-                closeGoogleMapPicker();
-                showToast("ဆိုင် Location အသစ်မှတ်သားပြီးပါပြီ");
             }
         }
 
@@ -3151,6 +2950,7 @@
                     zoom: 16,
                     zoomControl: false
                 });
+                // Google Satellite + Roads Hybrid Map
                 createGoogleTileLayer('y').addTo(routeLeafletMap);
                 routeLayersGroup = L.layerGroup().addTo(routeLeafletMap);
             }
@@ -3439,7 +3239,7 @@
         }
 
         // ==========================================
-        // RIDER DISPATCH: STEP 1 (GO TO SHOP / PASSENGER) -> STEP 2 (GO TO CUSTOMER / DESTINATION)
+        // RIDER DISPATCH: STEP 1 (GO TO PASSENGER) -> STEP 2 (START TRIP TO DESTINATION)
         // ==========================================
         function openRiderPortalGate() {
             if (myRiderSession && myRiderSession.pinVerified) { navigateToScreen('rider'); return; }
@@ -3518,58 +3318,24 @@
                 myWrap.innerHTML = `<h2 class="text-xs font-extrabold text-emerald-800 uppercase tracking-wider">လက်ရှိပို့ဆောင်နေသော အော်ဒါများ (${myActive.length})</h2>` +
                 myActive.map(order => {
                     const isBike = order.type === 'bike';
-                    const isFood = order.type === 'food';
                     const isHeadingToPassenger = (isBike && order.status === 'Accepted');
                     const rLat = order.riderLiveLat || (lastKnownGpsPos ? lastKnownGpsPos.coords.latitude : HSIPAW_LAT);
                     const rLng = order.riderLiveLng || (lastKnownGpsPos ? lastKnownGpsPos.coords.longitude : HSIPAW_LNG);
 
+                    // Stage 1: Rider -> Passenger Pickup Location (before clicking "ငှားသူထံရောက်ပြီ")
+                    // Stage 2: Passenger Pickup -> Destination (after clicking "ငှားသူထံရောက်ပြီ")
                     const mapSrc = isHeadingToPassenger
                         ? `https://maps.google.com/maps?saddr=${rLat},${rLng}&daddr=${order.pickupLat},${order.pickupLng}&t=k&z=16&output=embed`
                         : `https://maps.google.com/maps?saddr=${order.pickupLat},${order.pickupLng}&daddr=${order.dropoffLat},${order.dropoffLng}&t=k&z=16&output=embed`;
 
-                    const gmapsCustomerHref = isHeadingToPassenger
+                    const gmapsDirectionsHref = isHeadingToPassenger
                         ? `https://www.google.com/maps/dir/?api=1&origin=${rLat},${rLng}&destination=${order.pickupLat},${order.pickupLng}&travelmode=driving`
-                        : `https://www.google.com/maps/dir/?api=1&destination=${order.dropoffLat},${order.dropoffLng}&travelmode=driving`;
-
-                    // Build shop stops list with direct Google Maps links for Food orders (1 shop or multiple shops)
-                    let shopStopsHtml = '';
-                    if (isFood) {
-                        const stops = (order.shopStops && order.shopStops.length > 0)
-                            ? order.shopStops
-                            : [{
-                                shopName: order.pickupAddress,
-                                shopAddress: order.pickupAddress,
-                                shopPhone: '',
-                                lat: order.pickupLat || HSIPAW_LAT,
-                                lng: order.pickupLng || HSIPAW_LNG
-                            }];
-
-                        shopStopsHtml = `
-                            <div class="bg-blue-50/90 border border-blue-200 p-3 rounded-2xl space-y-2">
-                                <p class="text-[11px] font-extrabold text-blue-900">🏪 အဆင့် (၁) - ပစ္စည်းသွားဝယ်ရမည့် ဆိုင်များ (${stops.length} ဆိုင်):</p>
-                                ${stops.map((st, sIdx) => {
-                                    const shopNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${st.lat},${st.lng}&travelmode=driving`;
-                                    return `
-                                        <div class="bg-white p-2.5 rounded-xl border border-blue-100 flex items-center justify-between gap-2">
-                                            <div class="min-w-0">
-                                                <p class="text-xs font-extrabold text-slate-900 truncate">${sIdx + 1}. ${escapeHtml(st.shopName)}</p>
-                                                <p class="text-[10px] text-slate-500 truncate">📍 ${escapeHtml(st.shopAddress)}</p>
-                                                ${st.shopPhone ? `<a href="tel:${escapeAttr(st.shopPhone)}" class="text-[10px] font-bold text-emerald-700">📞 ${escapeHtml(st.shopPhone)}</a>` : ''}
-                                            </div>
-                                            <a href="${shopNavUrl}" target="_blank" class="px-2.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-[11px] shrink-0 shadow-2xs">
-                                                🗺️ ဆိုင်Location ↗
-                                            </a>
-                                        </div>
-                                    `;
-                                }).join('')}
-                            </div>
-                        `;
-                    }
+                        : `https://www.google.com/maps/dir/?api=1&origin=${order.pickupLat},${order.pickupLng}&destination=${order.dropoffLat},${order.dropoffLng}&travelmode=driving`;
 
                     const stageBannerHtml = isHeadingToPassenger
                         ? `<div class="bg-blue-50 border border-blue-200 p-2.5 rounded-xl text-[11px] font-bold text-blue-900 flex items-center justify-between gap-2">
                                 <span>🧭 အဆင့် (၁): ငှားသူ (${escapeHtml(order.pickupAddress)}) ထံ အရင်သွားပါ</span>
-                                <a href="${gmapsCustomerHref}" target="_blank" class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-extrabold shrink-0">Google Map ကြည့်မည် ↗</a>
+                                <a href="${gmapsDirectionsHref}" target="_blank" class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-extrabold shrink-0">Google Map ကြည့်မည် ↗</a>
                            </div>`
                         : isBike
                         ? `<div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl text-[11px] font-bold text-emerald-900">
@@ -3581,12 +3347,6 @@
                         ? `<button onclick="startBikeTripByRider(${order.id})" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-sm">🚀 ငှားသူထံရောက်ပြီ - လမ်းကြောင်း (Directions) စတင်မည်</button>`
                         : '';
 
-                    const customerDestNavLabel = isHeadingToPassenger
-                        ? '🧭 ငှားသူဆီသွားမည့် Map'
-                        : isFood
-                        ? '🏠 ဝယ်သူဆီသွားမည့် Map ↗'
-                        : '🧭 Google Directions လမ်းညွှန်';
-
                     return `
                         <div class="bg-white p-4 rounded-2xl border-2 border-emerald-500 shadow-sm space-y-3">
                             <div class="flex items-center justify-between"><span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">${escapeHtml(order.status)}</span><span class="text-xs font-extrabold text-slate-900">${escapeHtml(order.fareText)}</span></div>
@@ -3596,17 +3356,16 @@
                                     <a href="tel:${escapeAttr(order.customerPhone)}" class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-extrabold text-xs">📞 ${escapeHtml(order.customerPhone)}</a>
                                 </div>
                                 <p class="text-xs text-slate-700 whitespace-pre-line mt-1">${escapeHtml(order.details)}</p>
-                                <p class="text-xs text-blue-700 font-bold mt-1">🔵 ယူရမည့်ဆိုင်/နေရာ: ${escapeHtml(order.pickupAddress)}</p>
-                                <p class="text-xs text-[#FF5722] font-bold mt-0.5">🔴 ဝယ်သူထံပို့ရမည့်နေရာ: ${escapeHtml(order.dropoffAddress)}</p>
+                                <p class="text-xs text-blue-700 font-bold mt-1">🔵 ခေါ်ရမည့်နေရာ (Pickup): ${escapeHtml(order.pickupAddress)}</p>
+                                <p class="text-xs text-[#FF5722] font-bold mt-0.5">🔴 ပို့ရမည့်နေရာ (Destination): ${escapeHtml(order.dropoffAddress)}</p>
                             </div>
-                            ${shopStopsHtml}
                             ${stageBannerHtml}
                             <div class="w-full h-48 rounded-2xl overflow-hidden border border-slate-200 relative">
                                 <iframe width="100%" height="100%" frameborder="0" style="border:0" src="${mapSrc}"></iframe>
                             </div>
                             ${startTripBtn}
                             <div class="grid grid-cols-2 gap-2">
-                                <a href="${gmapsCustomerHref}" target="_blank" class="py-2.5 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-extrabold text-xs text-center">${customerDestNavLabel}</a>
+                                <a href="${gmapsDirectionsHref}" target="_blank" class="py-2.5 rounded-xl bg-blue-50 text-blue-700 font-bold text-xs text-center">${isHeadingToPassenger ? '🧭 ငှားသူဆီသွားမည့် Map' : '🧭 Google Directions လမ်းညွှန်'}</a>
                                 <button onclick="openChatModal(${order.id}, 'admin')" class="py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs">💬 စာပို့မည်</button>
                             </div>
                             <button onclick="completeOrderByRider(${order.id})" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">✅ ပို့ဆောင်ပြီးစီးကြောင်း အတည်ပြုမည်</button>
@@ -3621,108 +3380,386 @@
             const availList = document.getElementById('rider-available-list');
 
             if (availablePool.length === 0) {
-                availList.innerHTML = `<div class="text-center py-8 bg-white rounded-2xl border border-slate-200 text-xs text-slate-400">လောလောဆယ် အော်ဒါအသစ် မရှိသေးပါ</div>`;
+                availList.innerHTML = `<p class="text-center text-xs text-slate-400 py-8 bg-white rounded-2xl border border-slate-200">လက်ရှိ အော်ဒါအသစ် မရှိသေးပါ</p>`;
                 return;
             }
 
             availList.innerHTML = availablePool.map(order => `
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="px-2 py-0.5 rounded bg-orange-100 text-[#FF5722] text-[10px] font-extrabold uppercase">${escapeHtml(order.type)}</span>
-                        <span class="text-xs font-extrabold text-emerald-700">${escapeHtml(order.fareText)}</span>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <div class="flex items-center justify-between"><span class="text-xs font-extrabold text-[#FF5722] uppercase">${escapeHtml(order.type)}</span><span class="text-xs font-extrabold text-slate-900">${escapeHtml(order.fareText)}</span></div>
+                    <div>
+                        <p class="text-xs font-extrabold text-slate-900 whitespace-pre-line">${escapeHtml(order.details)}</p>
+                        <p class="text-[11px] text-slate-500 mt-1">မှ: ${escapeHtml(order.pickupAddress)}</p>
+                        <p class="text-[11px] text-slate-500">သို့: ${escapeHtml(order.dropoffAddress)}</p>
                     </div>
-                    <p class="text-xs font-extrabold text-slate-900 whitespace-pre-line">${escapeHtml(order.details)}</p>
-                    <p class="text-[11px] text-slate-500">🔵 ယူရန်: ${escapeHtml(order.pickupAddress)} → 🔴 ပို့ရန်: ${escapeHtml(order.dropoffAddress)}</p>
-                    <button onclick="claimOrderByRider(${order.id})" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs shadow-sm">
-                        ✋ ဤအော်ဒါကို လက်ခံမည်
-                    </button>
+                    <button onclick="claimOrderByRider(${order.id})" class="w-full py-3 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs shadow-xs">🛵 အော်ဒါလက်ခံမည် (Accept)</button>
                 </div>
             `).join('');
         }
 
-        function startRiderLiveGpsSharing(orderId) {
-            if (!("geolocation" in navigator)) return;
-            if (riderLiveWatchId !== null) navigator.geolocation.clearWatch(riderLiveWatchId);
-            riderLiveWatchId = navigator.geolocation.watchPosition(
-                (pos) => {
-                    const idx = allOrders.findIndex(o => o.id === orderId);
-                    if (idx !== -1 && allOrders[idx].status !== 'Delivered') {
-                        allOrders[idx].riderLiveLat = pos.coords.latitude;
-                        allOrders[idx].riderLiveLng = pos.coords.longitude;
-                        localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(allOrders));
-                    }
-                },
-                () => {},
-                { enableHighAccuracy: true, maximumAge: 5000 }
-            );
-        }
-
         function claimOrderByRider(orderId) {
-            const me = myRiderSession && myRiderSession.riderId ? allRiders.find(r => r.id === myRiderSession.riderId) : null;
-            if (!me || !me.approved) return;
-
             allOrders = JSON.parse(localStorage.getItem(ORDERS_STORAGE_KEY)) || [];
-            const idx = allOrders.findIndex(o => o.id === orderId);
-            if (idx === -1 || allOrders[idx].assignedRiderId) {
-                showToast("အခြား Rider တစ်ဦး လက်ခံသွားပါပြီ");
-                renderRiderPortalState();
-                return;
+            const order = allOrders.find(o => o.id === orderId);
+            const me = allRiders.find(r => r.id === myRiderSession.riderId);
+            if (!order || !me) return;
+            if (order.assignedRiderId || order.status !== 'Pending') { showToast("အခြားဝန်ထမ်း လက်ခံသွားပါပြီ"); renderRiderPortalState(); return; }
+
+            order.assignedRiderId = me.id;
+            order.assignedRiderName = me.name;
+            order.assignedRiderPhone = me.phone;
+            order.status = 'Accepted';
+
+            if (lastKnownGpsPos) {
+                order.riderLiveLat = lastKnownGpsPos.coords.latitude;
+                order.riderLiveLng = lastKnownGpsPos.coords.longitude;
             }
 
-            allOrders[idx].assignedRiderId = me.id;
-            allOrders[idx].assignedRiderName = me.name;
-            allOrders[idx].assignedRiderPhone = me.phone;
-            allOrders[idx].status = 'Accepted';
-            allOrders[idx].messages = allOrders[idx].messages || [];
-            allOrders[idx].messages.push({
+            if (!order.messages) order.messages = [];
+            order.messages.push({
                 sender: 'admin',
-                text: allOrders[idx].type === 'bike'
-                    ? `🛵 Rider ${me.name} (${me.phone}) သည် သင့်တည်နေရာသို့ ခုလာခေါ်နေပါပြီ။`
-                    : `🛵 Rider ${me.name} (${me.phone}) မှ သင့်အော်ဒါကို လက်ခံလိုက်ပါပြီ။`,
+                text: order.type === 'bike'
+                    ? `🛵 ဝန်ထမ်း (${me.name}) မှ သင့် Bike Taxi ကို လက်ခံလိုက်ပါပြီ။ သင့်နေရာသို့ ခုလာခေါ်နေပါပြီခင်ဗျာ!`
+                    : `🛵 ဝန်ထမ်း (${me.name}) မှ သင့်အော်ဒါကို လက်ခံလိုက်ပါပြီခင်ဗျာ!`,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 readByCustomer: false,
                 readByAdmin: true
             });
 
             saveOrders();
-            startRiderLiveGpsSharing(orderId);
+            startTrackingRiderLocation(order.id);
             renderRiderPortalState();
-            showToast("အော်ဒါ လက်ခံပြီးပါပြီ!");
+            showToast("အော်ဒါလက်ခံပြီးပါပြီ! ငှားသူထံ သွားမည့်လမ်းကြောင်းကို ပြပေးထားပါသည်");
         }
 
         function startBikeTripByRider(orderId) {
-            const idx = allOrders.findIndex(o => o.id === orderId);
-            if (idx === -1) return;
-            allOrders[idx].status = 'On the way';
-            allOrders[idx].messages = allOrders[idx].messages || [];
-            allOrders[idx].messages.push({
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+            order.status = 'On the way';
+            if (!order.messages) order.messages = [];
+            order.messages.push({
                 sender: 'admin',
-                text: `🚀 ခရီးစဉ် စတင်နေပါပြီ (${allOrders[idx].dropoffAddress} သို့ ဦးတည်နေပါသည်)`,
+                text: "🚀 ငှားသူထံရောက်ရှိပြီး ခရီးစဉ် စတင်နေပါပြီ",
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 readByCustomer: false,
                 readByAdmin: true
             });
             saveOrders();
+            startTrackingRiderLocation(order.id);
             renderRiderPortalState();
-            showToast("ခရီးစဉ် လမ်းကြောင်း စတင်ပါပြီ!");
+            showToast("ခရီးစဉ် စတင်ပါပြီ! Google Map လမ်းညွှန် ဖွင့်နေပါသည်");
+
+            // Open Google Maps turn-by-turn navigation from Pickup to Destination
+            const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${order.pickupLat},${order.pickupLng}&destination=${order.dropoffLat},${order.dropoffLng}&travelmode=driving`;
+            window.open(navUrl, '_blank');
+        }
+
+        function startTrackingRiderLocation(orderId) {
+            if ("geolocation" in navigator) {
+                if (riderLiveWatchId) navigator.geolocation.clearWatch(riderLiveWatchId);
+                riderLiveWatchId = navigator.geolocation.watchPosition((pos) => {
+                    lastKnownGpsPos = pos;
+                    const order = allOrders.find(o => o.id === orderId && o.status !== 'Delivered');
+                    if (order) {
+                        order.riderLiveLat = pos.coords.latitude;
+                        order.riderLiveLng = pos.coords.longitude;
+                        saveOrders();
+                    }
+                }, () => {}, { enableHighAccuracy: true });
+            }
         }
 
         function completeOrderByRider(orderId) {
-            const idx = allOrders.findIndex(o => o.id === orderId);
-            if (idx === -1) return;
-            allOrders[idx].status = 'Delivered';
-            allOrders[idx].completedDateStr = new Date().toISOString().split('T')[0];
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+            order.status = 'Delivered';
+            order.completedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             saveOrders();
-            if (riderLiveWatchId !== null) {
-                navigator.geolocation.clearWatch(riderLiveWatchId);
-                riderLiveWatchId = null;
-            }
             renderRiderPortalState();
-            showToast("ပို့ဆောင်ပြီးစီးကြောင်း အတည်ပြုပြီးပါပြီ");
+            showToast("ပို့ဆောင်မှု ပြီးစီးပါပြီ!");
         }
 
         // ==========================================
-        // MERCHANT SHOP PAGE MANAGER (WITH SHOP GPS LOCATION)
+        // ADMIN CONTROL PANEL
+        // ==========================================
+        function openPinModal() {
+            document.getElementById('pin-input').value = "";
+            document.getElementById('pin-error').classList.add('hidden');
+            const m = document.getElementById('pin-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            setTimeout(() => document.getElementById('pin-input').focus(), 100);
+        }
+
+        function closePinModal() {
+            document.getElementById('pin-modal').classList.add('hidden');
+            document.getElementById('pin-modal').classList.remove('flex');
+        }
+
+        function verifyPin() {
+            if (document.getElementById('pin-input').value.trim() === String(appConfig.adminPin || "1234")) {
+                closePinModal();
+                navigateToScreen('admin');
+            } else { document.getElementById('pin-error').classList.remove('hidden'); }
+        }
+
+        function exitAdmin() { enterMainApp(); }
+
+        function switchAdminTab(tab) {
+            ['admin-view-orders', 'admin-view-posters', 'admin-view-staff', 'admin-view-support', 'admin-view-hotlines', 'admin-view-rates'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            ['adm-tab-orders', 'adm-tab-posters', 'adm-tab-staff', 'adm-tab-support', 'adm-tab-hotlines', 'adm-tab-rates'].forEach(id => {
+                document.getElementById(id).className = "px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 whitespace-nowrap text-xs font-bold";
+            });
+
+            document.getElementById(`admin-view-${tab}`).classList.remove('hidden');
+            document.getElementById(`adm-tab-${tab}`).className = "px-3 py-1.5 rounded-lg bg-slate-900 text-white whitespace-nowrap text-xs font-bold";
+
+            if (tab === 'orders') renderAdminOrders();
+            else if (tab === 'posters') renderAdminPromoPostersList();
+            else if (tab === 'staff') renderAdminStaffList();
+            else if (tab === 'support') renderAdminSupportThreads();
+            else if (tab === 'hotlines') renderAdminHotlinesUI();
+            else if (tab === 'rates') populateAdminConfigForm();
+        }
+
+        function renderAdminOrders() {
+            const activeOrders = allOrders.filter(o => o.status !== 'Delivered' && o.status !== 'Cancelled');
+            document.getElementById('admin-count').textContent = activeOrders.length;
+            document.getElementById('admin-posters-count').textContent = promoPosters.length;
+            document.getElementById('admin-staff-pending-badge').textContent = allRiders.filter(r => !r.approved).length;
+
+            const container = document.getElementById('admin-orders-container');
+            if (allOrders.length === 0) { container.innerHTML = `<p class="text-center text-slate-400 text-sm py-12">အော်ဒါ မရှိသေးပါ</p>`; return; }
+
+            container.innerHTML = allOrders.map((order, idx) => {
+                const riderTag = order.assignedRiderName
+                    ? `<span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-900 font-extrabold text-[11px]">🛵 Rider: ${escapeHtml(order.assignedRiderName)}</span>`
+                    : `<span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 font-bold text-[11px]">⏳ Unassigned</span>`;
+
+                return `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                        <div class="flex items-center justify-between gap-2 flex-wrap">${riderTag}<span class="text-xs font-extrabold text-slate-900 bg-slate-100 px-2.5 py-1 rounded-lg">${escapeHtml(order.status)}</span></div>
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <img src="${order.customerPhoto || DEFAULT_AVATAR}" class="w-10 h-10 rounded-full object-cover border border-slate-200">
+                                <div class="min-w-0"><h3 class="text-sm font-extrabold text-slate-900 truncate">${escapeHtml(order.customerName)}</h3><p class="text-xs text-slate-500">${escapeHtml(order.customerPhone)}</p></div>
+                            </div>
+                            <a href="tel:${order.customerPhone}" class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-900 font-bold text-xs">📞 Call</a>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70 space-y-1 text-xs">
+                            <p class="font-extrabold text-slate-900 whitespace-pre-line">${escapeHtml(order.details)}</p>
+                            <p class="text-slate-600">📍 ${escapeHtml(order.dropoffAddress)}</p>
+                            <p class="font-bold text-[#FF5722]">${escapeHtml(order.fareText)}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="cycleAdminOrderStatus(${idx})" class="py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs">Change Status</button>
+                            <button onclick="openChatModal(${order.id}, 'admin')" class="py-2.5 rounded-xl bg-slate-900 text-white font-extrabold text-xs">💬 Chat</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function cycleAdminOrderStatus(index) {
+            const flow = ['Pending', 'Accepted', 'On the way', 'Delivered'];
+            const nextIdx = (flow.indexOf(allOrders[index].status) + 1) % flow.length;
+            allOrders[index].status = flow[nextIdx];
+            saveOrders();
+            renderAdminOrders();
+        }
+
+        function renderAdminStaffList() {
+            const list = document.getElementById('admin-staff-list');
+            const selectedDate = document.getElementById('admin-rider-log-date').value || new Date().toISOString().split('T')[0];
+
+            if (allRiders.length === 0) { list.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">ဝန်ထမ်းစာရင်း မရှိသေးပါ</p>`; return; }
+
+            list.innerHTML = allRiders.map((r, idx) => {
+                const riderOrdersOnDate = allOrders.filter(o => o.assignedRiderId === r.id && (o.dateStr === selectedDate || !o.dateStr));
+                const orderLogsHtml = riderOrdersOnDate.length > 0
+                    ? riderOrdersOnDate.map(o => `
+                        <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 text-[11px] flex items-center justify-between">
+                            <span class="font-bold text-slate-800 truncate">• ${escapeHtml(o.customerName)} (${escapeHtml(o.details.split('\n')[0])})</span>
+                            <span class="font-extrabold text-[#FF5722] shrink-0">${escapeHtml(o.status)}</span>
+                        </div>
+                    `).join('')
+                    : `<p class="text-[11px] text-slate-400">ဤရက်စွဲတွင် အော်ဒါမရှိသေးပါ</p>`;
+
+                return `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-extrabold text-slate-900">${escapeHtml(r.name)}</p>
+                                <p class="text-xs text-slate-500">📞 ${escapeHtml(r.phone)}</p>
+                                <span class="inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${r.approved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${r.approved ? 'Approved' : 'Pending'}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                ${!r.approved ? `<button onclick="approveRider(${idx})" class="px-3 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs">Approve</button>` : `<button onclick="revokeRider(${idx})" class="px-3 py-1.5 rounded-xl bg-amber-50 text-amber-700 font-bold text-xs">Revoke</button>`}
+                                <button onclick="deleteRider(${idx})" class="px-3 py-1.5 rounded-xl bg-red-50 text-red-600 font-bold text-xs">Delete</button>
+                            </div>
+                        </div>
+                        <div class="pt-2 border-t border-slate-100 space-y-1.5">
+                            <p class="text-[11px] font-extrabold text-slate-700">📊 ${selectedDate} ရက်နေ့ အော်ဒါမှတ်တမ်း (${riderOrdersOnDate.length} ခု):</p>
+                            ${orderLogsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function approveRider(idx) { allRiders[idx].approved = true; saveRiders(); renderAdminStaffList(); showToast("ဝန်ထမ်း အတည်ပြုပြီးပါပြီ!"); }
+        function revokeRider(idx) { allRiders[idx].approved = false; saveRiders(); renderAdminStaffList(); showToast("ခွင့်ပြုချက် ပြန်ရုပ်သိမ်းပြီး"); }
+        function deleteRider(idx) {
+            if (confirm("ဤဝန်ထမ်းကို ဖျက်မှာ သေချာပါသလား?")) { allRiders.splice(idx, 1); saveRiders(); renderAdminStaffList(); showToast("ဝန်ထမ်း ဖျက်ပြီးပါပြီ"); }
+        }
+
+        function populateAdminConfigForm() {
+            document.getElementById('cfg-pin-admin').value = appConfig.adminPin || "1234";
+            document.getElementById('cfg-pin-rider').value = appConfig.riderPin || "5555";
+            document.getElementById('cfg-pin-shop').value = appConfig.shopPin || "8888";
+            document.getElementById('cfg-open-time').value = appConfig.openTime || "မနက် ၆:၀၀ နာရီ";
+            document.getElementById('cfg-close-time').value = appConfig.closeTime || "ည ၇:၀၀ နာရီ";
+            document.getElementById('cfg-order-town').value = appConfig.orderTown;
+            document.getElementById('cfg-order-outer').value = appConfig.orderOuter;
+            document.getElementById('cfg-order-extrastop').value = appConfig.orderExtraStop;
+            document.getElementById('cfg-bike-town').value = appConfig.bikeTown;
+            document.getElementById('cfg-bike-outer').value = appConfig.bikeOuter;
+            document.getElementById('cfg-bike-bawgyo').value = appConfig.bikeBawgyo;
+            document.getElementById('cfg-rules-textarea').value = (appConfig.rules || []).join('\n');
+            renderAdminBikeRoutesList();
+        }
+
+        function renderAdminBikeRoutesList() {
+            const box = document.getElementById('admin-bike-routes-list');
+            if (!box) return;
+            const routes = appConfig.customBikeRoutes || [];
+            if (!routes.length) { box.innerHTML = `<p class="text-[11px] text-slate-400">လမ်းကြောင်းသစ် မရှိသေးပါ</p>`; return; }
+            box.innerHTML = routes.map((r, i) => `
+                <div class="flex items-center justify-between bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                    <span class="font-bold text-slate-900">🛵 ${escapeHtml(r.from)} → ${escapeHtml(r.to)} : <strong class="text-[#FF5722]">${Number(r.price).toLocaleString()} Ks</strong></span>
+                    <button type="button" onclick="deleteBikeRoutePrice(${i})" class="text-red-600 font-bold">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function addBikeRoutePrice(e) {
+            e.preventDefault();
+            const from = document.getElementById('route-from').value.trim();
+            const to = document.getElementById('route-to').value.trim();
+            const price = Number(document.getElementById('route-price').value);
+            if (!from || !to || !price) return;
+            if (!appConfig.customBikeRoutes) appConfig.customBikeRoutes = [];
+            appConfig.customBikeRoutes.push({ from, to, price });
+            saveConfig();
+            e.target.reset();
+            renderAdminBikeRoutesList();
+            renderGrabSuggestedPlaces();
+            showToast("Bike Taxi ခရီးစဉ်နှုန်းထား အသစ်ထည့်ပြီးပါပြီ");
+        }
+
+        function deleteBikeRoutePrice(idx) {
+            appConfig.customBikeRoutes.splice(idx, 1);
+            saveConfig();
+            renderAdminBikeRoutesList();
+            renderGrabSuggestedPlaces();
+        }
+
+        function saveAdminRates(e) {
+            e.preventDefault();
+            appConfig.orderTown = Number(document.getElementById('cfg-order-town').value);
+            appConfig.orderOuter = Number(document.getElementById('cfg-order-outer').value);
+            appConfig.orderExtraStop = Number(document.getElementById('cfg-order-extrastop').value);
+            appConfig.bikeTown = Number(document.getElementById('cfg-bike-town').value);
+            appConfig.bikeOuter = Number(document.getElementById('cfg-bike-outer').value);
+            appConfig.bikeBawgyo = Number(document.getElementById('cfg-bike-bawgyo').value);
+            saveConfig();
+            renderDynamicRatesAndRules();
+            showToast("နှုန်းထားအသစ်များ သိမ်းဆည်းပြီးပါပြီ");
+        }
+
+        function saveAdminRules(e) {
+            e.preventDefault();
+            appConfig.rules = document.getElementById('cfg-rules-textarea').value.split('\n').map(l => l.trim()).filter(Boolean);
+            saveConfig();
+            renderDynamicRatesAndRules();
+            showToast("စည်းကမ်းချက်များ အသစ်ပြင်ဆင်ပြီးပါပြီ");
+        }
+
+        // ==========================================
+        // DIRECT ADMIN SUPPORT CHAT
+        // ==========================================
+        function openSupportChatModal(role, targetPhone = null) {
+            activeSupportRole = role;
+            activeSupportUserPhone = role === 'customer' ? userProfile.phone : targetPhone;
+            document.getElementById('support-chat-title').textContent = role === 'customer' ? "💬 Admin တိုက်ရိုက်စာပို့ရန်" : `💬 Chat with ${targetPhone}`;
+            const m = document.getElementById('support-chat-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            renderSupportMessages();
+        }
+
+        function closeSupportChatModal() {
+            document.getElementById('support-chat-modal').classList.add('hidden');
+            document.getElementById('support-chat-modal').classList.remove('flex');
+        }
+
+        function renderSupportMessages() {
+            const feed = document.getElementById('support-messages-feed');
+            const thread = supportChats.filter(m => m.userPhone === activeSupportUserPhone);
+            if (!thread.length) { feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-10">Admin ထံ စာရေးပို့နိုင်ပါသည်</p>`; return; }
+
+            feed.innerHTML = thread.map(m => {
+                const isMe = m.sender === activeSupportRole;
+                return `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[80%] px-3.5 py-2.5 rounded-2xl ${isMe ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-900'}">
+                            <p class="text-xs leading-relaxed">${escapeHtml(m.text)}</p>
+                            <span class="text-[9px] opacity-70 block text-right mt-1">${m.time}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function sendSupportMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('support-text-input');
+            const text = input.value.trim();
+            if (!text) return;
+            supportChats.push({
+                userPhone: activeSupportUserPhone,
+                userName: activeSupportRole === 'customer' ? userProfile.name : 'Admin',
+                sender: activeSupportRole,
+                text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            saveSupportChats();
+            input.value = "";
+            renderSupportMessages();
+        }
+
+        function renderAdminSupportThreads() {
+            const box = document.getElementById('admin-support-threads');
+            const users = [...new Set(supportChats.map(m => m.userPhone))];
+            if (!users.length) { box.innerHTML = `<p class="text-xs text-slate-400 py-6 text-center">စာပို့ထားသူ မရှိသေးပါ</p>`; return; }
+
+            box.innerHTML = users.map(phone => {
+                const msgs = supportChats.filter(m => m.userPhone === phone);
+                const lastMsg = msgs[msgs.length - 1];
+                return `
+                    <div onclick="openSupportChatModal('admin', '${escapeAttr(phone)}')" class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between cursor-pointer hover:bg-orange-50">
+                        <div class="min-w-0">
+                            <p class="text-xs font-extrabold text-slate-900">${escapeHtml(lastMsg.userName || phone)} (${escapeHtml(phone)})</p>
+                            <p class="text-[11px] text-slate-500 truncate">${escapeHtml(lastMsg.text)}</p>
+                        </div>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#FF5722] text-white font-bold text-xs shrink-0">စာပြန်မည်</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // MERCHANT SHOP PAGE MANAGER
         // ==========================================
         function openShopPortal() {
             if (shopUnlocked) { navigateToScreen('shop-manager'); return; }
@@ -3744,28 +3781,7 @@
                 shopUnlocked = true;
                 closeShopPassModal();
                 navigateToScreen('shop-manager');
-            } else {
-                document.getElementById('shop-pass-error').classList.remove('hidden');
-            }
-        }
-
-        function toggleMerchantCreateBox(show) {
-            const box = document.getElementById('merchant-create-box');
-            if (show) box.classList.remove('hidden');
-            else box.classList.add('hidden');
-        }
-
-        function renderMerchantManagerUI() {
-            const createBox = document.getElementById('merchant-create-box');
-            const cancelBtn = document.getElementById('btn-cancel-new-shop');
-            if (allShops.length === 0) {
-                createBox.classList.remove('hidden');
-                cancelBtn.classList.add('hidden');
-            } else {
-                createBox.classList.add('hidden');
-                cancelBtn.classList.remove('hidden');
-            }
-            renderMyShopsList();
+            } else { document.getElementById('shop-pass-error').classList.remove('hidden'); }
         }
 
         function previewShopPhoto(event) {
@@ -3773,10 +3789,26 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                tempShopPhoto = e.target.result;
-                document.getElementById('shop-photo-preview').innerHTML = `<img src="${tempShopPhoto}" class="w-full h-full object-cover">`;
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 360;
+                    let w = img.width, h = img.height;
+                    if (w > maxW) { h *= maxW / w; w = maxW; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    tempShopPhoto = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('shop-photo-preview').innerHTML = `<img src="${tempShopPhoto}" class="w-full h-full object-cover">`;
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
+        }
+
+        function toggleMerchantCreateBox(show) {
+            const box = document.getElementById('merchant-create-box');
+            if (show) box.classList.remove('hidden');
+            else box.classList.add('hidden');
         }
 
         function saveShopChannel(e) {
@@ -3786,23 +3818,11 @@
             const address = document.getElementById('shop-address-input').value.trim();
             if (!name || !phone || !address) return;
 
-            allShops.unshift({
-                id: 'shop_' + Date.now(),
-                name,
-                phone,
-                address,
-                lat: tempCreateShopCoords ? tempCreateShopCoords.lat : HSIPAW_LAT,
-                lng: tempCreateShopCoords ? tempCreateShopCoords.lng : HSIPAW_LNG,
-                photo: tempShopPhoto,
-                items: []
-            });
+            allShops.unshift({ id: 'shop_' + Date.now(), name, phone, address, photo: tempShopPhoto || DEFAULT_SHOP_IMG, items: [] });
             saveShops();
             e.target.reset();
             tempShopPhoto = DEFAULT_SHOP_IMG;
-            tempCreateShopCoords = null;
             document.getElementById('shop-photo-preview').innerHTML = `<span>📷</span><span class="text-[9px]">ဆိုင်ပုံထည့်</span>`;
-            const pill = document.getElementById('shop-create-coords-pill');
-            if (pill) pill.classList.add('hidden');
             renderMerchantManagerUI();
             showToast("ဆိုင်အကောင့် ဖွင့်လှစ်ပြီးပါပြီ!");
         }
@@ -3816,15 +3836,6 @@
             document.getElementById('edit-shop-address').value = shop.address;
             document.getElementById('edit-shop-img-preview').src = shop.photo || DEFAULT_SHOP_IMG;
             tempEditShopPhoto = shop.photo || DEFAULT_SHOP_IMG;
-            tempEditShopCoords = (shop.lat && shop.lng) ? { lat: shop.lat, lng: shop.lng } : null;
-
-            const disp = document.getElementById('edit-shop-coords-display');
-            if (disp) {
-                disp.textContent = tempEditShopCoords
-                    ? `📍 သိမ်းဆည်းထားသော GPS: ${Number(tempEditShopCoords.lat).toFixed(4)}, ${Number(tempEditShopCoords.lng).toFixed(4)}`
-                    : `⚠️ ဆိုင် Map Point မသတ်မှတ်ရသေးပါ`;
-            }
-
             const m = document.getElementById('edit-shop-modal');
             m.classList.remove('hidden');
             m.classList.add('flex');
@@ -3840,8 +3851,18 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                tempEditShopPhoto = e.target.result;
-                document.getElementById('edit-shop-img-preview').src = tempEditShopPhoto;
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 360;
+                    let w = img.width, h = img.height;
+                    if (w > maxW) { h *= maxW / w; w = maxW; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    tempEditShopPhoto = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('edit-shop-img-preview').src = tempEditShopPhoto;
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -3854,248 +3875,206 @@
             shop.name = document.getElementById('edit-shop-name').value.trim();
             shop.phone = document.getElementById('edit-shop-phone').value.trim();
             shop.address = document.getElementById('edit-shop-address').value.trim();
-            shop.photo = tempEditShopPhoto || shop.photo;
-            if (tempEditShopCoords) {
-                shop.lat = tempEditShopCoords.lat;
-                shop.lng = tempEditShopCoords.lng;
-            }
+            shop.photo = tempEditShopPhoto;
             saveShops();
             closeEditShopModal();
             renderMerchantManagerUI();
             showToast("ဆိုင်အချက်အလက် ပြင်ဆင်ပြီးပါပြီ");
         }
 
+        function deleteShopAccount(shopId) {
+            if (!confirm("ဤဆိုင်အကောင့်နှင့် မီနူးအားလုံးကို ဖျက်မှာ သေချာပါသလား?")) return;
+            allShops = allShops.filter(s => s.id !== shopId);
+            saveShops();
+            renderMerchantManagerUI();
+            showToast("ဆိုင်အကောင့် ဖျက်ပြီးပါပြီ");
+        }
+
         function addMenuItemToShop(e, shopId) {
             e.preventDefault();
+            const shop = allShops.find(s => s.id === shopId);
+            if (!shop) return;
             const nameInput = document.getElementById(`item-name-${shopId}`);
             const priceInput = document.getElementById(`item-price-${shopId}`);
             const catInput = document.getElementById(`item-cat-${shopId}`);
             const photoInput = document.getElementById(`item-photo-${shopId}`);
-            const itemName = nameInput.value.trim();
-            const priceNum = parseInt(priceInput.value, 10);
-            const category = catInput ? catInput.value : 'food';
-            if (!itemName || isNaN(priceNum)) return;
 
-            const shop = allShops.find(s => s.id === shopId);
-            if (!shop) return;
+            const name = nameInput.value.trim();
+            const priceNum = Number(priceInput.value);
+            const category = catInput.value;
+            if (!name || !priceNum) return;
 
             const finalizeAdd = (photoData) => {
-                shop.items = shop.items || [];
-                shop.items.push({ id: 'itm_' + Date.now(), name: itemName, priceNum, category, photo: photoData, rating: 5.0, ratingCount: 1 });
+                if (!shop.items) shop.items = [];
+                shop.items.unshift({
+                    id: 'item_' + Date.now(),
+                    name,
+                    priceNum,
+                    category,
+                    photo: photoData || DEFAULT_SHOP_IMG,
+                    rating: 5.0,
+                    ratingCount: 1
+                });
                 saveShops();
-                renderMyShopsList();
+                nameInput.value = '';
+                priceInput.value = '';
+                photoInput.value = '';
+                renderMerchantManagerUI();
                 showToast("မီနူးအသစ် တင်ပြီးပါပြီ!");
             };
 
-            if (photoInput.files && photoInput.files[0]) {
+            const file = photoInput.files[0];
+            if (file) {
                 const reader = new FileReader();
-                reader.onload = ev => finalizeAdd(ev.target.result);
-                reader.readAsDataURL(photoInput.files[0]);
-            } else finalizeAdd(shop.photo || DEFAULT_SHOP_IMG);
-        }
-
-        function editShopMenuItemPrice(shopId, itemId) {
-            const shop = allShops.find(s => s.id === shopId);
-            if (!shop) return;
-            const item = (shop.items || []).find(i => i.id === itemId);
-            if (!item) return;
-
-            const newName = prompt("စားစရာ နာမည် ပြင်ဆင်ရန်:", item.name);
-            if (newName === null) return;
-            const newPriceStr = prompt("ဈေးနှုန်း (ကျပ်) ပြင်ဆင်ရန်:", String(item.priceNum));
-            if (newPriceStr === null) return;
-            const parsed = parseInt(newPriceStr.replace(/[^\d]/g, ''), 10);
-            if (newName.trim()) item.name = newName.trim();
-            if (!isNaN(parsed) && parsed > 0) item.priceNum = parsed;
-            saveShops();
-            renderMyShopsList();
-            showToast("ဈေးနှုန်းနှင့် အမည် ပြင်ဆင်ပြီးပါပြီ");
+                reader.onload = function(ev) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const maxW = 360;
+                        let w = img.width, h = img.height;
+                        if (w > maxW) { h *= maxW / w; w = maxW; }
+                        canvas.width = w; canvas.height = h;
+                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                        finalizeAdd(canvas.toDataURL('image/jpeg', 0.8));
+                    };
+                    img.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else { finalizeAdd(DEFAULT_SHOP_IMG); }
         }
 
         function deleteShopMenuItem(shopId, itemId) {
             const shop = allShops.find(s => s.id === shopId);
             if (!shop) return;
-            shop.items = (shop.items || []).filter(i => i.id !== itemId);
+            shop.items = shop.items.filter(i => i.id !== itemId);
             saveShops();
-            renderMyShopsList();
+            renderMerchantManagerUI();
             showToast("မီနူး ဖျက်ပြီးပါပြီ");
         }
 
-        function renderMyShopsList() {
+        function renderMerchantManagerUI() {
+            const createBox = document.getElementById('merchant-create-box');
+            const cancelBtn = document.getElementById('btn-cancel-new-shop');
             const list = document.getElementById('merchant-pages-list');
-            if (!list) return;
 
             if (allShops.length === 0) {
-                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-4">အထက်ပါ ဖောင်တွင် သင့်ဆိုင်အချက်အလက်ထည့်၍ ဆိုင်ဖွင့်ပါ</p>`;
+                createBox.classList.remove('hidden');
+                cancelBtn.classList.add('hidden');
+                list.innerHTML = '';
                 return;
             }
+
+            createBox.classList.add('hidden');
+            cancelBtn.classList.remove('hidden');
 
             list.innerHTML = `
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-extrabold text-slate-700">သင့်ဆိုင် Page များ (${allShops.length})</span>
-                    <button type="button" onclick="toggleMerchantCreateBox(true)" class="px-3 py-1.5 rounded-xl bg-slate-900 text-white font-extrabold text-xs">+ နောက်ထပ်ဆိုင်ဖွင့်မည်</button>
+                    <h3 class="text-xs font-extrabold text-slate-500 uppercase">သင့်ဆိုင် စာမျက်နှာများ (My Shop Pages)</h3>
+                    <button type="button" onclick="toggleMerchantCreateBox(true)" class="px-3 py-1.5 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">+ နောက်ထပ်ဆိုင်ဖွင့်မည်</button>
                 </div>
-            ` + allShops.map(shop => {
-                const catNames = { food: '🍜 စားစရာ', drink: '🥤 သောက်စရာ', icecream: '🍦 ရေခဲမုန့်' };
-                const hasCoords = Boolean(shop.lat && shop.lng);
-                return `
-                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden space-y-4">
-                    <!-- FACEBOOK / TIKTOK SHOP PAGE HEADER -->
-                    <div class="bg-gradient-to-r from-orange-50 to-amber-50 p-4 border-b border-orange-100 flex items-center justify-between gap-3">
-                        <div class="flex items-center gap-3 min-w-0">
-                            <img src="${shop.photo || DEFAULT_SHOP_IMG}" class="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm shrink-0">
-                            <div class="min-w-0">
-                                <h4 class="text-sm font-extrabold text-slate-900 truncate">${escapeHtml(shop.name)}</h4>
-                                <p class="text-[11px] text-slate-600 truncate">📍 ${escapeHtml(shop.address)}</p>
-                                <p class="text-[11px] font-bold text-[#FF5722]">📞 ${escapeHtml(shop.phone)} ${hasCoords ? `<span class="text-emerald-700 ml-1">• GPS ✅</span>` : ''}</p>
+            ` + allShops.map(shop => `
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                    <!-- SHOP PROFILE HEADER (FACEBOOK/TIKTOK PAGE STYLE) -->
+                    <div class="p-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100 space-y-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <img src="${shop.photo || DEFAULT_SHOP_IMG}" class="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm shrink-0">
+                                <div class="min-w-0">
+                                    <h3 class="text-base font-extrabold text-slate-900 truncate">${escapeHtml(shop.name)}</h3>
+                                    <p class="text-[11px] text-slate-600 truncate">📍 ${escapeHtml(shop.address)}</p>
+                                    <p class="text-[11px] font-bold text-[#FF5722]">📞 ${escapeHtml(shop.phone)}</p>
+                                </div>
                             </div>
                         </div>
-                        <button type="button" onclick="openEditShopModal('${shop.id}')" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs shadow-2xs shrink-0">
-                            ✏️ ဆိုင်ပြင်မည်
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="openEditShopModal('${shop.id}')" class="flex-1 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 font-extrabold text-xs shadow-2xs">✏️ ဆိုင်အချက်အလက်ပြင်ရန်</button>
+                            <button type="button" onclick="deleteShopAccount('${shop.id}')" class="px-3 py-2 rounded-xl bg-red-50 text-red-600 font-extrabold text-xs">🗑️ ဆိုင်ဖျက်မည်</button>
+                        </div>
                     </div>
 
-                    <div class="p-4 pt-0 space-y-4">
-                        <!-- ADD MENU ITEM FORM -->
-                        <form onsubmit="addMenuItemToShop(event, '${shop.id}')" class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-2.5">
-                            <p class="text-xs font-extrabold text-slate-800">+ မီနူးအသစ် တင်ရန်</p>
+                    <!-- ADD NEW MENU POST FORM -->
+                    <div class="p-4 space-y-4">
+                        <form onsubmit="addMenuItemToShop(event, '${shop.id}')" class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-2.5 text-xs">
+                            <p class="font-extrabold text-slate-900">+ မီနူးအသစ် တင်ရန် (Post New Item)</p>
                             <div class="grid grid-cols-2 gap-2">
-                                <input type="text" id="item-name-${shop.id}" required placeholder="စားစရာ နာမည်" class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
-                                <input type="number" id="item-price-${shop.id}" required placeholder="ဈေးနှုန်း (ကျပ်)" class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
+                                <input type="text" id="item-name-${shop.id}" required placeholder="အစားအသောက် နာမည်" class="rounded-xl border border-slate-300 bg-white px-3 py-2 font-bold">
+                                <input type="number" id="item-price-${shop.id}" required placeholder="ဈေးနှုန်း (ကျပ်)" class="rounded-xl border border-slate-300 bg-white px-3 py-2 font-bold">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
-                                <select id="item-cat-${shop.id}" class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs font-bold text-slate-800 outline-none">
-                                    <option value="food">🍜 စားစရာ</option>
-                                    <option value="drink">🥤 သောက်စရာ</option>
-                                    <option value="icecream">🍦 ရေခဲမုန့်</option>
+                                <select id="item-cat-${shop.id}" class="rounded-xl border border-slate-300 bg-white px-3 py-2 font-bold text-slate-800">
+                                    <option value="food">🍜 စားစရာ (Food)</option>
+                                    <option value="drink">🥤 သောက်စရာ (Drink)</option>
+                                    <option value="icecream">🍦 ရေခဲမုန့် (Ice Cream)</option>
                                 </select>
-                                <label class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs cursor-pointer text-center truncate">
-                                    📷 ပုံရွေးမည်
+                                <label class="rounded-xl border border-dashed border-orange-300 bg-orange-50 text-[#FF5722] font-bold px-3 py-2 text-center cursor-pointer truncate">
+                                    📷 ပုံရွေးရန်
                                     <input type="file" id="item-photo-${shop.id}" accept="image/*" class="hidden">
                                 </label>
                             </div>
-                            <button type="submit" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs shadow-2xs">မီနူးတင်မည်</button>
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold shadow-xs">မီနူး တင်မည်</button>
                         </form>
 
-                        <!-- EXISTING MENU ITEMS -->
+                        <!-- SHOP POSTED ITEMS GRID -->
                         <div class="space-y-2">
                             <p class="text-[11px] font-extrabold text-slate-500">တင်ထားသော မီနူးများ (${(shop.items || []).length})</p>
-                            ${(shop.items || []).length === 0 ? `<p class="text-xs text-slate-400">မီနူး မတင်ရသေးပါ</p>` : shop.items.map(itm => `
-                                <div class="flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-slate-200">
-                                    <div class="flex items-center gap-2.5 min-w-0">
-                                        <img src="${itm.photo || DEFAULT_SHOP_IMG}" class="w-11 h-11 rounded-xl object-cover shrink-0">
-                                        <div class="min-w-0">
-                                            <span class="text-[10px] font-bold text-slate-400">${catNames[itm.category || 'food']}</span>
-                                            <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(itm.name)}</p>
-                                            <p class="text-xs font-extrabold text-[#FF5722]">${Number(itm.priceNum).toLocaleString()} Ks</p>
+                            <div class="grid grid-cols-2 gap-2.5">
+                                ${(shop.items || []).map(item => `
+                                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+                                        <img src="${item.photo || DEFAULT_SHOP_IMG}" class="w-full h-24 object-cover bg-orange-50">
+                                        <div class="p-2 space-y-1">
+                                            <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(item.name)}</p>
+                                            <p class="text-[11px] font-extrabold text-[#FF5722]">${Number(item.priceNum).toLocaleString()} Ks</p>
+                                            <button type="button" onclick="deleteShopMenuItem('${shop.id}', '${item.id}')" class="w-full py-1 rounded-lg bg-red-50 text-red-600 font-bold text-[10px]">ဖျက်မည်</button>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-1.5 shrink-0">
-                                        <button type="button" onclick="editShopMenuItemPrice('${shop.id}', '${itm.id}')" class="px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-bold text-[11px]">✏️ ဈေးပြင်</button>
-                                        <button type="button" onclick="deleteShopMenuItem('${shop.id}', '${itm.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-50 text-red-600 font-bold text-[11px]">ဖျက်</button>
-                                    </div>
-                                </div>
-                            `).join('')}
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
         }
 
         // ==========================================
-        // DIRECT ADMIN SUPPORT CHAT
+        // SATELLITE MAP & ORDER CHAT
         // ==========================================
-        function openSupportChatModal(role, targetPhone = null) {
-            activeSupportRole = role;
-            activeSupportUserPhone = role === 'customer' ? userProfile.phone : targetPhone;
-
-            const titleEl = document.getElementById('support-chat-title');
-            if (role === 'customer') {
-                titleEl.textContent = "💬 Admin ထံ တိုက်ရိုက်စာပို့ရန်";
-            } else {
-                const thread = supportChats.find(t => t.userPhone === activeSupportUserPhone);
-                titleEl.textContent = `💬 ${thread ? thread.userName : 'Customer'} (${activeSupportUserPhone})`;
-            }
-
-            const modal = document.getElementById('support-chat-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            renderSupportMessages();
+        function setMainGoogleMapType(type) {
+            mainMapType = type;
+            document.getElementById('btn-map-sat').className = type === 'k' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
+            document.getElementById('btn-map-std').className = type === 'm' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
+            refreshMainGoogleMapIframe();
         }
 
-        function closeSupportChatModal() {
-            document.getElementById('support-chat-modal').classList.add('hidden');
-            document.getElementById('support-chat-modal').classList.remove('flex');
-            if (!document.getElementById('admin-view-support').classList.contains('hidden')) renderAdminSupportThreads();
+        function refreshMainGoogleMapIframe() {
+            const iframe = document.getElementById('main-google-map-iframe');
+            const coordsEl = document.getElementById('main-map-coords');
+            const linkEl = document.getElementById('main-map-gmaps-link');
+            if (!iframe) return;
+            iframe.src = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}&z=16&output=embed`;
+            if (coordsEl) coordsEl.textContent = `${mainMapLat.toFixed(5)}, ${mainMapLng.toFixed(5)}`;
+            if (linkEl) linkEl.href = `https://www.google.com/maps/search/?api=1&query=${mainMapLat},${mainMapLng}`;
         }
 
-        function renderSupportMessages() {
-            const feed = document.getElementById('support-messages-feed');
-            let thread = supportChats.find(t => t.userPhone === activeSupportUserPhone);
-
-            if (!thread || !thread.messages || thread.messages.length === 0) {
-                feed.innerHTML = `<div class="text-center py-10 space-y-1"><p class="text-xs font-bold text-slate-600">မင်္ဂလာပါ! Admin ထံ တိုက်ရိုက်မေးမြန်းနိုင်ပါသည်</p></div>`;
-                return;
-            }
-
-            thread.messages.forEach(m => {
-                if (activeSupportRole === 'customer' && m.sender === 'admin') m.readByUser = true;
-                if (activeSupportRole === 'admin' && m.sender === 'customer') m.readByAdmin = true;
+        function locateUserOnGoogleSatelliteMap() {
+            requestLocationPermission((pos) => {
+                if (pos) {
+                    mainMapLat = pos.coords.latitude;
+                    mainMapLng = pos.coords.longitude;
+                    refreshMainGoogleMapIframe();
+                    showToast("လက်ရှိတည်နေရာ ပြသပြီးပါပြီ");
+                }
             });
-            saveSupportChats();
-
-            feed.innerHTML = thread.messages.map(m => {
-                const isMine = (m.sender === activeSupportRole);
-                const bubble = isMine
-                    ? "bg-[#FF5722] text-white rounded-2xl rounded-br-xs ml-auto"
-                    : "bg-white text-slate-900 border border-slate-200 rounded-2xl rounded-bl-xs mr-auto";
-                return `
-                    <div class="flex flex-col max-w-[82%] ${isMine ? 'ml-auto items-end' : 'mr-auto items-start'}">
-                        <span class="text-[10px] font-bold text-slate-400 mb-0.5 px-1">${m.sender === 'admin' ? 'Admin' : escapeHtml(thread.userName)} • ${m.time}</span>
-                        <div class="${bubble} px-3.5 py-2.5 text-xs shadow-2xs">${escapeHtml(m.text)}</div>
-                    </div>
-                `;
-            }).join('');
-            feed.scrollTop = feed.scrollHeight;
         }
 
-        function sendSupportMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('support-text-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            let thread = supportChats.find(t => t.userPhone === activeSupportUserPhone);
-            if (!thread) {
-                thread = { userName: userProfile.name, userPhone: userProfile.phone, messages: [] };
-                supportChats.unshift(thread);
-            }
-            thread.messages.push({
-                sender: activeSupportRole,
-                text,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                readByUser: activeSupportRole === 'customer',
-                readByAdmin: activeSupportRole === 'admin'
-            });
-            saveSupportChats();
-            input.value = "";
-            renderSupportMessages();
-        }
-
-        // ==========================================
-        // ORDER LIVE CHAT
-        // ==========================================
         function countUnreadForOrder(order, role) {
-            if (!order || !order.messages) return 0;
-            return role === 'customer'
-                ? order.messages.filter(m => m.sender === 'admin' && !m.readByCustomer).length
-                : order.messages.filter(m => m.sender === 'customer' && !m.readByAdmin).length;
+            if (!order.messages) return 0;
+            return role === 'customer' ? order.messages.filter(m => m.sender === 'admin' && !m.readByCustomer).length : order.messages.filter(m => m.sender === 'customer' && !m.readByAdmin).length;
         }
 
         function updateUnreadIndicators() {
             const totalCustomerUnread = allOrders.reduce((sum, o) => sum + countUnreadForOrder(o, 'customer'), 0);
-            const dot = document.getElementById('nav-unread-dot');
-            if (dot) totalCustomerUnread > 0 ? dot.classList.remove('hidden') : dot.classList.add('hidden');
+            const navDot = document.getElementById('nav-unread-dot');
+            if (navDot) navDot.classList.toggle('hidden', totalCustomerUnread === 0);
         }
 
         function openChatModal(orderId, role) {
@@ -4104,52 +4083,49 @@
             const order = allOrders.find(o => o.id === orderId);
             if (!order) return;
 
-            document.getElementById('chat-header-title').textContent = role === 'customer' ? `💬 Rider Chat` : `💬 ${order.customerName}`;
-            document.getElementById('chat-order-summary').innerHTML = `<span class="font-bold truncate">📍 ${escapeHtml(order.dropoffAddress)}</span><span class="font-extrabold text-[#FF5722] shrink-0">${escapeHtml(order.status)}</span>`;
+            if (order.messages) {
+                order.messages.forEach(m => {
+                    if (role === 'customer' && m.sender === 'admin') m.readByCustomer = true;
+                    if (role === 'admin' && m.sender === 'customer') m.readByAdmin = true;
+                });
+                saveOrders();
+            }
+
+            document.getElementById('chat-header-title').textContent = role === 'customer' ? `💬 ${order.assignedRiderName || 'Thipaw Dispatch'}` : `💬 ${order.customerName}`;
+            document.getElementById('chat-order-summary').innerHTML = `<span class="font-bold truncate">${escapeHtml(order.details)}</span><span class="px-2 py-0.5 rounded-full bg-white text-[#FF5722] font-extrabold shrink-0">${escapeHtml(order.status)}</span>`;
 
             const chips = role === 'customer'
-                ? ["ဘယ်နားရောက်ပြီလဲ?", "အိမ်ရှေ့ရောက်ရင် ဖုန်းဆက်ပေးပါ", "ကျေးဇူးတင်ပါတယ်"]
-                : ["ဆိုင်မှာ ဝယ်နေပါပြီ", "လမ်းခုလတ် ရောက်နေပါပြီ", "အိမ်ရှေ့ရောက်ပါပြီ"];
-            document.getElementById('chat-quick-replies').innerHTML = chips.map(txt => `<button type="button" onclick="sendQuickReply('${escapeAttr(txt)}')" class="px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF5722] text-[11px] font-bold whitespace-nowrap">${escapeHtml(txt)}</button>`).join('');
+                ? ["ဘယ်နားရောက်ပြီလဲ?", "အိမ်ရှေ့ရောက်ရင် ဖုန်းဆက်ပါ", "ကျေးဇူးတင်ပါတယ်"]
+                : ["အော်ဒါဝယ်နေပါပြီ", "လမ်းခုလတ်ရောက်ပါပြီ", "အိမ်ရှေ့ရောက်ပါပြီ"];
+            document.getElementById('chat-quick-replies').innerHTML = chips.map(t => `<button type="button" onclick="sendQuickReply('${escapeAttr(t)}')" class="px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF5722] text-xs font-bold whitespace-nowrap">${escapeHtml(t)}</button>`).join('');
 
-            const modal = document.getElementById('chat-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            const m = document.getElementById('chat-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
             renderChatMessages();
         }
 
         function closeChatModal() {
+            activeChatOrderId = null;
             document.getElementById('chat-modal').classList.add('hidden');
             document.getElementById('chat-modal').classList.remove('flex');
-            activeChatOrderId = null;
-            renderHomeActiveOrder();
-            updateUnreadIndicators();
         }
 
         function renderChatMessages() {
             const order = allOrders.find(o => o.id === activeChatOrderId);
-            if (!order) return;
             const feed = document.getElementById('chat-messages-feed');
+            if (!order || !feed) return;
+            const msgs = order.messages || [];
+            if (msgs.length === 0) { feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">စာတိုပေးပို့နိုင်ပါသည်</p>`; return; }
 
-            let dirty = false;
-            (order.messages || []).forEach(msg => {
-                if (activeChatRole === 'customer' && msg.sender === 'admin' && !msg.readByCustomer) { msg.readByCustomer = true; dirty = true; }
-                if (activeChatRole === 'admin' && msg.sender === 'customer' && !msg.readByAdmin) { msg.readByAdmin = true; dirty = true; }
-            });
-            if (dirty) saveOrders();
-
-            if (!order.messages || order.messages.length === 0) {
-                feed.innerHTML = `<div class="text-center py-8"><p class="text-xs font-bold text-slate-600">စာတို စတင်ပေးပို့နိုင်ပါသည်</p></div>`;
-                return;
-            }
-
-            feed.innerHTML = order.messages.map(msg => {
-                const isMine = (msg.sender === activeChatRole);
-                const bubbleStyle = isMine ? "bg-[#FF5722] text-white rounded-2xl rounded-br-xs ml-auto" : "bg-white text-slate-900 border border-slate-200 rounded-2xl rounded-bl-xs mr-auto";
+            feed.innerHTML = msgs.map(m => {
+                const isMine = m.sender === activeChatRole;
                 return `
-                    <div class="flex flex-col max-w-[82%] ${isMine ? 'ml-auto items-end' : 'mr-auto items-start'}">
-                        <span class="text-[10px] font-bold text-slate-400 mb-0.5 px-1">${msg.sender === 'admin' ? 'Rider / Admin' : escapeHtml(order.customerName)} • ${msg.time}</span>
-                        <div class="${bubbleStyle} px-3.5 py-2.5 text-xs shadow-2xs">${escapeHtml(msg.text)}</div>
+                    <div class="flex ${isMine ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[80%] px-3.5 py-2.5 rounded-2xl ${isMine ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-900'}">
+                            <p class="text-xs leading-relaxed">${escapeHtml(m.text)}</p>
+                            <span class="text-[9px] opacity-70 block text-right mt-1">${m.time}</span>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -4168,8 +4144,7 @@
             if (!text || !activeChatOrderId) return;
             const order = allOrders.find(o => o.id === activeChatOrderId);
             if (!order) return;
-
-            order.messages = order.messages || [];
+            if (!order.messages) order.messages = [];
             order.messages.push({
                 sender: activeChatRole,
                 text,
@@ -4178,284 +4153,17 @@
                 readByAdmin: activeChatRole === 'admin'
             });
             saveOrders();
-            input.value = "";
+            input.value = '';
             renderChatMessages();
-        }
-
-        // ==========================================
-        // SATELLITE MAP SCREEN
-        // ==========================================
-        function setMainGoogleMapType(type) {
-            mainMapType = type;
-            document.getElementById('btn-map-sat').className = type === 'k' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
-            document.getElementById('btn-map-std').className = type === 'm' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
-            refreshMainGoogleMapIframe();
-        }
-
-        function refreshMainGoogleMapIframe() {
-            const iframe = document.getElementById('main-google-map-iframe');
-            if (!iframe) return;
-            iframe.src = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}&z=16&output=embed`;
-            document.getElementById('main-map-coords').textContent = `${mainMapLat.toFixed(4)}, ${mainMapLng.toFixed(4)}`;
-            document.getElementById('main-map-gmaps-link').href = `https://www.google.com/maps/search/?api=1&query=${mainMapLat},${mainMapLng}`;
-        }
-
-        function locateUserOnGoogleSatelliteMap() {
-            requestLocationPermission((pos) => {
-                if (pos) {
-                    mainMapLat = pos.coords.latitude;
-                    mainMapLng = pos.coords.longitude;
-                    refreshMainGoogleMapIframe();
-                }
-            });
-        }
-
-        // ==========================================
-        // ADMIN CONTROL PANEL (LIVE ORDERS, POSTERS, RIDERS, MESSAGES, HOTLINES, RATES, PINS & HOURS)
-        // ==========================================
-        function openPinModal() {
-            document.getElementById('pin-input').value = "";
-            document.getElementById('pin-error').classList.add('hidden');
-            const m = document.getElementById('pin-modal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
-            setTimeout(() => document.getElementById('pin-input').focus(), 100);
-        }
-        function closePinModal() {
-            document.getElementById('pin-modal').classList.add('hidden');
-            document.getElementById('pin-modal').classList.remove('flex');
-        }
-        function verifyPin() {
-            if (document.getElementById('pin-input').value.trim() === String(appConfig.adminPin || "1234")) {
-                closePinModal();
-                navigateToScreen('admin');
-            } else {
-                document.getElementById('pin-error').classList.remove('hidden');
-            }
-        }
-        function exitAdmin() { enterMainApp(); }
-
-        function switchAdminTab(tab) {
-            ['orders', 'posters', 'staff', 'support', 'hotlines', 'rates'].forEach(t => {
-                const view = document.getElementById(`admin-view-${t}`);
-                const btn = document.getElementById(`adm-tab-${t}`);
-                if (view) view.classList.add('hidden');
-                if (btn) btn.className = "px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap";
-            });
-            document.getElementById(`admin-view-${tab}`).classList.remove('hidden');
-            document.getElementById(`adm-tab-${tab}`).className = "px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold whitespace-nowrap";
-
-            if (tab === 'orders') renderAdminOrders();
-            else if (tab === 'posters') renderAdminPromoPostersList();
-            else if (tab === 'staff') renderAdminStaffList();
-            else if (tab === 'support') renderAdminSupportThreads();
-            else if (tab === 'hotlines') renderAdminHotlinesUI();
-            else if (tab === 'rates') loadRatesIntoForm();
-        }
-
-        function renderAdminOrders() {
-            const container = document.getElementById('admin-orders-container');
-            document.getElementById('admin-count').textContent = allOrders.length;
-            container.innerHTML = "";
-
-            if (allOrders.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">အော်ဒါ မှတ်တမ်း မရှိသေးပါ</p>`;
-                return;
-            }
-
-            allOrders.forEach(item => {
-                const riderTag = item.assignedRiderName ? `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">🛵 ${escapeHtml(item.assignedRiderName)}</span>` : `<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">Unassigned</span>`;
-                container.insertAdjacentHTML('beforeend', `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-2.5">
-                        <div class="flex items-center justify-between gap-2">
-                            <span class="text-xs font-extrabold text-slate-900">${escapeHtml(item.customerName)} (${escapeHtml(item.customerPhone)})</span>
-                            ${riderTag}
-                        </div>
-                        <p class="text-xs text-slate-800 whitespace-pre-line">${escapeHtml(item.details)}</p>
-                        <p class="text-[11px] text-slate-500">🔵 ${escapeHtml(item.pickupAddress)} → 🔴 ${escapeHtml(item.dropoffAddress)}</p>
-                        <div class="flex items-center justify-between pt-2 border-t border-slate-100 gap-2">
-                            <select onchange="updateOrderStatus(${item.id}, this.value)" class="rounded-lg bg-slate-100 px-2.5 py-1.5 text-xs font-bold text-slate-900">
-                                <option value="Pending" ${item.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                                <option value="Accepted" ${item.status === 'Accepted' ? 'selected' : ''}>Accepted</option>
-                                <option value="On the way" ${item.status === 'On the way' ? 'selected' : ''}>On the way</option>
-                                <option value="Delivered" ${item.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
-                                <option value="Cancelled" ${item.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-                            </select>
-                            <button onclick="openChatModal(${item.id}, 'admin')" class="px-3 py-1.5 rounded-lg bg-[#FF5722] text-white text-xs font-bold">💬 Chat</button>
-                        </div>
-                    </div>
-                `);
-            });
-        }
-
-        function updateOrderStatus(orderId, newStatus) {
-            const idx = allOrders.findIndex(o => o.id === orderId);
-            if (idx === -1) return;
-            allOrders[idx].status = newStatus;
-            if (newStatus === 'Delivered') allOrders[idx].completedDateStr = new Date().toISOString().split('T')[0];
-            saveOrders();
-            renderAdminOrders();
-        }
-
-        function renderAdminStaffList() {
-            const pendingCount = allRiders.filter(r => !r.approved).length;
-            document.getElementById('admin-staff-pending-badge').textContent = pendingCount;
-            const list = document.getElementById('admin-staff-list');
-            const selectedDate = document.getElementById('admin-rider-log-date').value || new Date().toISOString().split('T')[0];
-
-            if (allRiders.length === 0) {
-                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">စာရင်းသွင်းထားသော ဝန်ထမ်း မရှိသေးပါ</p>`;
-                return;
-            }
-
-            list.innerHTML = allRiders.map(rider => {
-                const dailyOrders = allOrders.filter(o => o.assignedRiderId === rider.id && (o.dateStr === selectedDate || o.completedDateStr === selectedDate));
-                const totalAllTime = allOrders.filter(o => o.assignedRiderId === rider.id && o.status === 'Delivered').length;
-
-                const orderDetailsHtml = dailyOrders.length > 0
-                    ? dailyOrders.map(o => `<li class="text-[11px] text-slate-700">• [${o.status}] ${escapeHtml(o.details)} (${escapeHtml(o.fareText)})</li>`).join('')
-                    : `<li class="text-[11px] text-slate-400">ရွေးထားသော ရက်စွဲတွင် အော်ဒါမှတ်တမ်း မရှိပါ</li>`;
-
-                return `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
-                        <div class="flex items-center justify-between gap-2">
-                            <div>
-                                <p class="text-sm font-extrabold text-slate-900">🛵 ${escapeHtml(rider.name)}</p>
-                                <p class="text-xs text-slate-500">📞 ${escapeHtml(rider.phone)} • စုစုပေါင်းပြီးစီးမှု: ${totalAllTime} ခု</p>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                ${rider.approved
-                                    ? `<button onclick="toggleRiderApproval('${rider.id}', false)" class="px-2.5 py-1.5 rounded-lg bg-amber-50 text-amber-700 text-xs font-bold">ပိတ်ထားမည်</button>`
-                                    : `<button onclick="toggleRiderApproval('${rider.id}', true)" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-extrabold">✅ အတည်ပြုမည်</button>`}
-                                <button onclick="deleteRider('${rider.id}')" class="px-2.5 py-1.5 rounded-lg bg-red-50 text-red-600 text-xs font-bold">ဖျက်</button>
-                            </div>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
-                            <p class="text-xs font-extrabold text-slate-800">📅 ${selectedDate} ရက်နေ့ အော်ဒါမှတ်တမ်း (${dailyOrders.length} ခု)</p>
-                            <ul class="space-y-1 pt-1">${orderDetailsHtml}</ul>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function toggleRiderApproval(riderId, status) {
-            const idx = allRiders.findIndex(r => r.id === riderId);
-            if (idx === -1) return;
-            allRiders[idx].approved = status;
-            saveRiders();
-            renderAdminStaffList();
-            showToast(status ? "ဝန်ထမ်း အတည်ပြုပြီးပါပြီ" : "ဝန်ထမ်း ပိတ်ထားပြီးပါပြီ");
-        }
-
-        function deleteRider(riderId) {
-            allRiders = allRiders.filter(r => r.id !== riderId);
-            saveRiders();
-            renderAdminStaffList();
-        }
-
-        function renderAdminSupportThreads() {
-            const box = document.getElementById('admin-support-threads');
-            if (!supportChats.length) {
-                box.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Customer များထံမှ တိုက်ရိုက်စာ မရှိသေးပါ</p>`;
-                return;
-            }
-            box.innerHTML = supportChats.map(t => {
-                const lastMsg = t.messages[t.messages.length - 1];
-                const unread = t.messages.filter(m => m.sender === 'customer' && !m.readByAdmin).length;
-                return `
-                    <div onclick="openSupportChatModal('admin', '${escapeAttr(t.userPhone)}')" class="p-3 rounded-xl bg-slate-50 hover:bg-orange-50 border border-slate-200 flex items-center justify-between cursor-pointer">
-                        <div class="min-w-0">
-                            <p class="text-xs font-extrabold text-slate-900">${escapeHtml(t.userName)} (${escapeHtml(t.userPhone)})</p>
-                            <p class="text-[11px] text-slate-500 truncate">${lastMsg ? escapeHtml(lastMsg.text) : ''}</p>
-                        </div>
-                        ${unread > 0 ? `<span class="px-2 py-0.5 rounded-full bg-[#FF5722] text-white text-[10px] font-extrabold">${unread} အသစ်</span>` : `<span class="text-xs font-bold text-[#FF5722]">ဖွင့်မည် →</span>`}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function loadRatesIntoForm() {
-            document.getElementById('cfg-pin-admin').value = appConfig.adminPin || "1234";
-            document.getElementById('cfg-pin-rider').value = appConfig.riderPin || "5555";
-            document.getElementById('cfg-pin-shop').value = appConfig.shopPin || "8888";
-            document.getElementById('cfg-open-time').value = appConfig.openTime || "မနက် ၆:၀၀ နာရီ";
-            document.getElementById('cfg-close-time').value = appConfig.closeTime || "ည ၇:၀၀ နာရီ";
-            document.getElementById('cfg-order-town').value = appConfig.orderTown;
-            document.getElementById('cfg-order-outer').value = appConfig.orderOuter;
-            document.getElementById('cfg-order-extrastop').value = appConfig.orderExtraStop;
-            document.getElementById('cfg-bike-town').value = appConfig.bikeTown;
-            document.getElementById('cfg-bike-outer').value = appConfig.bikeOuter;
-            document.getElementById('cfg-bike-bawgyo').value = appConfig.bikeBawgyo;
-            document.getElementById('cfg-rules-textarea').value = (appConfig.rules || []).join('\n');
-            renderAdminBikeRoutesList();
-        }
-
-        function renderAdminBikeRoutesList() {
-            const list = document.getElementById('admin-bike-routes-list');
-            const routes = appConfig.customBikeRoutes || [];
-            if (!routes.length) { list.innerHTML = ''; return; }
-            list.innerHTML = routes.map((r, i) => `
-                <div class="flex items-center justify-between bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs">
-                    <span class="font-bold text-slate-800">${escapeHtml(r.from)} ↔ ${escapeHtml(r.to)} : <span class="text-[#FF5722]">${Number(r.price).toLocaleString()} Ks</span></span>
-                    <button type="button" onclick="removeBikeRoutePrice(${i})" class="text-red-600 font-bold">ဖျက်</button>
-                </div>
-            `).join('');
-        }
-
-        function addBikeRoutePrice(e) {
-            e.preventDefault();
-            const from = document.getElementById('route-from').value.trim();
-            const to = document.getElementById('route-to').value.trim();
-            const price = parseInt(document.getElementById('route-price').value, 10);
-            if (!from || !to || isNaN(price)) return;
-            appConfig.customBikeRoutes = appConfig.customBikeRoutes || [];
-            appConfig.customBikeRoutes.push({ from, to, price });
-            saveConfig();
-            e.target.reset();
-            renderAdminBikeRoutesList();
-            renderGrabSuggestedPlaces();
-            showToast("ရပ်ကွက်အလိုက် ဈေးနှုန်း ထည့်ပြီးပါပြီ");
-        }
-
-        function removeBikeRoutePrice(idx) {
-            appConfig.customBikeRoutes.splice(idx, 1);
-            saveConfig();
-            renderAdminBikeRoutesList();
-            renderGrabSuggestedPlaces();
-        }
-
-        function saveAdminRates(e) {
-            e.preventDefault();
-            appConfig.orderTown = parseInt(document.getElementById('cfg-order-town').value, 10) || 2000;
-            appConfig.orderOuter = parseInt(document.getElementById('cfg-order-outer').value, 10) || 3000;
-            appConfig.orderExtraStop = parseInt(document.getElementById('cfg-order-extrastop').value, 10) || 500;
-            appConfig.bikeTown = parseInt(document.getElementById('cfg-bike-town').value, 10) || 4000;
-            appConfig.bikeOuter = parseInt(document.getElementById('cfg-bike-outer').value, 10) || 5000;
-            appConfig.bikeBawgyo = parseInt(document.getElementById('cfg-bike-bawgyo').value, 10) || 8000;
-            saveConfig();
-            renderDynamicRatesAndRules();
-            showToast("နှုန်းထားအသစ်များ သိမ်းဆည်းပြီးပါပြီ!");
-        }
-
-        function saveAdminRules(e) {
-            e.preventDefault();
-            const rawLines = document.getElementById('cfg-rules-textarea').value.split('\n').map(l => l.trim()).filter(Boolean);
-            if (rawLines.length > 0) {
-                appConfig.rules = rawLines;
-                saveConfig();
-                renderDynamicRatesAndRules();
-                showToast("စည်းကမ်းချက်များ အသစ်ပြင်ဆင်ပြီးပါပြီ!");
-            }
         }
 
         function escapeHtml(str) {
             if (!str) return '';
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
         function escapeAttr(str) {
             if (!str) return '';
-            return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
         }
     </script>
 </body>
