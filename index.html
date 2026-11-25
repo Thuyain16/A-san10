@@ -1261,48 +1261,59 @@
         const HSIPAW_LNG = 97.3005;
         const TWENTY_MINUTES_MS = 20 * 60 * 1000;
 
-        // ပုံထဲက အတိုင်း အဖြူနယ်နမိတ် (မြောက်ပိုင်း & အနောက်တောင်ဘက် Highway 3) နှင့် အမဲနယ်နမိတ် (မြို့တွင်း/အထပ်နေရာမှာ အမဲသီးသန့်)
+        // ခုပုံ (IMG_20261125_172013_3.jpg) အတိုင်း မြစ်ကြောင်းကို မကျော်ဘဲ သပ်သပ်ရပ်ရပ် ဝိုင်းထားသော နယ်နိမိတ်များ
         const HSIPAW_BOUNDARY_POLYGONS = {
+            // အဖြူရောင် အပေါ်ပိုင်း အကွက် (မြောက်ဘက် ကုန်းမြင့် ရပ်ကွက်)
             whiteNorthLoop: [
-                [22.6305, 97.2885],
-                [22.6348, 97.2898],
-                [22.6382, 97.2924],
-                [22.6378, 97.2962],
-                [22.6342, 97.2998],
-                [22.6368, 97.3035],
-                [22.6395, 97.3068],
-                [22.6375, 97.3118],
-                [22.6332, 97.3152]
+                [22.6332, 97.2898],
+                [22.6378, 97.2882],
+                [22.6428, 97.2865],
+                [22.6462, 97.2892],
+                [22.6435, 97.2948],
+                [22.6392, 97.2982],
+                [22.6348, 97.2968],
+                [22.6332, 97.2932]
             ],
-            whiteWestLoop: [
-                [22.6205, 97.2875],
-                [22.6238, 97.2835],
-                [22.6258, 97.2775],
-                [22.6215, 97.2742],
-                [22.6152, 97.2745],
-                [22.6128, 97.2788],
-                [22.6132, 97.2838],
-                [22.6165, 97.2868],
-                [22.6205, 97.2875]
+            // အဖြူရောင် မြစ်အောက်ဘက် အရှေ့/အနောက် ဝိုင်းထားသော နယ်နိမိတ်များ
+            whiteSouthLoops: [
+                [
+                    [22.6152, 97.3025],
+                    [22.6138, 97.3078],
+                    [22.6118, 97.3135],
+                    [22.6075, 97.3148],
+                    [22.6042, 97.3112],
+                    [22.6025, 97.3065],
+                    [22.6068, 97.3032],
+                    [22.6118, 97.3018]
+                ],
+                [
+                    [22.6148, 97.2958],
+                    [22.6112, 97.2952],
+                    [22.6065, 97.2942],
+                    [22.6032, 97.2918],
+                    [22.6055, 97.2882],
+                    [22.6108, 97.2875],
+                    [22.6145, 97.2905]
+                ]
             ],
+            // အမဲရောင် နယ်နိမိတ် (မြစ်ကြောင်းကို မကျော်ဘဲ သီပေါမြို့လယ်ပိုင်းကို ဝိုင်းထားသော ပုံစံ)
             blackInner: [
-                [22.6205, 97.2875],
-                [22.6212, 97.2925],
-                [22.6258, 97.2902],
-                [22.6295, 97.2918],
-                [22.6318, 97.2952],
-                [22.6312, 97.3008],
-                [22.6342, 97.3055],
-                [22.6335, 97.3095],
-                [22.6292, 97.3118],
-                [22.6235, 97.3095],
-                [22.6175, 97.3102],
-                [22.6122, 97.3092],
-                [22.6105, 97.3055],
-                [22.6118, 97.2995],
-                [22.6115, 97.2935],
-                [22.6148, 97.2882],
-                [22.6205, 97.2875]
+                [22.6158, 97.2872],
+                [22.6208, 97.2865],
+                [22.6248, 97.2912],
+                [22.6295, 97.2922],
+                [22.6338, 97.2948],
+                [22.6345, 97.2972],
+                [22.6305, 97.2962],
+                [22.6285, 97.3015],
+                [22.6292, 97.3075],
+                [22.6252, 97.3112],
+                [22.6198, 97.3125],
+                [22.6165, 97.3095],
+                [22.6162, 97.3038],
+                [22.6168, 97.2982],
+                [22.6155, 97.2932],
+                [22.6158, 97.2872]
             ]
         };
 
@@ -1323,12 +1334,11 @@
 
         // မြေပုံပေါ်တွင် ဖော်ပြမည့် ရပ်ကွက်/နေရာ အမှတ်အသားများ
         const HSIPAW_WARD_LABELS = [
-            { name: "ဟော်နန်း", lat: 22.6295, lng: 97.3035, zone: "black" },
+            { name: "ဟော်နန်း", lat: 22.6295, lng: 97.2965, zone: "black" },
             { name: "ဈေးပိုင်း", lat: 22.6238, lng: 97.3005, zone: "black" },
-            { name: "မဟာမြတ်မုနိ", lat: 22.6155, lng: 97.2945, zone: "black" },
-            { name: "တံတားဂိတ်", lat: 22.6122, lng: 97.3055, zone: "black" },
-            { name: "မြောက်ပိုင်း", lat: 22.6368, lng: 97.2985, zone: "white" },
-            { name: "အနောက်ပိုင်း", lat: 22.6185, lng: 97.2795, zone: "white" }
+            { name: "တံတားဂိတ်", lat: 22.6175, lng: 97.3085, zone: "black" },
+            { name: "မြောက်ပိုင်း", lat: 22.6415, lng: 97.2915, zone: "white" },
+            { name: "တောင်ပိုင်း", lat: 22.6085, lng: 97.3075, zone: "white" }
         ];
 
         // 'black' = အမဲနယ်နမိတ်အတွင်း | 'white' = အဖြူနယ်နမိတ်အတွင်း (အမဲပြင်ဘက်) | 'outer' = အဖြူနယ်နမိတ်အပြင်ဘက်
@@ -1339,7 +1349,7 @@
                 }
                 if (
                     isLatLngInPolygon(coordsObj.lat, coordsObj.lng, HSIPAW_BOUNDARY_POLYGONS.whiteNorthLoop) ||
-                    isLatLngInPolygon(coordsObj.lat, coordsObj.lng, HSIPAW_BOUNDARY_POLYGONS.whiteWestLoop)
+                    (HSIPAW_BOUNDARY_POLYGONS.whiteSouthLoops || []).some(poly => isLatLngInPolygon(coordsObj.lat, coordsObj.lng, poly))
                 ) {
                     return 'white';
                 }
@@ -3261,24 +3271,15 @@
             });
         }
 
-        // မြေပုံပေါ်တွင် ပုံထဲက အဖြူနယ်နမိတ် နှင့် အမဲနယ်နမိတ် လှိုင်းများကို သပ်သပ်ရပ်ရပ် အဆက်မပြတ် ရေးဆွဲခြင်း
+        // မြစ်ကြောင်းကို မကျော်ဘဲ ပုံထဲက အဖြူနယ်နမိတ် နှင့် အမဲနယ်နမိတ် လှိုင်းများကို သပ်သပ်ရပ်ရပ် ရေးဆွဲခြင်း
         function drawRedAndWhiteZonesOnLayerGroup(targetGroup) {
             if (!targetGroup || typeof L === 'undefined') return;
 
-            // 1. အဖြူရောင်နယ်နမိတ် လှိုင်းများ (မြောက်ပိုင်း & အနောက်တောင်ဘက် Highway 3)
-            L.polyline(HSIPAW_BOUNDARY_POLYGONS.whiteNorthLoop, {
+            // 1. အဖြူရောင် အပေါ်ပိုင်း အကွက်
+            L.polygon(HSIPAW_BOUNDARY_POLYGONS.whiteNorthLoop, {
                 color: '#FFFFFF',
                 weight: 2.8,
-                opacity: 0.92,
-                lineCap: 'round',
-                lineJoin: 'round',
-                smoothFactor: 1.2
-            }).addTo(targetGroup);
-
-            L.polygon(HSIPAW_BOUNDARY_POLYGONS.whiteWestLoop, {
-                color: '#FFFFFF',
-                weight: 2.8,
-                opacity: 0.92,
+                opacity: 0.94,
                 fillColor: '#FFFFFF',
                 fillOpacity: 0.04,
                 lineCap: 'round',
@@ -3286,13 +3287,27 @@
                 smoothFactor: 1.2
             }).addTo(targetGroup);
 
-            // 2. အမဲရောင်နယ်နမိတ် လှိုင်း (မြို့တွင်း/အထပ်နေရာမှာ အမဲသီးသန့်)
+            // 2. အဖြူရောင် မြစ်အောက်ဘက် အရှေ့/အနောက် နယ်နိမိတ်များ
+            (HSIPAW_BOUNDARY_POLYGONS.whiteSouthLoops || []).forEach(poly => {
+                L.polygon(poly, {
+                    color: '#FFFFFF',
+                    weight: 2.8,
+                    opacity: 0.94,
+                    fillColor: '#FFFFFF',
+                    fillOpacity: 0.04,
+                    lineCap: 'round',
+                    lineJoin: 'round',
+                    smoothFactor: 1.2
+                }).addTo(targetGroup);
+            });
+
+            // 3. အမဲရောင် နယ်နိမိတ် (မြစ်ကြောင်းကို မကျော်ဘဲ ဝိုင်းထားသော ပုံစံ)
             L.polygon(HSIPAW_BOUNDARY_POLYGONS.blackInner, {
                 color: '#090D16',
                 weight: 3,
-                opacity: 0.95,
+                opacity: 0.96,
                 fillColor: '#090D16',
-                fillOpacity: 0.08,
+                fillOpacity: 0.07,
                 lineCap: 'round',
                 lineJoin: 'round',
                 smoothFactor: 1.2
@@ -3559,222 +3574,168 @@
             } else if (pickerFlowMode === 'pickup') {
                 bikePickupCoords = { lat: tempPickedLat, lng: tempPickedLng };
                 document.getElementById('bike-pickup').value = `${tempPickedLabel} (${coordsStr})`;
-                recalculateBikeFare();
-                const wasChoosingFlow = isChoosingOnMapFlow;
+                isChoosingOnMapFlow = false;
                 closeGoogleMapPicker();
-                if (wasChoosingFlow) openRouteConfirmationScreen();
+                recalculateBikeFare();
+                showGoogleRoutePreview(document.getElementById('bike-pickup').value, document.getElementById('bike-dropoff').value);
             } else if (pickerFlowMode === 'food') {
                 foodCoords = { lat: tempPickedLat, lng: tempPickedLng };
-                const manualTxt = (document.getElementById('picker-food-manual-text') ? document.getElementById('picker-food-manual-text').value.trim() : '');
-                const finalAddr = manualTxt || `${tempPickedLabel} (${coordsStr})`;
-                document.getElementById('food-address').value = finalAddr;
+                const manualEl = document.getElementById('picker-food-manual-text');
+                const manualTxt = manualEl ? manualEl.value.trim() : '';
+                const addrInput = document.getElementById('food-address');
+                const finalAddr = manualTxt ? `${manualTxt} • ${tempPickedLabel} (${coordsStr})` : `${tempPickedLabel} (${coordsStr})`;
+                if (addrInput) addrInput.value = finalAddr;
+
                 const pill = document.getElementById('food-picked-coords-pill');
                 const pillTxt = document.getElementById('food-picked-coords-text');
                 if (pill && pillTxt) {
-                    pillTxt.textContent = `📍 ${finalAddr} [${coordsStr}]`;
                     pill.classList.remove('hidden');
+                    pillTxt.textContent = `📍 ${manualTxt ? manualTxt + ' • ' : ''}${tempPickedLabel} (${coordsStr})`;
                 }
                 closeGoogleMapPicker();
                 recalculateFoodCartTotals();
-                const formEl = document.getElementById('food-checkout-form');
-                if (formEl && formEl.classList.contains('hidden')) {
-                    formEl.classList.remove('hidden');
-                    document.getElementById('btn-show-order-form').classList.add('hidden');
-                }
-                if (formEl && formEl.reportValidity()) {
-                    formEl.requestSubmit();
-                } else {
-                    showToast("ပို့ဆောင်ရမည့် လိပ်စာ / ရပ်ကွက် ဖြည့်ပြီး အော်ဒါတင်မည်ကို နှိပ်ပါ");
+
+                if (foodCart.length > 0) {
+                    const formEl = document.getElementById('food-checkout-form');
+                    if (formEl && formEl.classList.contains('hidden')) {
+                        formEl.classList.remove('hidden');
+                        document.getElementById('btn-show-order-form').classList.add('hidden');
+                    }
+                    if (formEl && typeof formEl.requestSubmit === 'function') {
+                        formEl.requestSubmit();
+                    } else {
+                        submitFoodOrder({ preventDefault: () => {} });
+                    }
                 }
             } else if (pickerFlowMode === 'new-shop') {
-                tempNewShopLocation = { lat: tempPickedLat, lng: tempPickedLng, label: tempPickedLabel };
-                document.getElementById('new-shop-location-display').textContent = `✅ ${tempPickedLabel} (${coordsStr})`;
-                document.getElementById('new-shop-location-display').className = "text-[10px] font-extrabold text-emerald-700 block truncate";
+                tempNewShopLocation = { lat: tempPickedLat, lng: tempPickedLng, label: `${tempPickedLabel} (${coordsStr})` };
+                document.getElementById('new-shop-location-display').textContent = `📍 ${tempNewShopLocation.label}`;
                 closeGoogleMapPicker();
-                showToast("ဆိုင်တည်နေရာ Map Pin သိမ်းဆည်းပြီးပါပြီ");
+                showToast("ဆိုင်တည်နေရာ Map Location ရွေးချယ်ပြီးပါပြီ");
             } else if (pickerFlowMode === 'edit-shop') {
-                tempEditShopLocation = { lat: tempPickedLat, lng: tempPickedLng, label: tempPickedLabel };
-                document.getElementById('edit-shop-location-display').textContent = `✅ ${tempPickedLabel} (${coordsStr})`;
+                tempEditShopLocation = { lat: tempPickedLat, lng: tempPickedLng, label: `${tempPickedLabel} (${coordsStr})` };
+                document.getElementById('edit-shop-location-display').textContent = `📍 ${tempEditShopLocation.label}`;
                 closeGoogleMapPicker();
-                showToast("ဆိုင်တည်နေရာ ပြောင်းလဲပြီးပါပြီ");
+                showToast("ဆိုင်တည်နေရာ အသစ်ပြောင်းပြီးပါပြီ");
             }
         }
 
-        // Bike Taxi & Thonebane နှုန်းထား တွက်ချက်ခြင်း:
-        // - နှစ်နေရာလုံး အမဲနယ်နမိတ်အတွင်း (black -> black): bikeTown (4,000 Ks) / thonebaneTown (6,000 Ks)
-        // - အမဲပြင်ဘက်မှ အဖြူနယ်နမိတ်အတွင်းထိ (white): bikeOuter (5,000 Ks) / thonebaneOuter (8,000 Ks)
-        // - အဖြူနယ်နမိတ်အပြင်ဘက် (outer): bikeBawgyo (8,000 Ks) / thonebaneBawgyo (12,000 Ks)
-        function calculateBikeFareDetails(pickupText, dropoffText, pCoords, dCoords, vehicleType = activeRideVehicleType) {
+        function computeVehicleFareByZones(pickupText, dropoffText, pickupCoordsObj, dropoffCoordsObj, vehicleType) {
+            const pZone = getLocationZoneTier(pickupText, pickupCoordsObj);
+            const dZone = getLocationZoneTier(dropoffText, dropoffCoordsObj);
             const isThonebane = vehicleType === 'thonebane';
-            const townFare = isThonebane ? Number(appConfig.thonebaneTown || 6000) : Number(appConfig.bikeTown || 4000);
-            const whiteFare = isThonebane ? Number(appConfig.thonebaneOuter || 8000) : Number(appConfig.bikeOuter || 5000);
-            const outerFare = isThonebane ? Number(appConfig.thonebaneBawgyo || 12000) : Number(appConfig.bikeBawgyo || 8000);
 
-            if (!isThonebane) {
-                const pClean = (pickupText || '').trim().toLowerCase();
-                const dClean = (dropoffText || '').trim().toLowerCase();
-                const customMatch = (appConfig.customBikeRoutes || []).find(r => {
-                    const rf = r.from.trim().toLowerCase();
-                    const rt = r.to.trim().toLowerCase();
-                    return (pClean.includes(rf) && dClean.includes(rt)) || (pClean.includes(rt) && dClean.includes(rf));
-                });
-                if (customMatch) {
-                    return {
-                        fare: Number(customMatch.price),
-                        zoneLabel: `${customMatch.from} ↔ ${customMatch.to} (Custom Route)`
-                    };
-                }
-            }
+            const innerFare = isThonebane ? Number(appConfig.thonebaneTown || 6000) : Number(appConfig.bikeTown);
+            const outerFare = isThonebane ? Number(appConfig.thonebaneOuter || 8000) : Number(appConfig.bikeOuter);
+            const farFare = isThonebane ? Number(appConfig.thonebaneBawgyo || 12000) : Number(appConfig.bikeBawgyo);
 
-            const pTier = getLocationZoneTier(pickupText, pCoords);
-            const dTier = getLocationZoneTier(dropoffText, dCoords);
-
-            if (pTier === 'outer' || dTier === 'outer') {
-                return { fare: outerFare, zoneLabel: "အဖြူနယ်နမိတ်အပြင်ဘက် နှုန်းထား" };
+            if (pZone === 'outer' || dZone === 'outer') {
+                return { fare: farFare, zoneLabel: "အဖြူနယ်နမိတ်အပြင်ဘက် နှုန်းထား" };
             }
-            if (pTier === 'white' || dTier === 'white') {
-                return { fare: whiteFare, zoneLabel: "အမဲပြင်ဘက်မှ အဖြူနယ်နမိတ်အတွင်းထိ နှုန်းထား" };
+            if (pZone === 'white' || dZone === 'white') {
+                return { fare: outerFare, zoneLabel: "အဖြူနယ်နမိတ်အတွင်း နှုန်းထား" };
             }
-            return { fare: townFare, zoneLabel: "အမဲနယ်နမိတ်အတွင်း နှုန်းထား" };
+            return { fare: innerFare, zoneLabel: "အမဲနယ်နမိတ်အတွင်း နှုန်းထား" };
         }
 
         function recalculateBikeFare() {
             const pickup = document.getElementById('bike-pickup').value;
             const dropoff = document.getElementById('bike-dropoff').value;
-            const info = calculateBikeFareDetails(pickup, dropoff, bikePickupCoords, bikeDropoffCoords, activeRideVehicleType);
-            document.getElementById('bike-fare-display').textContent = `${info.fare.toLocaleString()} Ks`;
-            document.getElementById('bike-zone-label').textContent = info.zoneLabel;
-            return info;
+
+            if (activeRideVehicleType === 'bike' && !bikePickupCoords && !bikeDropoffCoords) {
+                const pClean = pickup.trim().toLowerCase();
+                const dClean = dropoff.trim().toLowerCase();
+                const customMatch = (appConfig.customBikeRoutes || []).find(r =>
+                    pClean.includes(r.from.toLowerCase()) && dClean.includes(r.to.toLowerCase())
+                );
+                if (customMatch) {
+                    const price = Number(customMatch.price);
+                    document.getElementById('bike-fare-display').textContent = `${price.toLocaleString()} Ks`;
+                    document.getElementById('bike-zone-label').textContent = `${customMatch.from} → ${customMatch.to} သတ်မှတ်ဈေးနှုန်း`;
+                    return { fare: price, zoneLabel: `${customMatch.from} → ${customMatch.to} သတ်မှတ်ဈေးနှုန်း` };
+                }
+            }
+
+            const calc = computeVehicleFareByZones(pickup, dropoff, bikePickupCoords, bikeDropoffCoords, activeRideVehicleType);
+            document.getElementById('bike-fare-display').textContent = `${calc.fare.toLocaleString()} Ks`;
+            document.getElementById('bike-zone-label').textContent = calc.zoneLabel;
+            return calc;
         }
 
         function submitBikeOrderFromInitial(e) {
             e.preventDefault();
+            if (activeRideVehicleType === 'thonebane' && !appConfig.thonebaneEnabled) {
+                showToast("Thonebane ဝန်ဆောင်မှုကို ခေတ္တပိတ်ထားပါသည်");
+                return;
+            }
             if (!guardServiceOpenOrToast()) return;
             const pickup = document.getElementById('bike-pickup').value.trim();
             const dropoff = document.getElementById('bike-dropoff').value.trim();
             if (!pickup || !dropoff) return;
-            openRouteConfirmationScreen();
+            showGoogleRoutePreview(pickup, dropoff);
         }
 
-        function openRouteConfirmationScreen() {
-            const pickup = document.getElementById('bike-pickup').value.trim() || "သီပေါမြို့";
-            const dropoff = document.getElementById('bike-dropoff').value.trim() || "သီပေါမြို့မဈေး";
-            const info = calculateBikeFareDetails(pickup, dropoff, bikePickupCoords, bikeDropoffCoords, activeRideVehicleType);
-            const fareStr = `${info.fare.toLocaleString()} Ks`;
+        function showGoogleRoutePreview(pickup, dropoff) {
+            const calc = recalculateBikeFare();
+            document.getElementById('bike-initial-box').classList.add('hidden');
+            const confirmBox = document.getElementById('bike-route-confirm-box');
+            confirmBox.classList.remove('hidden');
+            confirmBox.classList.add('flex');
 
             document.getElementById('route-summary-pickup').textContent = pickup;
             document.getElementById('route-summary-dropoff').textContent = dropoff;
-            document.getElementById('route-confirm-fare-top').textContent = fareStr;
-            document.getElementById('route-confirm-fare-price').textContent = fareStr;
-            document.getElementById('route-confirm-zone').textContent = info.zoneLabel;
+            document.getElementById('route-confirm-fare-top').textContent = `${calc.fare.toLocaleString()} Ks`;
+            document.getElementById('route-confirm-fare-price').textContent = `${calc.fare.toLocaleString()} Ks`;
+            document.getElementById('route-confirm-zone').textContent = calc.zoneLabel;
 
-            document.getElementById('bike-initial-box').classList.add('hidden');
-            const box = document.getElementById('bike-route-confirm-box');
-            box.classList.remove('hidden');
-            box.classList.add('flex');
-
-            const pLat = bikePickupCoords ? bikePickupCoords.lat : HSIPAW_LAT;
-            const pLng = bikePickupCoords ? bikePickupCoords.lng : HSIPAW_LNG;
-            const dLat = bikeDropoffCoords ? bikeDropoffCoords.lat : (HSIPAW_LAT + 0.004);
-            const dLng = bikeDropoffCoords ? bikeDropoffCoords.lng : (HSIPAW_LNG + 0.005);
-
-            renderRouteOnLeafletMap('bike-route-leaflet-map', pLat, pLng, dLat, dLng, activeRideVehicleType);
+            const pCoords = bikePickupCoords || { lat: HSIPAW_LAT + 0.002, lng: HSIPAW_LNG - 0.002 };
+            const dCoords = bikeDropoffCoords || { lat: HSIPAW_LAT - 0.003, lng: HSIPAW_LNG + 0.004 };
+            renderRoutePreviewOnLeaflet(pCoords, dCoords);
         }
 
-        function renderRouteOnLeafletMap(containerId, pLat, pLng, dLat, dLng, vehicleType = 'bike') {
+        function renderRoutePreviewOnLeaflet(pCoords, dCoords) {
             if (typeof L === 'undefined') return;
-            const pPt = [Number(pLat) || HSIPAW_LAT, Number(pLng) || HSIPAW_LNG];
-            const dPt = [Number(dLat) || HSIPAW_LAT, Number(dLng) || HSIPAW_LNG];
-            const isThonebane = vehicleType === 'thonebane';
-            const vehicleEmoji = isThonebane ? '🛺' : '🛵';
-            const lineColor = isThonebane ? '#DC2626' : '#00B14F';
-
             if (!routeLeafletMap) {
-                routeLeafletMap = L.map(containerId, {
-                    center: pPt,
+                routeLeafletMap = L.map('bike-route-leaflet-map', {
+                    center: [(pCoords.lat + dCoords.lat) / 2, (pCoords.lng + dCoords.lng) / 2],
                     zoom: 14,
-                    zoomControl: true
+                    zoomControl: false
                 });
                 createGoogleTileLayer('m').addTo(routeLeafletMap);
                 routeLayersGroup = L.layerGroup().addTo(routeLeafletMap);
-            } else {
-                const targetEl = document.getElementById(containerId);
-                if (targetEl && routeLeafletMap.getContainer() !== targetEl) {
-                    routeLeafletMap.remove();
-                    routeLeafletMap = L.map(containerId, {
-                        center: pPt,
-                        zoom: 14,
-                        zoomControl: true
-                    });
-                    createGoogleTileLayer('m').addTo(routeLeafletMap);
-                    routeLayersGroup = L.layerGroup().addTo(routeLeafletMap);
-                }
             }
-
             routeLayersGroup.clearLayers();
             drawRedAndWhiteZonesOnLayerGroup(routeLayersGroup);
 
-            const pickupIcon = L.divIcon({
-                className: '',
-                html: `<div style="width:18px;height:18px;border-radius:999px;background:#2563EB;border:3px solid #FFFFFF;box-shadow:0 2px 6px rgba(0,0,0,0.4);transform:translate(-50%,-50%);"></div>`,
-                iconSize: [0, 0]
-            });
-            const dropoffIcon = L.divIcon({
-                className: '',
-                html: `<div style="width:22px;height:22px;border-radius:999px;background:#FF5722;border:3px solid #FFFFFF;box-shadow:0 2px 8px rgba(0,0,0,0.45);transform:translate(-50%,-50%);"></div>`,
-                iconSize: [0, 0]
-            });
-            const vehicleIcon = L.divIcon({
-                className: '',
-                html: `<div style="font-size:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));transform:translate(-50%,-50%);">${vehicleEmoji}</div>`,
-                iconSize: [0, 0]
-            });
+            const pMarker = L.circleMarker([pCoords.lat, pCoords.lng], {
+                radius: 8, fillColor: '#2563EB', color: '#FFFFFF', weight: 2.5, fillOpacity: 1
+            }).addTo(routeLayersGroup).bindPopup('Pickup');
 
-            L.marker(pPt, { icon: pickupIcon }).addTo(routeLayersGroup);
-            L.marker(dPt, { icon: dropoffIcon }).addTo(routeLayersGroup);
-            L.marker(pPt, { icon: vehicleIcon }).addTo(routeLayersGroup);
+            const dMarker = L.circleMarker([dCoords.lat, dCoords.lng], {
+                radius: 8, fillColor: '#FF5722', color: '#FFFFFF', weight: 2.5, fillOpacity: 1
+            }).addTo(routeLayersGroup).bindPopup('Destination');
 
-            const fallbackLine = L.polyline([pPt, dPt], {
-                color: lineColor,
-                weight: 5,
-                opacity: 0.9
+            const line = L.polyline([[pCoords.lat, pCoords.lng], [dCoords.lat, dCoords.lng]], {
+                color: '#10B981', weight: 4.5, opacity: 0.9, dashArray: '8, 6'
             }).addTo(routeLayersGroup);
 
-            const bounds = L.latLngBounds([pPt, dPt]);
+            const bounds = L.latLngBounds([[pCoords.lat, pCoords.lng], [dCoords.lat, dCoords.lng]]);
             setTimeout(() => {
                 routeLeafletMap.invalidateSize();
-                routeLeafletMap.fitBounds(bounds, { padding: [45, 45], maxZoom: 16 });
+                routeLeafletMap.fitBounds(bounds.pad(0.35));
             }, 80);
-
-            fetch(`https://router.project-osrm.org/route/v1/driving/${pPt[1]},${pPt[0]};${dPt[1]},${dPt[0]}?overview=full&geometries=geojson`)
-                .then(r => r.json())
-                .then(data => {
-                    if (data && data.routes && data.routes[0] && data.routes[0].geometry && Array.isArray(data.routes[0].geometry.coordinates)) {
-                        const roadCoords = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
-                        routeLayersGroup.removeLayer(fallbackLine);
-                        L.polyline(roadCoords, {
-                            color: lineColor,
-                            weight: 5,
-                            opacity: 0.95
-                        }).addTo(routeLayersGroup);
-                    }
-                })
-                .catch(() => {});
         }
 
         function confirmBookBikeFromRoute() {
             if (!guardServiceOpenOrToast()) return;
-            const pickup = document.getElementById('bike-pickup').value.trim() || "သီပေါမြို့";
-            const dropoff = document.getElementById('bike-dropoff').value.trim() || "သီပေါမြို့မဈေး";
-            const info = calculateBikeFareDetails(pickup, dropoff, bikePickupCoords, bikeDropoffCoords, activeRideVehicleType);
-            const isThonebane = activeRideVehicleType === 'thonebane';
-            const serviceTitle = isThonebane ? 'Thonebane (သုံးဘီး)' : 'Bike Taxi';
-            const serviceEmoji = isThonebane ? '🛺' : '🛵';
+            const pickup = document.getElementById('bike-pickup').value.trim();
+            const dropoff = document.getElementById('bike-dropoff').value.trim();
+            if (!pickup || !dropoff) return;
 
-            const pLat = bikePickupCoords ? bikePickupCoords.lat : HSIPAW_LAT;
-            const pLng = bikePickupCoords ? bikePickupCoords.lng : HSIPAW_LNG;
-            const dLat = bikeDropoffCoords ? bikeDropoffCoords.lat : HSIPAW_LAT;
-            const dLng = bikeDropoffCoords ? bikeDropoffCoords.lng : HSIPAW_LNG;
+            const calc = recalculateBikeFare();
+            const pCoords = bikePickupCoords || { lat: HSIPAW_LAT + 0.002, lng: HSIPAW_LNG - 0.002 };
+            const dCoords = bikeDropoffCoords || { lat: HSIPAW_LAT - 0.003, lng: HSIPAW_LNG + 0.004 };
+            const isThonebane = activeRideVehicleType === 'thonebane';
 
             const newOrder = {
                 id: Date.now(),
@@ -3782,17 +3743,17 @@
                 customerName: userProfile.name,
                 customerPhone: userProfile.phone,
                 customerPhoto: userProfile.photo || DEFAULT_AVATAR,
-                details: `${serviceEmoji} ${serviceTitle}: ${pickup} → ${dropoff}`,
+                details: isThonebane ? `🛺 Thonebane: ${pickup} → ${dropoff}` : `🛵 Bike Taxi: ${pickup} → ${dropoff}`,
                 pickupAddress: pickup,
                 dropoffAddress: dropoff,
-                pickupLat: pLat,
-                pickupLng: pLng,
-                dropoffLat: dLat,
-                dropoffLng: dLng,
-                riderLat: pLat,
-                riderLng: pLng,
-                earningsAmount: info.fare,
-                fareText: `ကယ်ရီခ: ${info.fare.toLocaleString()} Ks (${info.zoneLabel})`,
+                pickupLat: pCoords.lat,
+                pickupLng: pCoords.lng,
+                dropoffLat: dCoords.lat,
+                dropoffLng: dCoords.lng,
+                riderLat: pCoords.lat,
+                riderLng: pCoords.lng,
+                earningsAmount: calc.fare,
+                fareText: `ကယ်ရီခ: ${calc.fare.toLocaleString()} Ks (${calc.zoneLabel})`,
                 status: 'Pending',
                 assignedRiderId: null,
                 assignedRiderName: null,
@@ -3809,125 +3770,144 @@
             saveOrders();
             backToBikeInitial();
             renderCustomerActiveRideTracker();
-            showToast(`${serviceTitle} ခေါ်ယူမှု အောင်မြင်ပါသည်! Rider ကို ရှာဖွေနေပါသည်...`);
+            showToast(isThonebane ? "Thonebane ခေါ်ယူမှု အောင်မြင်ပါသည်!" : "Bike Taxi ခေါ်ယူမှု အောင်မြင်ပါသည်!");
         }
 
         function renderCustomerActiveRideTracker() {
-            const trackerBox = document.getElementById('customer-active-ride-tracker');
-            if (!trackerBox) return;
+            const trackerWrap = document.getElementById('customer-active-ride-tracker');
+            if (!trackerWrap) return;
 
             const activeRide = allOrders.find(o =>
                 (o.type === 'bike' || o.type === 'thonebane') &&
                 o.customerPhone === (userProfile && userProfile.phone) &&
-                o.status !== 'Delivered' &&
-                o.status !== 'Cancelled'
+                o.status !== 'Delivered' && o.status !== 'Cancelled'
             );
 
             if (!activeRide) {
-                trackerBox.classList.add('hidden');
-                trackerBox.innerHTML = '';
+                trackerWrap.classList.add('hidden');
+                trackerWrap.innerHTML = '';
                 return;
             }
 
-            trackerBox.classList.remove('hidden');
-            const isThonebane = activeRide.type === 'thonebane';
-            const vIcon = isThonebane ? '🛺' : '🛵';
-            const rLat = activeRide.riderLat || activeRide.pickupLat || HSIPAW_LAT;
-            const rLng = activeRide.riderLng || activeRide.pickupLng || HSIPAW_LNG;
+            trackerWrap.classList.remove('hidden');
             const pLat = activeRide.pickupLat || HSIPAW_LAT;
             const pLng = activeRide.pickupLng || HSIPAW_LNG;
             const dLat = activeRide.dropoffLat || HSIPAW_LAT;
             const dLng = activeRide.dropoffLng || HSIPAW_LNG;
+            const rLat = activeRide.riderLat || pLat;
+            const rLng = activeRide.riderLng || pLng;
 
-            let elapsedMins = 0;
-            let canCancelAfter20Min = false;
-            if (activeRide.acceptedAtMs) {
-                elapsedMins = Math.floor((Date.now() - activeRide.acceptedAtMs) / 60000);
-                canCancelAfter20Min = (Date.now() - activeRide.acceptedAtMs) >= TWENTY_MINUTES_MS;
+            let canCancel = false;
+            let remainingWaitText = "";
+            if (activeRide.status === 'Pending' || !activeRide.acceptedAtMs) {
+                canCancel = true;
+            } else {
+                const elapsed = Date.now() - activeRide.acceptedAtMs;
+                if (elapsed >= TWENTY_MINUTES_MS) {
+                    canCancel = true;
+                } else {
+                    const minsLeft = Math.ceil((TWENTY_MINUTES_MS - elapsed) / 60000);
+                    remainingWaitText = `မိနစ် ၂၀ ကျော်မှ ဖျက်ခွင့်ရှိ (${minsLeft} min left)`;
+                }
             }
 
-            const riderInfoHtml = activeRide.assignedRiderName
-                ? `<div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 flex items-center justify-between gap-2">
-                        <div class="min-w-0">
-                            <p class="text-[10px] font-extrabold text-emerald-700">${vIcon} Rider လက်ခံပြီးပါပြီ • လာနေပါပြီ</p>
-                            <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(activeRide.assignedRiderName)} (${escapeHtml(activeRide.assignedRiderPhone || '')})</p>
-                            <p class="text-[10px] text-slate-600 mt-0.5">လက်ခံပြီး ကြာချိန်: ${elapsedMins} မိနစ် (မိနစ် ၂၀ ကျော်ပါက Cancel ခွင့်ရှိ)</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 shrink-0">
-                            ${activeRide.assignedRiderPhone ? `<a href="tel:${activeRide.assignedRiderPhone}" class="px-2.5 py-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">📞</a>` : ''}
-                            <button onclick="openChatModal(${activeRide.id}, 'customer')" class="px-2.5 py-2 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">💬</button>
-                        </div>
-                   </div>`
-                : `<div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 flex items-center justify-between gap-2">
-                        <div class="text-xs font-bold text-amber-900">⏳ ${vIcon} Rider ရှာဖွေနေပါသည်...</div>
-                        <button onclick="cancelRideOrderByCustomer(${activeRide.id})" class="px-3 py-1.5 rounded-xl bg-red-100 text-red-700 font-extrabold text-xs">Cancel</button>
-                   </div>`;
+            const gmapsDirUrl = `https://www.google.com/maps/dir/?api=1&origin=${rLat},${rLng}&waypoints=${pLat},${pLng}&destination=${dLat},${dLng}&travelmode=driving`;
+            const vehEmoji = activeRide.type === 'thonebane' ? '🛺' : '🛵';
 
-            const cancelBtnHtml = (activeRide.assignedRiderName && canCancelAfter20Min)
-                ? `<button onclick="cancelRideOrderByCustomer(${activeRide.id})" class="w-full py-2.5 rounded-xl bg-red-600 text-white font-extrabold text-xs">⚠️ Rider မရောက်သေးပါ (မိနစ် ၂၀ ကျော်ပြီ) - Cancel မည်</button>`
-                : '';
-
-            trackerBox.innerHTML = `
-                <div class="bg-white rounded-3xl p-3.5 border-2 border-emerald-500 shadow-md space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-extrabold text-emerald-700">${vIcon} Live Ride Tracking (${escapeHtml(activeRide.status)})</span>
+            trackerWrap.innerHTML = `
+                <div class="bg-white rounded-3xl p-4 border-2 border-emerald-500 shadow-md space-y-2.5">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span class="text-xs font-extrabold text-emerald-700">${vehEmoji} Live • ${escapeHtml(activeRide.status)}</span>
+                        </div>
                         <span class="text-xs font-extrabold text-[#FF5722]">${escapeHtml(activeRide.fareText)}</span>
                     </div>
-                    <div id="customer-live-ride-map" class="w-full h-48 rounded-2xl overflow-hidden border border-slate-200"></div>
-                    <div class="text-[11px] space-y-1 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                        <p class="truncate"><span class="font-bold text-blue-600">Pickup:</span> ${escapeHtml(activeRide.pickupAddress)}</p>
-                        <p class="truncate"><span class="font-bold text-[#FF5722]">Destination:</span> ${escapeHtml(activeRide.dropoffAddress)}</p>
+
+                    <div class="text-[11px] text-slate-700 space-y-1 bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+                        <p class="truncate"><span class="font-bold text-blue-600">● Pickup:</span> ${escapeHtml(activeRide.pickupAddress)}</p>
+                        <p class="truncate"><span class="font-bold text-[#FF5722]">● Dropoff:</span> ${escapeHtml(activeRide.dropoffAddress)}</p>
+                        <p class="truncate"><span class="font-bold text-emerald-700">${vehEmoji} Driver:</span> ${activeRide.assignedRiderName ? `${escapeHtml(activeRide.assignedRiderName)} (${escapeHtml(activeRide.assignedRiderPhone)})` : 'Driver ရှာဖွေနေပါသည်...'}</p>
                     </div>
-                    ${riderInfoHtml}
-                    ${cancelBtnHtml}
+
+                    <div class="flex items-center gap-2 pt-0.5">
+                        <a href="${gmapsDirUrl}" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-blue-600 text-white font-extrabold text-xs text-center shadow-2xs">
+                            🧭 Google Map လမ်းညွှန်ကြည့်ရန်
+                        </a>
+                        <button type="button" onclick="openChatModal(${activeRide.id}, 'customer')" class="px-3 py-2 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">
+                            💬 Chat
+                        </button>
+                        ${canCancel
+                            ? `<button type="button" onclick="cancelRideOrder(${activeRide.id})" class="px-3 py-2 rounded-xl bg-red-600 text-white font-extrabold text-xs">Cancel</button>`
+                            : `<span class="text-[10px] font-bold text-slate-400 px-1">${remainingWaitText}</span>`
+                        }
+                    </div>
                 </div>
             `;
-
-            setTimeout(() => {
-                renderRouteOnLeafletMap('customer-live-ride-map', rLat, rLng, dLat, dLng, activeRide.type);
-                if (typeof L !== 'undefined' && routeLeafletMap && routeLayersGroup) {
-                    const pMarkerIcon = L.divIcon({
-                        className: '',
-                        html: `<div style="background:#2563EB;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;border:2px solid #fff;white-space:nowrap;transform:translate(-50%,-130%);">Pickup</div>`,
-                        iconSize: [0, 0]
-                    });
-                    const dMarkerIcon = L.divIcon({
-                        className: '',
-                        html: `<div style="background:#FF5722;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;border:2px solid #fff;white-space:nowrap;transform:translate(-50%,-130%);">Destination</div>`,
-                        iconSize: [0, 0]
-                    });
-                    L.marker([pLat, pLng], { icon: pMarkerIcon }).addTo(routeLayersGroup);
-                    L.marker([dLat, dLng], { icon: dMarkerIcon }).addTo(routeLayersGroup);
-                }
-            }, 80);
         }
 
-        function cancelRideOrderByCustomer(orderId) {
-            const ord = allOrders.find(o => o.id === orderId);
-            if (!ord) return;
-            if (ord.assignedRiderId && ord.acceptedAtMs && (Date.now() - ord.acceptedAtMs) < TWENTY_MINUTES_MS) {
-                const remainMins = Math.ceil((TWENTY_MINUTES_MS - (Date.now() - ord.acceptedAtMs)) / 60000);
-                showToast(`Rider လက်ခံပြီး မိနစ် ၂၀ မပြည့်သေးပါ။ နောက်ထပ် ${remainMins} မိနစ် စောင့်ပါ`);
+        function cancelRideOrder(orderId) {
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+            if (order.status !== 'Pending' && order.acceptedAtMs && (Date.now() - order.acceptedAtMs < TWENTY_MINUTES_MS)) {
+                showToast("Driver လက်ခံပြီး မိနစ် ၂၀ မပြည့်သေးပါ");
                 return;
             }
-            ord.status = 'Cancelled';
+            if (!confirm("ဤ Ride ကို ပယ်ဖျက်မှာ သေချာပါသလား?")) return;
+            order.status = 'Cancelled';
             saveOrders();
             renderCustomerActiveRideTracker();
-            renderUserActivity();
-            showToast("ငှားရမ်းမှုကို ပယ်ဖျက်လိုက်ပါပြီ");
+            renderHomeActiveOrder();
+            showToast("Ride ကို ပယ်ဖျက်ပြီးပါပြီ");
         }
 
         // ==========================================
-        // MERCHANT PORTAL & SHOP CREATION
+        // SATELLITE MAP VIEW
+        // ==========================================
+        function setMainGoogleMapType(typeCode) {
+            mainMapType = typeCode;
+            document.getElementById('btn-map-sat').className = typeCode === 'k'
+                ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs"
+                : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
+            document.getElementById('btn-map-std').className = typeCode === 'm'
+                ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs"
+                : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
+            refreshMainGoogleMapIframe();
+        }
+
+        function refreshMainGoogleMapIframe() {
+            const iframe = document.getElementById('main-google-map-iframe');
+            if (iframe) {
+                iframe.src = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}&z=15&output=embed`;
+            }
+            document.getElementById('main-map-coords').textContent = `${mainMapLat.toFixed(4)}, ${mainMapLng.toFixed(4)}`;
+            document.getElementById('main-map-gmaps-link').href = `https://www.google.com/maps/search/?api=1&query=${mainMapLat},${mainMapLng}`;
+        }
+
+        function locateUserOnGoogleSatelliteMap() {
+            requestLocationPermission((pos) => {
+                if (pos) {
+                    mainMapLat = pos.coords.latitude;
+                    mainMapLng = pos.coords.longitude;
+                    refreshMainGoogleMapIframe();
+                    showToast("သင့်တည်နေရာကို ဂြိုဟ်တုမြေပုံတွင် ပြသပြီးပါပြီ");
+                }
+            });
+        }
+
+        // ==========================================
+        // MERCHANT SHOP PORTAL, EDIT SHOP & MENU BUILDER
         // ==========================================
         function openShopPortal() {
-            if (shopUnlocked) navigateToScreen('shop-manager');
-            else {
+            if (shopUnlocked) {
+                navigateToScreen('shop-manager');
+            } else {
                 document.getElementById('shop-pass-input').value = '';
                 document.getElementById('shop-pass-error').classList.add('hidden');
                 const m = document.getElementById('shop-pass-modal');
                 m.classList.remove('hidden');
                 m.classList.add('flex');
+                setTimeout(() => document.getElementById('shop-pass-input').focus(), 100);
             }
         }
 
@@ -3953,10 +3933,10 @@
             if (show) {
                 box.classList.remove('hidden');
                 if (cancelBtn) cancelBtn.classList.remove('hidden');
+                box.scrollIntoView({ behavior: 'smooth' });
             } else {
                 if (allShops.length > 0) {
                     box.classList.add('hidden');
-                    if (cancelBtn) cancelBtn.classList.add('hidden');
                 }
             }
         }
@@ -3990,19 +3970,20 @@
             const address = document.getElementById('shop-address-input').value.trim();
             if (!name || !phone || !address) return;
 
-            const shopLoc = tempNewShopLocation || { lat: HSIPAW_LAT, lng: HSIPAW_LNG, label: address };
+            const loc = tempNewShopLocation || { lat: HSIPAW_LAT, lng: HSIPAW_LNG, label: `${address} (${HSIPAW_LAT}, ${HSIPAW_LNG})` };
 
             const newShop = {
                 id: 'shop_' + Date.now(),
                 name,
                 phone,
                 address,
-                lat: shopLoc.lat,
-                lng: shopLoc.lng,
+                lat: loc.lat,
+                lng: loc.lng,
+                locationLabel: loc.label,
                 photo: tempShopPhoto || DEFAULT_SHOP_IMG,
                 items: []
             };
-            allShops.push(newShop);
+            allShops.unshift(newShop);
             saveShops();
 
             document.getElementById('shop-name-input').value = '';
@@ -4011,24 +3992,29 @@
             tempShopPhoto = DEFAULT_SHOP_IMG;
             tempNewShopLocation = null;
             document.getElementById('shop-photo-preview').innerHTML = `<span>📷</span><span class="text-[9px]">ဆိုင်ပုံထည့်</span>`;
-            document.getElementById('new-shop-location-display').textContent = "Rider လာဝယ်နိုင်ရန် ဆိုင်နေရာ Map တွင် ရွေးပါ";
-            document.getElementById('new-shop-location-display').className = "text-[10px] font-bold text-slate-500 block truncate";
+            document.getElementById('new-shop-location-display').textContent = 'Rider လာဝယ်နိုင်ရန် ဆိုင်နေရာ Map တွင် ရွေးပါ';
 
+            toggleMerchantCreateBox(false);
             renderMerchantManagerUI();
-            showToast(`"${name}" ဆိုင်ဖွင့်ပြီးပါပြီ! ယခု မီနူးများ ထည့်နိုင်ပါပြီ`);
+            showToast(`"${name}" ဆိုင်ဖွင့်ခြင်း အောင်မြင်ပါသည်!`);
         }
 
         function openEditShopModal(shopId) {
             const shop = allShops.find(s => s.id === shopId);
             if (!shop) return;
             tempEditShopPhoto = null;
-            tempEditShopLocation = { lat: shop.lat || HSIPAW_LAT, lng: shop.lng || HSIPAW_LNG, label: shop.address };
+            tempEditShopLocation = {
+                lat: shop.lat || HSIPAW_LAT,
+                lng: shop.lng || HSIPAW_LNG,
+                label: shop.locationLabel || `${shop.address} (${(shop.lat || HSIPAW_LAT).toFixed(4)}, ${(shop.lng || HSIPAW_LNG).toFixed(4)})`
+            };
             document.getElementById('edit-shop-id').value = shop.id;
             document.getElementById('edit-shop-img-preview').src = shop.photo || DEFAULT_SHOP_IMG;
             document.getElementById('edit-shop-name').value = shop.name;
             document.getElementById('edit-shop-phone').value = shop.phone;
             document.getElementById('edit-shop-address').value = shop.address;
-            document.getElementById('edit-shop-location-display').textContent = `📍 ${(shop.lat || HSIPAW_LAT).toFixed(5)}, ${(shop.lng || HSIPAW_LNG).toFixed(5)}`;
+            document.getElementById('edit-shop-location-display').textContent = `📍 ${tempEditShopLocation.label}`;
+
             const m = document.getElementById('edit-shop-modal');
             m.classList.remove('hidden');
             m.classList.add('flex');
@@ -4066,6 +4052,7 @@
             const shopId = document.getElementById('edit-shop-id').value;
             const shop = allShops.find(s => s.id === shopId);
             if (!shop) return;
+
             shop.name = document.getElementById('edit-shop-name').value.trim();
             shop.phone = document.getElementById('edit-shop-phone').value.trim();
             shop.address = document.getElementById('edit-shop-address').value.trim();
@@ -4073,19 +4060,28 @@
             if (tempEditShopLocation) {
                 shop.lat = tempEditShopLocation.lat;
                 shop.lng = tempEditShopLocation.lng;
+                shop.locationLabel = tempEditShopLocation.label;
             }
             saveShops();
             closeEditShopModal();
             renderMerchantManagerUI();
-            showToast("ဆိုင်အချက်အလက် ပြင်ဆင်ပြီးပါပြီ");
+            showToast("ဆိုင်အချက်အလက်နှင့် တည်နေရာ သိမ်းဆည်းပြီးပါပြီ!");
         }
 
         function renderMerchantManagerUI() {
-            const list = document.getElementById('merchant-pages-list');
-            toggleMerchantCreateBox(allShops.length === 0);
+            const createBox = document.getElementById('merchant-create-box');
+            const cancelBtn = document.getElementById('btn-cancel-new-shop');
+            if (allShops.length > 0) {
+                createBox.classList.add('hidden');
+                if (cancelBtn) cancelBtn.classList.remove('hidden');
+            } else {
+                createBox.classList.remove('hidden');
+                if (cancelBtn) cancelBtn.classList.add('hidden');
+            }
 
+            const list = document.getElementById('merchant-pages-list');
             if (!allShops.length) {
-                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-4">ဆိုင်မရှိသေးပါ။ အပေါ်တွင် ဆိုင်အမည်နှင့် လိပ်စာထည့်၍ ဆိုင်ဖွင့်ပါ။</p>`;
+                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-4">ဆိုင်မရှိသေးပါ - အပေါ်တွင် ဆိုင်အသစ်ဖွင့်ပါ</p>`;
                 return;
             }
 
@@ -4093,115 +4089,114 @@
                 const sLat = shop.lat || HSIPAW_LAT;
                 const sLng = shop.lng || HSIPAW_LNG;
                 return `
-                <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-4">
+                <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3.5">
                     <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-100">
                         <div class="flex items-center gap-3 min-w-0">
                             <img src="${shop.photo || DEFAULT_SHOP_IMG}" class="w-12 h-12 rounded-2xl object-cover border border-orange-200 shrink-0">
                             <div class="min-w-0">
                                 <h4 class="text-sm font-extrabold text-slate-900 truncate">${escapeHtml(shop.name)}</h4>
                                 <p class="text-[11px] text-slate-500 truncate">📍 ${escapeHtml(shop.address)} • 📞 ${escapeHtml(shop.phone)}</p>
-                                <p class="text-[10px] font-mono text-emerald-700 truncate">📌 Map: ${sLat.toFixed(4)}, ${sLng.toFixed(4)}</p>
+                                <p class="text-[10px] font-bold text-emerald-700 truncate">🗺️ Map: ${Number(sLat).toFixed(4)}, ${Number(sLng).toFixed(4)}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5 shrink-0">
-                            <button type="button" onclick="openEditShopModal('${shop.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px]">✏️ ပြင်ရန်</button>
-                            <button type="button" onclick="toggleMerchantCreateBox(true)" class="px-2.5 py-1.5 rounded-xl bg-orange-50 text-[#FF5722] font-extrabold text-[11px]">+ ဆိုင်သစ်</button>
+                            <button type="button" onclick="openEditShopModal('${shop.id}')" class="px-2.5 py-1.5 rounded-xl bg-orange-50 text-[#FF5722] font-extrabold text-[11px]">✏️ ပြင်မည်</button>
+                            <button type="button" onclick="toggleMerchantCreateBox(true)" class="px-2.5 py-1.5 rounded-xl bg-slate-100 text-slate-700 font-extrabold text-[11px]">+ ဆိုင်သစ်</button>
                         </div>
                     </div>
 
-                    <form onsubmit="addMenuItemToShop(event, '${shop.id}')" class="bg-orange-50/60 p-3 rounded-2xl border border-orange-100 space-y-2.5">
-                        <p class="text-[11px] font-extrabold text-[#FF5722]">+ စားသောက်ကုန် မီနူး အသစ်ထည့်ရန်</p>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="menu-name-${shop.id}" required placeholder="အမည် (ဥပမာ - ရှမ်းခေါက်ဆွဲ)" class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
-                            <input type="number" id="menu-price-${shop.id}" required placeholder="ဈေးနှုန်း (ဥပမာ - 2500)" class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs text-slate-950 outline-none">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <select id="menu-cat-${shop.id}" class="rounded-xl bg-white border border-slate-200 px-2.5 py-2 text-xs font-bold text-slate-800 outline-none">
-                                <option value="food">🍜 စားစရာ</option>
-                                <option value="drink">🥤 သောက်စရာ</option>
-                                <option value="icecream">🍦 ရေခဲမုန့်</option>
-                            </select>
-                            <label class="rounded-xl bg-white border border-dashed border-orange-300 px-2.5 py-2 text-xs font-bold text-[#FF5722] text-center cursor-pointer truncate">
-                                📷 မီနူးပုံရွေးရန်
-                                <input type="file" id="menu-photo-${shop.id}" accept="image/*" class="hidden" onchange="showToast('မီနူးပုံ ရွေးပြီးပါပြီ')">
+                    <form onsubmit="addMenuItemToShop(event, '${shop.id}')" class="bg-orange-50/60 p-3 rounded-2xl border border-orange-200/80 space-y-2.5">
+                        <p class="text-[11px] font-extrabold text-[#FF5722]">🍜 ဤဆိုင်တွင် မီနူးအသစ် တင်ရန်</p>
+                        <div class="flex items-center gap-2.5">
+                            <label class="w-14 h-14 rounded-xl bg-white border-2 border-dashed border-orange-300 flex flex-col items-center justify-center text-orange-500 font-bold text-[10px] cursor-pointer shrink-0 overflow-hidden" id="menu-photo-box-${shop.id}">
+                                <span>📷</span><span>မီနူးပုံ</span>
+                                <input type="file" accept="image/*" class="hidden" onchange="previewMenuItemPhoto(event, '${shop.id}')">
                             </label>
+                            <div class="flex-1 space-y-1.5">
+                                <input type="text" id="menu-name-${shop.id}" required placeholder="မီနူးအမည် (ဥပမာ - ရှမ်းခေါက်ဆွဲ)" class="w-full rounded-xl bg-white border border-slate-200 px-3 py-1.5 text-xs text-slate-950 outline-none">
+                                <div class="grid grid-cols-2 gap-1.5">
+                                    <input type="number" id="menu-price-${shop.id}" required placeholder="ဈေးနှုန်း (ကျပ်)" class="rounded-xl bg-white border border-slate-200 px-2.5 py-1.5 text-xs text-slate-950 outline-none">
+                                    <select id="menu-cat-${shop.id}" class="rounded-xl bg-white border border-slate-200 px-2 py-1.5 text-xs font-bold text-slate-800 outline-none">
+                                        <option value="food">🍜 စားစရာ</option>
+                                        <option value="drink">🥤 သောက်စရာ</option>
+                                        <option value="icecream">🍦 ရေခဲမုန့်</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full py-2.5 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs">မီနူး ထည့်သွင်းမည်</button>
+                        <button type="submit" class="w-full py-2 rounded-xl bg-[#FF5722] text-white font-extrabold text-xs">+ မီနူးထည့်မည်</button>
                     </form>
 
                     <div class="space-y-2">
-                        <p class="text-[11px] font-extrabold text-slate-700">တင်ထားသော မီနူးများ (${(shop.items || []).length})</p>
-                        ${(shop.items || []).length === 0
-                            ? `<p class="text-xs text-slate-400 py-2">မီနူး မရှိသေးပါ</p>`
-                            : shop.items.map(item => `
-                                <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 text-xs">
-                                    <div class="flex items-center gap-2.5 min-w-0">
-                                        <img src="${item.photo || DEFAULT_SHOP_IMG}" class="w-10 h-10 rounded-lg object-cover shrink-0">
-                                        <div class="min-w-0">
-                                            <p class="font-bold text-slate-900 truncate">${escapeHtml(item.name)}</p>
-                                            <p class="text-[11px] font-extrabold text-[#FF5722]">${Number(item.priceNum || 0).toLocaleString()} Ks • ${escapeHtml(item.category || 'food')}</p>
-                                        </div>
+                        <p class="text-[11px] font-bold text-slate-500">တင်ထားသော မီနူးများ (${(shop.items || []).length})</p>
+                        ${(shop.items || []).map(it => `
+                            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl border border-slate-200/70 text-xs">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <img src="${it.photo || DEFAULT_SHOP_IMG}" class="w-10 h-10 rounded-lg object-cover shrink-0">
+                                    <div class="min-w-0">
+                                        <p class="font-extrabold text-slate-900 truncate">${escapeHtml(it.name)}</p>
+                                        <p class="text-[11px] font-bold text-[#FF5722]">${Number(it.priceNum || 0).toLocaleString()} Ks • ⭐ ${Number(it.rating || 5).toFixed(1)}</p>
                                     </div>
-                                    <button type="button" onclick="deleteMenuItem('${shop.id}', '${item.id}')" class="px-2.5 py-1 rounded-lg bg-red-50 text-red-600 font-bold text-[11px]">ဖျက်မည်</button>
                                 </div>
-                            `).join('')
-                        }
+                                <button type="button" onclick="deleteMenuItem('${shop.id}', '${it.id}')" class="px-2.5 py-1 rounded-lg bg-red-50 text-red-600 font-bold text-[11px] shrink-0">ဖျက်မည်</button>
+                            </div>
+                        `).join('') || `<p class="text-[11px] text-slate-400">မီနူးမရှိသေးပါ</p>`}
                     </div>
                 </div>
             `;
             }).join('');
         }
 
+        const menuTempPhotos = {};
+        function previewMenuItemPhoto(event, shopId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxDim = 280;
+                    let w = img.width, h = img.height;
+                    if (w > h) { if (w > maxDim) { h *= maxDim / w; w = maxDim; } }
+                    else { if (h > maxDim) { w *= maxDim / h; h = maxDim; } }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                    menuTempPhotos[shopId] = dataUrl;
+                    const box = document.getElementById(`menu-photo-box-${shopId}`);
+                    if (box) {
+                        box.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-cover"><input type="file" accept="image/*" class="hidden" onchange="previewMenuItemPhoto(event, '${shopId}')">`;
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
         function addMenuItemToShop(e, shopId) {
             e.preventDefault();
             const shop = allShops.find(s => s.id === shopId);
             if (!shop) return;
-
             const name = document.getElementById(`menu-name-${shopId}`).value.trim();
             const priceNum = Number(document.getElementById(`menu-price-${shopId}`).value);
             const category = document.getElementById(`menu-cat-${shopId}`).value || 'food';
-            const fileInput = document.getElementById(`menu-photo-${shopId}`);
             if (!name || !priceNum) return;
 
-            const finishAdd = (photoDataUrl) => {
-                shop.items = shop.items || [];
-                shop.items.push({
-                    id: 'item_' + Date.now(),
-                    name,
-                    priceNum,
-                    category,
-                    rating: 5.0,
-                    ratingCount: 1,
-                    photo: photoDataUrl || shop.photo || DEFAULT_SHOP_IMG
-                });
-                saveShops();
-                document.getElementById(`menu-name-${shopId}`).value = '';
-                document.getElementById(`menu-price-${shopId}`).value = '';
-                if (fileInput) fileInput.value = '';
-                renderMerchantManagerUI();
-                showToast(`"${name}" မီနူး ထည့်ပြီးပါပြီ`);
-            };
-
-            if (fileInput && fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        const maxDim = 320;
-                        let w = img.width, h = img.height;
-                        if (w > h) { if (w > maxDim) { h *= maxDim / w; w = maxDim; } }
-                        else { if (h > maxDim) { w *= maxDim / h; h = maxDim; } }
-                        canvas.width = w; canvas.height = h;
-                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                        finishAdd(canvas.toDataURL('image/jpeg', 0.82));
-                    };
-                    img.src = ev.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                finishAdd(null);
-            }
+            if (!shop.items) shop.items = [];
+            shop.items.unshift({
+                id: 'item_' + Date.now(),
+                name,
+                priceNum,
+                category,
+                rating: 5.0,
+                ratingCount: 1,
+                photo: menuTempPhotos[shopId] || DEFAULT_SHOP_IMG
+            });
+            saveShops();
+            delete menuTempPhotos[shopId];
+            renderMerchantManagerUI();
+            showToast(`"${name}" မီနူးထည့်ပြီးပါပြီ`);
         }
 
         function deleteMenuItem(shopId, itemId) {
@@ -4210,337 +4205,45 @@
             shop.items = (shop.items || []).filter(i => i.id !== itemId);
             saveShops();
             renderMerchantManagerUI();
-            showToast("မီနူး ဖျက်ပြီးပါပြီ");
-        }
-
-        // ==========================================
-        // USER ACTIVITY & CHAT
-        // ==========================================
-        function renderUserActivity() {
-            const list = document.getElementById('user-activity-list');
-            const myPhone = userProfile ? userProfile.phone : null;
-            const mine = allOrders.filter(o => !myPhone || o.customerPhone === myPhone);
-
-            if (!mine.length) {
-                list.innerHTML = `<div class="bg-white rounded-2xl p-8 text-center border border-slate-200 text-xs text-slate-400">မှာယူထားသော အော်ဒါ မရှိသေးပါ</div>`;
-                return;
-            }
-
-            list.innerHTML = mine.map(o => {
-                const unread = countUnreadForOrder(o, 'customer');
-                const canCustomerCancel = (o.status === 'Pending' && !o.assignedRiderId) ||
-                    ((o.type === 'bike' || o.type === 'thonebane') && o.assignedRiderId && o.acceptedAtMs && (Date.now() - o.acceptedAtMs) >= TWENTY_MINUTES_MS && o.status !== 'Delivered' && o.status !== 'Cancelled');
-
-                const kpayCardHtml = (o.type !== 'bike' && o.type !== 'thonebane' && o.status !== 'Cancelled' && o.assignedRiderName && (o.assignedRiderKpayPhone || o.assignedRiderKpayQr))
-                    ? `<div class="bg-blue-50 border border-blue-200 rounded-2xl p-3 flex items-center justify-between gap-3">
-                            <div class="min-w-0">
-                                <span class="text-[10px] font-extrabold text-blue-900 block">💳 Delivery KPay ငွေလွှဲရန် (${escapeHtml(o.assignedRiderName)})</span>
-                                <span class="text-xs font-extrabold text-blue-700 block mt-0.5">${escapeHtml(o.assignedRiderKpayPhone || '')}</span>
-                            </div>
-                            ${o.assignedRiderKpayQr ? `<img src="${o.assignedRiderKpayQr}" onclick="window.open('${o.assignedRiderKpayQr}')" class="w-14 h-14 rounded-xl object-cover border border-blue-300 shrink-0 cursor-pointer">` : ''}
-                       </div>`
-                    : '';
-
-                return `
-                    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-2xs space-y-2.5">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-extrabold text-slate-400">#${o.id} • ${escapeHtml(o.createdAt)}</span>
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${o.status === 'Delivered' ? 'bg-emerald-100 text-emerald-800' : o.status === 'Cancelled' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-[#FF5722]'}">${escapeHtml(o.status)}</span>
-                        </div>
-                        <p class="text-xs font-bold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
-                        <div class="text-[11px] text-slate-500 space-y-0.5">
-                            <p>📍 လိပ်စာ: <span class="font-semibold text-slate-700">${escapeHtml(o.dropoffAddress)}</span></p>
-                            <p class="font-extrabold text-[#FF5722]">${escapeHtml(o.fareText)}</p>
-                            ${o.assignedRiderName ? `<p class="text-emerald-700 font-bold">🛵 Rider: ${escapeHtml(o.assignedRiderName)} (${escapeHtml(o.assignedRiderPhone || '')})</p>` : ''}
-                        </div>
-                        ${kpayCardHtml}
-                        <div class="flex items-center gap-2 pt-1">
-                            <button onclick="openChatModal(${o.id}, 'customer')" class="flex-1 py-2 rounded-xl bg-orange-100 hover:bg-orange-200 text-[#FF5722] font-extrabold text-xs relative">
-                                💬 Rider / Admin နှင့် စာပို့ရန်
-                                ${unread > 0 ? `<span class="ml-1 px-1.5 py-0.5 rounded-full bg-[#FF5722] text-white text-[10px]">${unread}</span>` : ''}
-                            </button>
-                            ${o.assignedRiderPhone && o.status !== 'Cancelled' ? `<a href="tel:${o.assignedRiderPhone}" class="px-3 py-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">📞</a>` : ''}
-                            ${canCustomerCancel ? `<button onclick="cancelRideOrderByCustomer(${o.id})" class="px-3 py-2 rounded-xl bg-red-100 text-red-700 font-extrabold text-xs">Cancel</button>` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function countUnreadForOrder(order, viewerRole) {
-            if (!order.messages) return 0;
-            return order.messages.filter(m => m.senderRole !== viewerRole && !m.readByViewer).length;
-        }
-
-        function updateUnreadIndicators() {
-            const myPhone = userProfile ? userProfile.phone : null;
-            const hasOrderUnread = allOrders.some(o => (!myPhone || o.customerPhone === myPhone) && countUnreadForOrder(o, 'customer') > 0);
-            const dot = document.getElementById('nav-unread-dot');
-            if (dot) dot.classList.toggle('hidden', !hasOrderUnread);
-
-            const hasSupportUnread = supportChats.some(m => m.senderRole === 'admin' && !m.readByCustomer);
-            const pDot = document.getElementById('profile-support-unread');
-            if (pDot) pDot.classList.toggle('hidden', !hasSupportUnread);
-        }
-
-        function openChatModal(orderId, role) {
-            activeChatOrderId = orderId;
-            activeChatRole = role;
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
-
-            order.messages = order.messages || [];
-            order.messages.forEach(m => { if (m.senderRole !== role) m.readByViewer = true; });
-            saveOrders();
-            updateUnreadIndicators();
-
-            document.getElementById('chat-header-title').textContent = role === 'customer'
-                ? (order.assignedRiderName ? `💬 ${order.assignedRiderName}` : '💬 Order Chat')
-                : `💬 ${order.customerName}`;
-            document.getElementById('chat-header-subtitle').textContent = `Order #${order.id} • ${order.status}`;
-            document.getElementById('chat-order-summary').innerHTML = `
-                <span class="truncate font-bold text-slate-800">${escapeHtml(order.dropoffAddress)}</span>
-                <span class="font-extrabold text-[#FF5722] shrink-0 ml-2">${escapeHtml(order.fareText)}</span>
-            `;
-
-            const quickReplies = role === 'customer'
-                ? ["အိမ်ရှေ့ရောက်ပါပြီ", "ဖုန်းဆက်ပေးပါ", "လိပ်စာထပ်ပြောပါမည်"]
-                : ["အော်ဒါလက်ခံပြီးပါပြီ", "ထွက်လာပါပြီ", "၅ မိနစ်အတွင်း ရောက်ပါမည်"];
-
-            document.getElementById('chat-quick-replies').innerHTML = quickReplies.map(q => `
-                <button type="button" onclick="sendQuickReply('${escapeAttr(q)}')" class="px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF5722] font-bold text-[11px] whitespace-nowrap shrink-0">${escapeHtml(q)}</button>
-            `).join('');
-
-            renderChatMessages(order);
-            const m = document.getElementById('chat-modal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
-        }
-
-        function closeChatModal() {
-            document.getElementById('chat-modal').classList.add('hidden');
-            document.getElementById('chat-modal').classList.remove('flex');
-            activeChatOrderId = null;
-            refreshVisibleScreens();
-        }
-
-        function renderChatMessages(order) {
-            const feed = document.getElementById('chat-messages-feed');
-            const msgs = order.messages || [];
-            if (!msgs.length) {
-                feed.innerHTML = `<div class="text-center text-xs text-slate-400 py-10">စာတိုများ စတင်ပေးပို့နိုင်ပါသည်</div>`;
-                return;
-            }
-            feed.innerHTML = msgs.map(m => {
-                const isMe = m.senderRole === activeChatRole;
-                return `
-                    <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'}">
-                        <div class="max-w-[78%] rounded-2xl px-3.5 py-2.5 text-xs ${isMe ? 'bg-[#FF5722] text-white rounded-br-xs' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-xs'} shadow-2xs">
-                            <p class="leading-relaxed">${escapeHtml(m.text)}</p>
-                        </div>
-                        <span class="text-[10px] text-slate-400 mt-1 px-1">${escapeHtml(m.time)}</span>
-                    </div>
-                `;
-            }).join('');
-            feed.scrollTop = feed.scrollHeight;
-        }
-
-        function sendQuickReply(text) {
-            if (!activeChatOrderId) return;
-            pushMessageToOrder(activeChatOrderId, activeChatRole, text);
-        }
-
-        function sendChatMessage(e) {
-            e.preventDefault();
-            const inp = document.getElementById('chat-text-input');
-            const text = inp.value.trim();
-            if (!text || !activeChatOrderId) return;
-            pushMessageToOrder(activeChatOrderId, activeChatRole, text);
-            inp.value = '';
-        }
-
-        function pushMessageToOrder(orderId, senderRole, text) {
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
-            order.messages = order.messages || [];
-            order.messages.push({
-                senderRole,
-                text,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                readByViewer: false
-            });
-            saveOrders();
-            renderChatMessages(order);
-        }
-
-        // ==========================================
-        // DIRECT ADMIN SUPPORT CHAT
-        // ==========================================
-        function openSupportChatModal(role, userPhone = null) {
-            activeSupportRole = role;
-            activeSupportUserPhone = userPhone || (userProfile ? userProfile.phone : 'guest');
-
-            if (role === 'customer') {
-                supportChats.forEach(m => { if (m.userPhone === activeSupportUserPhone && m.senderRole === 'admin') m.readByCustomer = true; });
-                saveSupportChats();
-                updateUnreadIndicators();
-                document.getElementById('support-chat-title').textContent = "💬 Admin တိုက်ရိုက်စာပို့ရန်";
-            } else {
-                const u = supportChats.find(m => m.userPhone === activeSupportUserPhone);
-                document.getElementById('support-chat-title').textContent = `💬 ${u ? u.userName : activeSupportUserPhone}`;
-            }
-
-            renderSupportMessages();
-            const m = document.getElementById('support-chat-modal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
-        }
-
-        function closeSupportChatModal() {
-            document.getElementById('support-chat-modal').classList.add('hidden');
-            document.getElementById('support-chat-modal').classList.remove('flex');
-        }
-
-        function renderSupportMessages() {
-            const feed = document.getElementById('support-messages-feed');
-            const thread = supportChats.filter(m => m.userPhone === activeSupportUserPhone);
-            if (!thread.length) {
-                feed.innerHTML = `<div class="text-center text-xs text-slate-400 py-10">Admin ထံ တိုက်ရိုက်စာရေးပို့နိုင်ပါသည်</div>`;
-                return;
-            }
-            feed.innerHTML = thread.map(m => {
-                const isMe = m.senderRole === activeSupportRole;
-                return `
-                    <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'}">
-                        <div class="max-w-[78%] rounded-2xl px-3.5 py-2.5 text-xs ${isMe ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-800'} shadow-2xs">
-                            <p>${escapeHtml(m.text)}</p>
-                        </div>
-                        <span class="text-[10px] text-slate-400 mt-1 px-1">${escapeHtml(m.time)}</span>
-                    </div>
-                `;
-            }).join('');
-            feed.scrollTop = feed.scrollHeight;
-        }
-
-        function sendSupportMessage(e) {
-            e.preventDefault();
-            const inp = document.getElementById('support-text-input');
-            const text = inp.value.trim();
-            if (!text) return;
-
-            supportChats.push({
-                id: Date.now(),
-                userPhone: activeSupportUserPhone,
-                userName: (userProfile && userProfile.phone === activeSupportUserPhone) ? userProfile.name : activeSupportUserPhone,
-                senderRole: activeSupportRole,
-                text,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                readByCustomer: activeSupportRole === 'customer'
-            });
-            saveSupportChats();
-            inp.value = '';
-            renderSupportMessages();
-            if (!document.getElementById('admin-screen').classList.contains('hidden')) renderAdminSupportThreads();
-        }
-
-        function renderAdminSupportThreads() {
-            const box = document.getElementById('admin-support-threads');
-            const map = new Map();
-            supportChats.forEach(m => {
-                if (!map.has(m.userPhone)) map.set(m.userPhone, { userPhone: m.userPhone, userName: m.userName || m.userPhone, lastMsg: m.text, time: m.time });
-                else { map.get(m.userPhone).lastMsg = m.text; map.get(m.userPhone).time = m.time; }
-            });
-            const threads = Array.from(map.values());
-            if (!threads.length) {
-                box.innerHTML = `<p class="text-xs text-slate-400 py-4 text-center">စာပို့ထားသူ မရှိသေးပါ</p>`;
-                return;
-            }
-            box.innerHTML = threads.map(t => `
-                <div onclick="openSupportChatModal('admin', '${escapeAttr(t.userPhone)}')" class="bg-slate-50 p-3 rounded-2xl border border-slate-200 flex items-center justify-between cursor-pointer hover:border-orange-300">
-                    <div class="min-w-0">
-                        <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(t.userName)} (${escapeHtml(t.userPhone)})</p>
-                        <p class="text-[11px] text-slate-500 truncate">${escapeHtml(t.lastMsg)}</p>
-                    </div>
-                    <span class="text-xs font-extrabold text-[#FF5722] shrink-0 ml-2">ပြန်စာပို့ →</span>
-                </div>
-            `).join('');
-        }
-
-        // ==========================================
-        // GOOGLE SATELLITE MAP VIEW
-        // ==========================================
-        function refreshMainGoogleMapIframe() {
-            const iframe = document.getElementById('main-google-map-iframe');
-            const coordsEl = document.getElementById('main-map-coords');
-            const gmapsLink = document.getElementById('main-map-gmaps-link');
-            if (iframe) iframe.src = `https://maps.google.com/maps?q=${mainMapLat},${mainMapLng}&t=${mainMapType}&z=15&ie=UTF8&iwloc=&output=embed`;
-            if (coordsEl) coordsEl.textContent = `${Number(mainMapLat).toFixed(4)}, ${Number(mainMapLng).toFixed(4)}`;
-            if (gmapsLink) gmapsLink.href = `https://www.google.com/maps/search/?api=1&query=${mainMapLat},${mainMapLng}`;
-        }
-
-        function setMainGoogleMapType(t) {
-            mainMapType = t;
-            document.getElementById('btn-map-sat').className = t === 'k' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
-            document.getElementById('btn-map-std').className = t === 'm' ? "px-2.5 py-1 rounded-lg bg-white text-[#FF5722] text-xs font-bold shadow-2xs" : "px-2.5 py-1 rounded-lg text-slate-600 text-xs font-bold";
-            refreshMainGoogleMapIframe();
-        }
-
-        function locateUserOnGoogleSatelliteMap() {
-            requestLocationPermission((pos) => {
-                if (pos) {
-                    mainMapLat = pos.coords.latitude;
-                    mainMapLng = pos.coords.longitude;
-                    refreshMainGoogleMapIframe();
-                    showToast("သင့်တည်နေရာကို Google Map ပေါ်တွင် ရှာတွေ့ပါပြီ");
-                }
-            });
+            showToast("မီနူးဖျက်ပြီးပါပြီ");
         }
 
         // ==========================================
         // ROLE-SEPARATED RIDER PORTAL (BIKE / THONEBANE / DELIVERY)
         // ==========================================
-        function getRoleMeta(role) {
-            if (role === 'thonebane') {
-                return {
-                    key: 'thonebane',
-                    title: "🛺 Thonebane (သုံးဘီး) ဝန်ထမ်း Portal",
-                    sub: "သုံးဘီး / ပစ္စည်းသယ် အော်ဒါကောက်ရန်",
-                    icon: "🛺",
-                    headerClass: "bg-gradient-to-r from-red-600 to-rose-700 text-white px-4 py-3.5 flex items-center justify-between shrink-0 shadow-md"
-                };
-            }
-            if (role === 'delivery') {
-                return {
-                    key: 'delivery',
-                    title: "📦 Food & Custom Delivery ဝန်ထမ်း Portal",
-                    sub: "စားသောက်ကုန်နှင့် ပစ္စည်းပို့ အော်ဒါကောက်ရန်",
-                    icon: "📦",
-                    headerClass: "bg-gradient-to-r from-orange-500 to-[#FF5722] text-white px-4 py-3.5 flex items-center justify-between shrink-0 shadow-md"
-                };
-            }
-            return {
-                key: 'bike',
-                title: "🛵 Bike Taxi ဝန်ထမ်း Portal",
-                sub: "ဆိုင်ကယ်ကယ်ရီ အော်ဒါကောက်ရန်",
-                icon: "🛵",
-                headerClass: "bg-gradient-to-r from-emerald-600 to-teal-700 text-white px-4 py-3.5 flex items-center justify-between shrink-0 shadow-md"
-            };
-        }
-
-        function openRiderPortalGate(role = 'bike') {
+        function openRiderPortalGate(role) {
             activeStaffRole = role || 'bike';
-            const meta = getRoleMeta(activeStaffRole);
-            document.getElementById('rider-pin-modal-icon').textContent = meta.icon;
+            const existingId = myRiderSession.riderIds && myRiderSession.riderIds[activeStaffRole];
+            const myRider = existingId ? allRiders.find(r => r.id === existingId) : null;
 
-            if (myRiderSession.pinVerified) {
+            if (myRiderSession.pinVerified && myRider && myRider.approved) {
                 navigateToScreen('rider');
-            } else {
-                document.getElementById('rider-pin-input').value = '';
-                document.getElementById('rider-pin-error').classList.add('hidden');
-                const m = document.getElementById('rider-pin-modal');
-                m.classList.remove('hidden');
-                m.classList.add('flex');
+                return;
             }
+            if (myRider && !myRider.approved) {
+                navigateToScreen('rider');
+                return;
+            }
+
+            const iconEl = document.getElementById('rider-pin-modal-icon');
+            const titleEl = document.getElementById('t-staffpin-title');
+            if (activeStaffRole === 'thonebane') {
+                if (iconEl) { iconEl.textContent = "🛺"; iconEl.className = "w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-xl mx-auto"; }
+                if (titleEl) titleEl.textContent = "Thonebane (သုံးဘီး) ဝန်ထမ်း ဝင်ရန်";
+            } else if (activeStaffRole === 'delivery') {
+                if (iconEl) { iconEl.textContent = "📦"; iconEl.className = "w-12 h-12 bg-orange-100 text-[#FF5722] rounded-2xl flex items-center justify-center text-xl mx-auto"; }
+                if (titleEl) titleEl.textContent = "Food Delivery ဝန်ထမ်း ဝင်ရန်";
+            } else {
+                if (iconEl) { iconEl.textContent = "🛵"; iconEl.className = "w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl mx-auto"; }
+                if (titleEl) titleEl.textContent = "Bike Taxi ဝန်ထမ်း ဝင်ရန်";
+            }
+
+            document.getElementById('rider-pin-input').value = '';
+            document.getElementById('rider-pin-error').classList.add('hidden');
+            const m = document.getElementById('rider-pin-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            setTimeout(() => document.getElementById('rider-pin-input').focus(), 100);
         }
 
         function closeRiderPinModal() {
@@ -4549,8 +4252,8 @@
         }
 
         function verifyRiderPin() {
-            const val = document.getElementById('rider-pin-input').value.trim();
-            if (val === String(appConfig.riderPin || "5555")) {
+            const pin = document.getElementById('rider-pin-input').value.trim();
+            if (pin === String(appConfig.riderPin || "5555")) {
                 myRiderSession.pinVerified = true;
                 localStorage.setItem(MY_RIDER_SESSION_KEY, JSON.stringify(myRiderSession));
                 closeRiderPinModal();
@@ -4558,14 +4261,6 @@
             } else {
                 document.getElementById('rider-pin-error').classList.remove('hidden');
             }
-        }
-
-        function exitRiderPortal() {
-            if (riderLiveWatchId !== null) {
-                navigator.geolocation.clearWatch(riderLiveWatchId);
-                riderLiveWatchId = null;
-            }
-            navigateToScreen('home');
         }
 
         function previewRiderKpayQr(event) {
@@ -4584,11 +4279,62 @@
                     canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                     tempRiderKpayQr = canvas.toDataURL('image/jpeg', 0.85);
                     document.getElementById('rider-kpay-qr-preview').innerHTML = `<img src="${tempRiderKpayQr}" class="w-full h-full object-cover">`;
-                    showToast("KPay QR Code ပုံ ထည့်ပြီးပါပြီ");
+                    showToast("KPay QR ပုံ ထည့်ပြီးပါပြီ");
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
+        }
+
+        function renderRiderPortalState() {
+            const regBox = document.getElementById('rider-register-box');
+            const pendBox = document.getElementById('rider-pending-box');
+            const boardBox = document.getElementById('rider-board-box');
+            const hdr = document.getElementById('rider-portal-header');
+            const hdrTitle = document.getElementById('t-riderhdr-title');
+            const hdrSub = document.getElementById('rider-header-sub');
+            const kpayFields = document.getElementById('delivery-kpay-reg-fields');
+            const regIcon = document.getElementById('rider-reg-icon');
+
+            if (activeStaffRole === 'thonebane') {
+                if (hdr) hdr.className = "bg-gradient-to-r from-red-600 to-rose-700 text-white px-4 py-3.5 flex items-center justify-between shrink-0 shadow-md";
+                if (hdrTitle) hdrTitle.textContent = "🛺 Thonebane (သုံးဘီး) ဝန်ထမ်း";
+                if (hdrSub) hdrSub.textContent = "သုံးဘီး ကယ်ရီ အော်ဒါကောက်ရန် နေရာ";
+                if (kpayFields) kpayFields.classList.add('hidden');
+                if (regIcon) { regIcon.textContent = "🛺"; regIcon.className = "w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-xl mx-auto"; }
+            } else if (activeStaffRole === 'delivery') {
+                if (hdr) hdr.className = "bg-gradient-to-r from-orange-500 to-[#FF5722] text-white px-4 py-3.5 flex items-center justify-between shrink-0 shadow-md";
+                if (hdrTitle) hdrTitle.textContent = "📦 Food Delivery ဝန်ထမ်း";
+                if (hdrSub) hdrSub.textContent = "စားသောက်ကုန်နှင့် ပစ္စည်းပို့ အော်ဒါကောက်ရန် နေရာ";
+                if (kpayFields) kpayFields.classList.remove('hidden');
+                if (regIcon) { regIcon.textContent = "📦"; regIcon.className = "w-12 h-12 bg-orange-100 text-[#FF5722] rounded-2xl flex items-center justify-center text-xl mx-auto"; }
+            } else {
+                if (hdr) hdr.className = "bg-gradient-to-r from-emerald-600 to-teal-700 text-white px-4 py-3.5 flex items-center justify-between shrink-0 shadow-md";
+                if (hdrTitle) hdrTitle.textContent = "🛵 Bike Taxi ဝန်ထမ်း";
+                if (hdrSub) hdrSub.textContent = "ဆိုင်ကယ် ကယ်ရီ အော်ဒါကောက်ရန် နေရာ";
+                if (kpayFields) kpayFields.classList.add('hidden');
+                if (regIcon) { regIcon.textContent = "🛵"; regIcon.className = "w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl mx-auto"; }
+            }
+
+            regBox.classList.add('hidden');
+            pendBox.classList.add('hidden');
+            boardBox.classList.add('hidden');
+
+            const myRiderId = myRiderSession.riderIds && myRiderSession.riderIds[activeStaffRole];
+            const myRider = myRiderId ? allRiders.find(r => r.id === myRiderId) : null;
+
+            if (!myRider) {
+                regBox.classList.remove('hidden');
+                return;
+            }
+            if (!myRider.approved) {
+                pendBox.classList.remove('hidden');
+                return;
+            }
+
+            boardBox.classList.remove('hidden');
+            startRiderLiveGpsBroadcast(myRider.id);
+            renderRiderOrdersBoard(myRider);
         }
 
         function submitRiderApplication(e) {
@@ -4597,12 +4343,12 @@
             const phone = document.getElementById('rider-app-phone').value.trim();
             const address = document.getElementById('rider-app-address').value.trim();
             const kpayPhone = activeStaffRole === 'delivery' ? (document.getElementById('rider-app-kpay-phone').value.trim() || phone) : '';
-            const kpayQr = activeStaffRole === 'delivery' ? tempRiderKpayQr : null;
+            const kpayQr = activeStaffRole === 'delivery' ? (tempRiderKpayQr || null) : null;
 
             if (!name || !phone || !address) return;
 
-            const riderId = 'rider_' + Date.now();
-            allRiders.push({
+            const riderId = `rider_${activeStaffRole}_` + Date.now();
+            allRiders.unshift({
                 id: riderId,
                 role: activeStaffRole,
                 name,
@@ -4611,197 +4357,167 @@
                 kpayPhone,
                 kpayQr,
                 approved: false,
+                lat: HSIPAW_LAT,
+                lng: HSIPAW_LNG,
                 createdAt: new Date().toLocaleDateString()
             });
             saveRiders();
-
-            myRiderSession.riderIds = myRiderSession.riderIds || {};
+            myRiderSession.pinVerified = true;
+            if (!myRiderSession.riderIds) myRiderSession.riderIds = {};
             myRiderSession.riderIds[activeStaffRole] = riderId;
             localStorage.setItem(MY_RIDER_SESSION_KEY, JSON.stringify(myRiderSession));
             tempRiderKpayQr = null;
             renderRiderPortalState();
-            showToast("ဝန်ထမ်းစာရင်း ပို့ပြီးပါပြီ။ Admin အတည်ပြုချက်ကို စောင့်ပါ။");
+            showToast("Admin အတည်ပြုချက် တောင်းခံပြီးပါပြီ");
         }
 
         function checkRiderApprovalStatus() {
             allRiders = JSON.parse(localStorage.getItem(RIDERS_STORAGE_KEY)) || [];
             renderRiderPortalState();
-            const rId = myRiderSession.riderIds && myRiderSession.riderIds[activeStaffRole];
-            const me = allRiders.find(r => r.id === rId);
-            if (me && me.approved) showToast("Admin မှ အတည်ပြုပြီးပါပြီ!");
-            else showToast("Admin မှ အတည်ပြုရန် စောင့်ဆိုင်းနေဆဲဖြစ်ပါသည်");
         }
 
-        function startRiderLiveLocationTracking(riderId) {
+        function startRiderLiveGpsBroadcast(riderId) {
+            if (riderLiveWatchId !== null && navigator.geolocation) {
+                navigator.geolocation.clearWatch(riderLiveWatchId);
+            }
             if (!("geolocation" in navigator)) return;
-            if (riderLiveWatchId !== null) navigator.geolocation.clearWatch(riderLiveWatchId);
-
             riderLiveWatchId = navigator.geolocation.watchPosition(pos => {
                 const lat = pos.coords.latitude;
                 const lng = pos.coords.longitude;
-                let changed = false;
+                const rider = allRiders.find(r => r.id === riderId);
+                if (rider) { rider.lat = lat; rider.lng = lng; saveRiders(); }
                 allOrders.forEach(o => {
                     if (o.assignedRiderId === riderId && o.status !== 'Delivered' && o.status !== 'Cancelled') {
-                        o.riderLat = lat;
-                        o.riderLng = lng;
-                        changed = true;
+                        o.riderLat = lat; o.riderLng = lng;
                     }
                 });
-                if (changed) saveOrders();
+                saveOrders();
             }, () => {}, { enableHighAccuracy: true, maximumAge: 5000 });
         }
 
-        function renderRiderPortalState() {
-            const meta = getRoleMeta(activeStaffRole);
-            document.getElementById('rider-portal-header').className = meta.headerClass;
-            document.getElementById('t-riderhdr-title').textContent = meta.title;
-            document.getElementById('rider-header-sub').textContent = meta.sub;
-            document.getElementById('rider-reg-icon').textContent = meta.icon;
+        function renderRiderOrdersBoard(myRider) {
+            const myActiveWrap = document.getElementById('rider-my-active-wrap');
+            const availList = document.getElementById('rider-available-list');
+            const poolCountBadge = document.getElementById('rider-pool-count');
 
-            const kpayBox = document.getElementById('delivery-kpay-reg-fields');
-            if (kpayBox) kpayBox.classList.toggle('hidden', activeStaffRole !== 'delivery');
+            const myActiveOrders = allOrders.filter(o =>
+                o.assignedRiderId === myRider.id &&
+                o.status !== 'Delivered' &&
+                o.status !== 'Cancelled'
+            );
 
-            const regBox = document.getElementById('rider-register-box');
-            const pendBox = document.getElementById('rider-pending-box');
-            const boardBox = document.getElementById('rider-board-box');
-
-            regBox.classList.add('hidden');
-            pendBox.classList.add('hidden');
-            boardBox.classList.add('hidden');
-
-            const roleRiderId = myRiderSession.riderIds && myRiderSession.riderIds[activeStaffRole];
-            const me = allRiders.find(r => r.id === roleRiderId);
-
-            if (!me) {
-                document.getElementById('rider-app-name').value = userProfile ? userProfile.name : '';
-                document.getElementById('rider-app-phone').value = userProfile ? userProfile.phone : '';
-                document.getElementById('rider-app-address').value = userProfile ? (userProfile.address || '') : '';
-                regBox.classList.remove('hidden');
-                return;
-            }
-            if (!me.approved) { pendBox.classList.remove('hidden'); return; }
-
-            boardBox.classList.remove('hidden');
-            updateRiderHeaderOrderBadge();
-            startRiderLiveLocationTracking(me.id);
-
-            const myActive = allOrders.filter(o => o.assignedRiderId === me.id && o.status !== 'Delivered' && o.status !== 'Cancelled');
-            document.getElementById('rider-my-active-wrap').innerHTML = myActive.map(o => {
+            myActiveWrap.innerHTML = myActiveOrders.map(o => {
                 const unread = countUnreadForOrder(o, 'rider');
                 const pLat = o.pickupLat || HSIPAW_LAT;
                 const pLng = o.pickupLng || HSIPAW_LNG;
                 const dLat = o.dropoffLat || HSIPAW_LAT;
                 const dLng = o.dropoffLng || HSIPAW_LNG;
+                const gmapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${pLat},${pLng}&destination=${dLat},${dLng}&travelmode=driving`;
 
-                const shopNavButtons = (Array.isArray(o.shopLocations) && o.shopLocations.length > 0)
-                    ? o.shopLocations.map((sl, idx) => `
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=${sl.lat || HSIPAW_LAT},${sl.lng || HSIPAW_LNG}&travelmode=driving" target="_blank"
-                            class="px-2.5 py-2 rounded-xl bg-orange-50 border border-orange-200 text-[#FF5722] font-extrabold text-[11px] flex items-center gap-1">
-                            <span>🏪 ဆိုင် ${idx + 1} (${escapeHtml(sl.shopName)}) လမ်းညွှန် ↗</span>
-                        </a>
-                    `).join('')
-                    : `<a href="https://www.google.com/maps/dir/?api=1&destination=${pLat},${pLng}&travelmode=driving" target="_blank"
-                        class="px-2.5 py-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 font-extrabold text-[11px] flex items-center gap-1">
-                        <span>📍 ခေါ်ရမည့်နေရာ လမ်းညွှန် ↗</span>
-                    </a>`;
+                const shopStopsHtml = (o.shopLocations && o.shopLocations.length > 0)
+                    ? `<div class="bg-orange-50/90 border border-orange-200 rounded-xl p-2 space-y-1.5 text-[11px]">
+                            <p class="font-extrabold text-[#FF5722]">🏪 လာဝယ်ရမည့် ဆိုင်များ (${o.shopLocations.length} ဆိုင်):</p>
+                            ${o.shopLocations.map(s => {
+                                const sLat = s.lat || HSIPAW_LAT;
+                                const sLng = s.lng || HSIPAW_LNG;
+                                return `<div class="flex items-center justify-between gap-2 bg-white p-1.5 rounded-lg border border-orange-100">
+                                    <div class="min-w-0">
+                                        <p class="font-extrabold text-slate-900 truncate">${escapeHtml(s.shopName)}</p>
+                                        <p class="text-[10px] text-slate-500 truncate">${escapeHtml(s.shopAddress || '')} ${s.shopPhone ? '• 📞 ' + escapeHtml(s.shopPhone) : ''}</p>
+                                    </div>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=${sLat},${sLng}&travelmode=driving" target="_blank" class="px-2 py-1 rounded-lg bg-orange-100 text-[#FF5722] font-extrabold text-[10px] shrink-0">🗺️ ဆိုင် Map</a>
+                                </div>`;
+                            }).join('')}
+                       </div>`
+                    : '';
 
                 return `
-                    <div class="bg-white rounded-2xl p-4 border-2 border-emerald-500 shadow-sm space-y-2.5">
+                    <div class="bg-white rounded-2xl p-4 border-2 border-emerald-500 shadow-md space-y-2.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-extrabold text-emerald-700">🟢 လက်ရှိ လိုက်ပို့နေသော အော်ဒါ (#${o.id})</span>
-                            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">${escapeHtml(o.status)}</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">Active • ${escapeHtml(o.status)}</span>
+                            <span class="text-xs font-extrabold text-[#FF5722]">${escapeHtml(o.fareText)}</span>
                         </div>
-                        <p class="text-xs font-bold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
-                        <div class="text-[11px] text-slate-600 space-y-0.5">
-                            <p>👤 ဝယ်သူ: <span class="font-bold text-slate-900">${escapeHtml(o.customerName)}</span> (${escapeHtml(o.customerPhone)})</p>
-                            <p>📍 ပို့ရမည့်လိပ်စာ: <span class="font-bold text-slate-900">${escapeHtml(o.dropoffAddress)}</span></p>
-                            <p class="font-extrabold text-[#FF5722]">${escapeHtml(o.fareText)}</p>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 pt-1">
-                            ${shopNavButtons}
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=${dLat},${dLng}&travelmode=driving" target="_blank"
-                                class="px-2.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-extrabold text-[11px] flex items-center gap-1">
-                                <span>🏁 ပို့ရမည့်နေရာ လမ်းညွှန် ↗</span>
-                            </a>
-                        </div>
+                        <p class="text-xs font-extrabold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
+                        ${shopStopsHtml}
+                        <p class="text-[11px] text-slate-600">👤 <b>${escapeHtml(o.customerName)}</b> • <a href="tel:${o.customerPhone}" class="text-blue-600 underline font-bold">${escapeHtml(o.customerPhone)}</a></p>
+                        <p class="text-[11px] text-slate-600">📍 ${escapeHtml(o.dropoffAddress)}</p>
                         <div class="flex items-center gap-2 pt-1">
-                            <a href="tel:${o.customerPhone}" class="px-3 py-2 rounded-xl bg-slate-900 text-white font-extrabold text-xs">📞 ဖုန်းဆက်ရန်</a>
-                            <button onclick="openChatModal(${o.id}, 'rider')" class="flex-1 py-2 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">
-                                💬 စာပို့ရန် ${unread > 0 ? `(${unread})` : ''}
+                            <a href="${gmapsUrl}" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-blue-600 text-white font-extrabold text-xs text-center">🗺️ လမ်းညွှန် Map</a>
+                            <button onclick="openChatModal(${o.id}, 'rider')" class="px-3 py-2 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">
+                                💬 Chat ${unread > 0 ? `(${unread})` : ''}
                             </button>
-                            <button onclick="completeOrderByRider(${o.id})" class="px-3.5 py-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">
-                                ✅ ပြီးစီးပြီ
-                            </button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <button onclick="updateOrderStatus(${o.id}, 'On the way')" class="py-2 rounded-xl bg-amber-500 text-white font-bold text-xs">🛵 လိုက်ပို့နေသည်</button>
+                            <button onclick="updateOrderStatus(${o.id}, 'Delivered')" class="py-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">✅ ပြီးစီးပါပြီ</button>
                         </div>
                     </div>
                 `;
             }).join('');
 
-            const available = allOrders.filter(o =>
+            const availableOrders = allOrders.filter(o =>
                 o.status === 'Pending' &&
                 !o.assignedRiderId &&
-                getOrderServiceRole(o) === activeStaffRole
+                getOrderServiceRole(o) === myRider.role
             );
-            document.getElementById('rider-pool-count').textContent = available.length;
+            poolCountBadge.textContent = availableOrders.length;
 
-            if (!available.length) {
-                document.getElementById('rider-available-list').innerHTML = `<div class="bg-white rounded-2xl p-6 text-center border border-slate-200 text-xs text-slate-400">လက်ရှိ ရယူနိုင်သော ${escapeHtml(meta.title)} အော်ဒါ မရှိသေးပါ</div>`;
+            if (availableOrders.length === 0) {
+                availList.innerHTML = `<div class="bg-white rounded-2xl p-6 text-center text-xs text-slate-400 border border-slate-200">လောလောဆယ် ရယူနိုင်သော အော်ဒါမရှိသေးပါ</div>`;
                 return;
             }
 
-            document.getElementById('rider-available-list').innerHTML = available.map(o => `
+            availList.innerHTML = availableOrders.map(o => `
                 <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-2xs space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[11px] font-extrabold text-slate-400">#${o.id} • ${escapeHtml(o.createdAt)}</span>
-                        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold">Pending</span>
+                        <span class="text-[11px] font-extrabold text-slate-500">#${String(o.id).slice(-5)} • ${escapeHtml(o.createdAt)}</span>
+                        <span class="text-xs font-extrabold text-[#FF5722]">${escapeHtml(o.fareText)}</span>
                     </div>
-                    <p class="text-xs font-bold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
-                    <div class="text-[11px] text-slate-600 space-y-0.5">
-                        <p>👤 ${escapeHtml(o.customerName)} • 📞 ${escapeHtml(o.customerPhone)}</p>
-                        <p>📍 ${escapeHtml(o.dropoffAddress)}</p>
-                        <p class="font-extrabold text-[#FF5722]">${escapeHtml(o.fareText)}</p>
-                    </div>
-                    <button onclick="acceptOrderByRider(${o.id}, '${me.id}')" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-xs">
-                        🛵 အော်ဒါ လက်ခံမည် (Accept)
+                    <p class="text-xs font-extrabold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
+                    <p class="text-[11px] text-slate-600">👤 ${escapeHtml(o.customerName)} (${escapeHtml(o.customerPhone)})</p>
+                    <p class="text-[11px] text-slate-600">📍 ${escapeHtml(o.dropoffAddress)}</p>
+                    <button onclick="acceptOrderAsRider(${o.id}, '${myRider.id}')" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-sm transition">
+                        ✋ ဤအော်ဒါ ကောက်ယူမည်
                     </button>
                 </div>
             `).join('');
         }
 
-        function acceptOrderByRider(orderId, riderId) {
-            const rider = allRiders.find(r => r.id === riderId);
+        function acceptOrderAsRider(orderId, riderId) {
             const order = allOrders.find(o => o.id === orderId);
-            if (!rider || !order) return;
-
+            const rider = allRiders.find(r => r.id === riderId);
+            if (!order || !rider) return;
+            if (order.assignedRiderId && order.assignedRiderId !== rider.id) {
+                showToast("ဤအော်ဒါကို အခြား Rider ယူသွားပါပြီ");
+                renderRiderOrdersBoard(rider);
+                return;
+            }
             order.assignedRiderId = rider.id;
             order.assignedRiderName = rider.name;
             order.assignedRiderPhone = rider.phone;
-            order.assignedRiderKpayPhone = rider.kpayPhone || rider.phone;
-            order.assignedRiderKpayQr = rider.kpayQr || null;
-            order.acceptedAtMs = Date.now();
-            order.status = 'On The Way';
-            if (lastKnownGpsPos) {
-                order.riderLat = lastKnownGpsPos.coords.latitude;
-                order.riderLng = lastKnownGpsPos.coords.longitude;
+            if (rider.role === 'delivery') {
+                order.assignedRiderKpayPhone = rider.kpayPhone || rider.phone;
+                order.assignedRiderKpayQr = rider.kpayQr || null;
             }
+            order.status = 'Rider Accepted';
+            order.acceptedAtMs = Date.now();
+            order.riderLat = rider.lat || order.pickupLat || HSIPAW_LAT;
+            order.riderLng = rider.lng || order.pickupLng || HSIPAW_LNG;
             saveOrders();
-            renderRiderPortalState();
-            showToast(`#${order.id} အော်ဒါကို လက်ခံပြီးပါပြီ!`);
+            renderRiderOrdersBoard(rider);
+            showToast("အော်ဒါ လက်ခံပြီးပါပြီ!");
         }
 
-        function completeOrderByRider(orderId) {
-            const order = allOrders.find(o => o.id === orderId);
-            if (!order) return;
-            order.status = 'Delivered';
-            order.completedAtMs = Date.now();
-            if (!order.dateStr) order.dateStr = new Date().toISOString().split('T')[0];
-            saveOrders();
-            renderRiderPortalState();
-            showToast(`#${order.id} အော်ဒါ ပြီးစီးပါပြီ!`);
+        function exitRiderPortal() {
+            if (riderLiveWatchId !== null && navigator.geolocation) {
+                navigator.geolocation.clearWatch(riderLiveWatchId);
+                riderLiveWatchId = null;
+            }
+            navigateToScreen('home');
         }
 
         // ==========================================
-        // ADMIN PANEL
+        // ADMIN PANEL, DAILY RIDER EARNINGS LOGS, POSTERS & SUPPORT
         // ==========================================
         function openPinModal() {
             document.getElementById('pin-input').value = '';
@@ -4809,6 +4525,7 @@
             const m = document.getElementById('pin-modal');
             m.classList.remove('hidden');
             m.classList.add('flex');
+            setTimeout(() => document.getElementById('pin-input').focus(), 100);
         }
 
         function closePinModal() {
@@ -4831,177 +4548,142 @@
         function switchAdminTab(tab) {
             ['orders', 'posters', 'staff', 'support', 'hotlines', 'rates'].forEach(t => {
                 document.getElementById(`admin-view-${t}`).classList.add('hidden');
-                const btn = document.getElementById(`adm-tab-${t}`);
-                if (btn) btn.className = "px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap";
+                document.getElementById(`adm-tab-${t}`).className = "px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap";
             });
             document.getElementById(`admin-view-${tab}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`adm-tab-${tab}`);
-            if (activeBtn) activeBtn.className = "px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold whitespace-nowrap";
+            document.getElementById(`adm-tab-${tab}`).className = "px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold whitespace-nowrap";
 
             if (tab === 'orders') renderAdminOrders();
             if (tab === 'posters') renderAdminPromoPostersList();
             if (tab === 'staff') renderAdminStaffList();
             if (tab === 'support') renderAdminSupportThreads();
             if (tab === 'hotlines') renderAdminHotlinesUI();
-            if (tab === 'rates') loadAdminRatesForm();
+            if (tab === 'rates') loadRatesIntoAdminForm();
         }
 
         function renderAdminOrders() {
-            document.getElementById('admin-count').textContent = allOrders.length;
-            const pendingStaff = allRiders.filter(r => !r.approved).length;
-            const badge = document.getElementById('admin-staff-pending-badge');
-            if (badge) badge.textContent = pendingStaff;
-
             const container = document.getElementById('admin-orders-container');
+            document.getElementById('admin-count').textContent = allOrders.length;
             if (!allOrders.length) {
-                container.innerHTML = `<p class="text-center text-xs text-slate-400 py-8 bg-white rounded-2xl border border-slate-200">အော်ဒါ မရှိသေးပါ</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">အော်ဒါမရှိသေးပါ</p>`;
                 return;
             }
-
             container.innerHTML = allOrders.map(o => {
-                const unread = countUnreadForOrder(o, 'admin');
                 const roleTag = o.type === 'bike' ? '🛵 Bike Taxi' : o.type === 'thonebane' ? '🛺 Thonebane' : '📦 Delivery';
                 return `
-                    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-2xs space-y-2.5">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-extrabold text-slate-500">#${o.id} • ${roleTag} • ${escapeHtml(o.createdAt)}</span>
-                            <select onchange="adminUpdateOrderStatus(${o.id}, this.value)" class="rounded-lg border border-slate-300 px-2 py-1 text-[11px] font-extrabold bg-slate-50">
-                                <option value="Pending" ${o.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                                <option value="On The Way" ${o.status === 'On The Way' ? 'selected' : ''}>On The Way</option>
-                                <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
-                                <option value="Cancelled" ${o.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-                            </select>
-                        </div>
-                        <p class="text-xs font-bold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
-                        <div class="text-[11px] text-slate-600 space-y-0.5">
-                            <p>👤 ${escapeHtml(o.customerName)} (${escapeHtml(o.customerPhone)})</p>
-                            <p>📍 ${escapeHtml(o.dropoffAddress)}</p>
-                            <p class="font-extrabold text-[#FF5722]">${escapeHtml(o.fareText)}</p>
-                            <p class="text-emerald-700 font-bold">🛵 Rider: ${escapeHtml(o.assignedRiderName || 'Unassigned')}</p>
-                        </div>
-                        <div class="flex items-center gap-2 pt-1">
-                            <button onclick="openChatModal(${o.id}, 'admin')" class="flex-1 py-2 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">
-                                💬 Chat ${unread > 0 ? `(${unread})` : ''}
-                            </button>
-                            <button onclick="deleteAdminOrder(${o.id})" class="px-3 py-2 rounded-xl bg-red-50 text-red-600 font-bold text-xs">ဖျက်မည်</button>
-                        </div>
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-2xs space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-extrabold text-slate-900">#${String(o.id).slice(-5)} • ${roleTag} • <span class="text-[#FF5722]">${escapeHtml(o.status)}</span></span>
+                        <span class="text-xs font-extrabold text-emerald-700">${escapeHtml(o.fareText)}</span>
                     </div>
-                `;
+                    <p class="text-xs text-slate-800 whitespace-pre-line font-bold">${escapeHtml(o.details)}</p>
+                    <p class="text-[11px] text-slate-600">👤 ${escapeHtml(o.customerName)} (${escapeHtml(o.customerPhone)}) • 📍 ${escapeHtml(o.dropoffAddress)}</p>
+                    <p class="text-[11px] text-slate-600">🛵 Rider: <b>${escapeHtml(o.assignedRiderName || 'မရှိသေးပါ')}</b></p>
+                    <div class="grid grid-cols-3 gap-1.5 pt-1">
+                        <button onclick="updateOrderStatus(${o.id}, 'On the way')" class="py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-[11px]">လိုက်ပို့နေသည်</button>
+                        <button onclick="updateOrderStatus(${o.id}, 'Delivered')" class="py-1.5 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-[11px]">ပြီးစီးပါပြီ</button>
+                        <button onclick="deleteOrder(${o.id})" class="py-1.5 rounded-lg bg-red-50 text-red-600 font-bold text-[11px]">ဖျက်မည်</button>
+                    </div>
+                </div>
+            `;
             }).join('');
         }
 
-        function adminUpdateOrderStatus(orderId, status) {
+        function updateOrderStatus(orderId, status) {
             const o = allOrders.find(x => x.id === orderId);
             if (!o) return;
             o.status = status;
             saveOrders();
-            renderAdminOrders();
+            refreshVisibleScreens();
+            showToast(`Status: ${status}`);
         }
 
-        function deleteAdminOrder(orderId) {
+        function deleteOrder(orderId) {
+            if (!confirm("ဤအော်ဒါကို ဖျက်မှာ သေချာပါသလား?")) return;
             allOrders = allOrders.filter(x => x.id !== orderId);
             saveOrders();
             renderAdminOrders();
         }
 
-        // ဝန်ထမ်းများ စီမံရန် + ရွေးချယ်ထားသော ရက်စွဲအလိုက် အော်ဒါကောက်မှု၊ လိုက်ပို့မှုနှင့် ရရှိငွေ (Ks) တွက်ချက်မှု
         function renderAdminStaffList() {
             const list = document.getElementById('admin-staff-list');
-            const dateInput = document.getElementById('admin-rider-log-date');
-            const selectedDate = (dateInput && dateInput.value) ? dateInput.value : new Date().toISOString().split('T')[0];
+            const pendingCount = allRiders.filter(r => !r.approved).length;
+            document.getElementById('admin-staff-pending-badge').textContent = pendingCount;
+
+            const selectedDate = (document.getElementById('admin-rider-log-date') && document.getElementById('admin-rider-log-date').value)
+                || new Date().toISOString().split('T')[0];
 
             if (!allRiders.length) {
-                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-6 bg-white rounded-2xl border border-slate-200">ဝန်ထမ်း စာရင်းသွင်းထားသူ မရှိသေးပါ</p>`;
+                list.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">ဝန်ထမ်းစာရင်း မရှိသေးပါ</p>`;
                 return;
             }
 
-            let grandTotalEarnings = 0;
-            let grandTotalDelivered = 0;
-
-            const cardsHtml = allRiders.map(r => {
-                const rRole = r.role || 'bike';
-                const roleLabel = rRole === 'thonebane' ? '🛺 Thonebane (သုံးဘီး)' : rRole === 'delivery' ? '📦 Delivery' : '🛵 Bike Taxi';
-
-                const riderDayOrders = allOrders.filter(o => {
-                    const oDate = o.dateStr || new Date(o.id).toISOString().split('T')[0];
-                    return o.assignedRiderId === r.id && oDate === selectedDate;
-                });
-
-                const pickedCount = riderDayOrders.length;
-                const activeDeliveringCount = riderDayOrders.filter(o => o.status === 'On The Way').length;
-                const deliveredOrders = riderDayOrders.filter(o => o.status === 'Delivered');
+            list.innerHTML = allRiders.map(r => {
+                const roleLabel = r.role === 'thonebane' ? '🛺 Thonebane' : r.role === 'delivery' ? '📦 Delivery' : '🛵 Bike Taxi';
+                const dayOrders = allOrders.filter(o => o.assignedRiderId === r.id && (o.dateStr || new Date(o.id).toISOString().split('T')[0]) === selectedDate);
+                const activeCount = dayOrders.filter(o => o.status !== 'Delivered' && o.status !== 'Cancelled').length;
+                const deliveredOrders = dayOrders.filter(o => o.status === 'Delivered');
                 const deliveredCount = deliveredOrders.length;
-                const riderDayEarnings = deliveredOrders.reduce((sum, o) => sum + extractOrderEarningsKs(o), 0);
-
-                grandTotalEarnings += riderDayEarnings;
-                grandTotalDelivered += deliveredCount;
-
-                const orderBreakdownHtml = riderDayOrders.length > 0
-                    ? `<div class="mt-2 pt-2 border-t border-slate-100 space-y-1">
-                            <p class="text-[10px] font-extrabold text-slate-500">📋 ${escapeHtml(selectedDate)} ရက် အော်ဒါစာရင်း (${pickedCount} ခု):</p>
-                            ${riderDayOrders.map(ord => {
-                                const amt = extractOrderEarningsKs(ord);
-                                return `<div class="flex items-center justify-between text-[11px] bg-slate-50 px-2.5 py-1.5 rounded-lg">
-                                    <span class="truncate font-semibold text-slate-800">#${ord.id} • ${escapeHtml(ord.dropoffAddress)} <span class="text-[10px] text-slate-500">(${escapeHtml(ord.status)})</span></span>
-                                    <span class="font-extrabold ${ord.status === 'Delivered' ? 'text-emerald-700' : 'text-slate-500'} shrink-0 ml-2">${amt.toLocaleString()} Ks</span>
-                                </div>`;
-                            }).join('')}
-                       </div>`
-                    : `<p class="text-[10px] text-slate-400 mt-1.5">${escapeHtml(selectedDate)} ရက်နေ့တွင် ကောက်ယူထားသော အော်ဒါ မရှိသေးပါ</p>`;
+                const totalEarnedKs = deliveredOrders.reduce((sum, o) => sum + extractOrderEarningsKs(o), 0);
 
                 return `
-                    <div class="bg-white rounded-2xl p-4 border border-slate-200 space-y-2.5">
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-2xs space-y-2.5">
                         <div class="flex items-center justify-between gap-2">
-                            <div class="min-w-0">
+                            <div>
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-800 text-[10px] font-extrabold">${roleLabel}</span>
-                                    <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(r.name)} (${escapeHtml(r.phone)})</p>
+                                    <h4 class="text-sm font-extrabold text-slate-900">${escapeHtml(r.name)}</h4>
                                 </div>
-                                <p class="text-[11px] text-slate-500 mt-0.5">📍 ${escapeHtml(r.address || 'Hsipaw')}</p>
-                                ${rRole === 'delivery' && r.kpayPhone ? `<p class="text-[10px] font-bold text-blue-700">💳 KPay: ${escapeHtml(r.kpayPhone)}</p>` : ''}
+                                <p class="text-xs text-slate-500 mt-0.5">📞 ${escapeHtml(r.phone)} • 📍 ${escapeHtml(r.address || '-')}</p>
+                                ${r.role === 'delivery' && r.kpayPhone ? `<p class="text-[11px] font-bold text-blue-700 mt-0.5">💳 KPay: ${escapeHtml(r.kpayPhone)}</p>` : ''}
                             </div>
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold shrink-0 ${r.approved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${r.approved ? 'Approved' : 'Pending'}</span>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold shrink-0 ${r.approved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                                ${r.approved ? 'Approved' : 'Pending'}
+                            </span>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2 text-center bg-orange-50/70 p-2.5 rounded-xl border border-orange-100">
-                            <div>
-                                <span class="text-[10px] text-slate-500 block">ကောက်ယူထား</span>
-                                <span class="text-xs font-extrabold text-slate-900">${pickedCount} ခု</span>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-2 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-slate-600">📅 ${selectedDate} ရက်စာ မှတ်တမ်း:</span>
+                                <span class="font-extrabold text-slate-900">ကောက်ယူထားသော အော်ဒါ: ${dayOrders.length} ခု</span>
                             </div>
-                            <div>
-                                <span class="text-[10px] text-slate-500 block">လိုက်ပို့နေ/ပြီး</span>
-                                <span class="text-xs font-extrabold text-blue-700">${activeDeliveringCount} / ${deliveredCount}</span>
+                            <div class="grid grid-cols-3 gap-2 text-center pt-1">
+                                <div class="bg-amber-50 border border-amber-200 rounded-lg p-2">
+                                    <span class="text-[10px] text-amber-800 font-bold block">လိုက်ပို့နေဆဲ</span>
+                                    <span class="text-sm font-extrabold text-amber-900">${activeCount} ခု</span>
+                                </div>
+                                <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-2">
+                                    <span class="text-[10px] text-emerald-800 font-bold block">ပြီးစီးပြီး</span>
+                                    <span class="text-sm font-extrabold text-emerald-900">${deliveredCount} ခု</span>
+                                </div>
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-2">
+                                    <span class="text-[10px] text-[#FF5722] font-bold block">တစ်ရက်စာ ရငွေ</span>
+                                    <span class="text-xs font-extrabold text-[#FF5722]">${totalEarnedKs.toLocaleString()} Ks</span>
+                                </div>
                             </div>
-                            <div>
-                                <span class="text-[10px] text-slate-500 block">ရရှိငွေ (ပြီးစီး)</span>
-                                <span class="text-xs font-extrabold text-emerald-700">${riderDayEarnings.toLocaleString()} Ks</span>
-                            </div>
+                            ${deliveredOrders.length > 0 ? `
+                                <div class="pt-1.5 border-t border-slate-200 space-y-1">
+                                    <p class="text-[10px] font-extrabold text-slate-500">ပြီးစီးခဲ့သော အော်ဒါများ အသေးစိတ်:</p>
+                                    ${deliveredOrders.map(d => `
+                                        <div class="flex items-center justify-between text-[11px] text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-slate-100">
+                                            <span class="truncate pr-2">${escapeHtml(d.details.replace(/\n/g, ' • '))}</span>
+                                            <span class="font-extrabold text-emerald-700 shrink-0">+${extractOrderEarningsKs(d).toLocaleString()} Ks</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
                         </div>
 
-                        ${orderBreakdownHtml}
-
-                        <div class="flex items-center gap-2 pt-1">
-                            ${!r.approved ? `<button onclick="approveRider('${r.id}')" class="flex-1 py-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">✅ အတည်ပြုမည်</button>` : ''}
-                            <button onclick="deleteRider('${r.id}')" class="px-3 py-2 rounded-xl bg-red-50 text-red-600 font-bold text-xs">ဖယ်ရှားမည်</button>
+                        <div class="flex gap-2 pt-1">
+                            ${!r.approved
+                                ? `<button onclick="approveRider('${r.id}')" class="flex-1 py-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs">✅ အတည်ပြုမည် (Approve)</button>`
+                                : `<button onclick="revokeRider('${r.id}')" class="flex-1 py-2 rounded-xl bg-amber-100 text-amber-800 font-bold text-xs">ခေတ္တပိတ်မည်</button>`
+                            }
+                            <button onclick="deleteRider('${r.id}')" class="px-3 py-2 rounded-xl bg-red-50 text-red-600 font-bold text-xs">ဖျက်မည်</button>
                         </div>
                     </div>
                 `;
             }).join('');
-
-            const summaryCard = `
-                <div class="bg-slate-900 text-white rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
-                    <div>
-                        <span class="text-[10px] text-slate-300 block">📅 ${escapeHtml(selectedDate)} တစ်ရက်စာ စုစုပေါင်း</span>
-                        <span class="text-xs font-extrabold text-emerald-400">ပြီးစီး အော်ဒါ: ${grandTotalDelivered} ခု</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[10px] text-slate-300 block">ဝန်ထမ်းများ စုစုပေါင်းရငွေ</span>
-                        <span class="text-sm font-extrabold text-amber-400">${grandTotalEarnings.toLocaleString()} Ks</span>
-                    </div>
-                </div>
-            `;
-
-            list.innerHTML = summaryCard + cardsHtml;
         }
 
         function approveRider(riderId) {
@@ -5014,14 +4696,110 @@
             showToast(`${r.name} ကို ဝန်ထမ်းအဖြစ် အတည်ပြုပြီးပါပြီ`);
         }
 
+        function revokeRider(riderId) {
+            const r = allRiders.find(x => x.id === riderId);
+            if (!r) return;
+            r.approved = false;
+            saveRiders();
+            renderAdminStaffList();
+            updateRiderHeaderOrderBadge();
+        }
+
         function deleteRider(riderId) {
+            if (!confirm("ဤဝန်ထမ်းကို စာရင်းမှ ဖျက်မှာ သေချာပါသလား?")) return;
             allRiders = allRiders.filter(x => x.id !== riderId);
             saveRiders();
             renderAdminStaffList();
             updateRiderHeaderOrderBadge();
         }
 
-        function loadAdminRatesForm() {
+        // ==========================================
+        // DIRECT ADMIN SUPPORT CHAT
+        // ==========================================
+        function openSupportChatModal(role, userPhone) {
+            activeSupportRole = role;
+            activeSupportUserPhone = userPhone || (userProfile ? userProfile.phone : 'guest');
+            const m = document.getElementById('support-chat-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            renderSupportMessages();
+        }
+
+        function closeSupportChatModal() {
+            document.getElementById('support-chat-modal').classList.add('hidden');
+            document.getElementById('support-chat-modal').classList.remove('flex');
+        }
+
+        function renderSupportMessages() {
+            const feed = document.getElementById('support-messages-feed');
+            const msgs = supportChats.filter(c => c.userPhone === activeSupportUserPhone);
+            if (!msgs.length) {
+                feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">စာမရှိသေးပါ - Admin ထံ စာပို့နိုင်ပါသည်</p>`;
+                return;
+            }
+            feed.innerHTML = msgs.map(m => {
+                const isMe = (activeSupportRole === 'admin' && m.sender === 'admin') || (activeSupportRole === 'customer' && m.sender === 'customer');
+                return `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[78%] rounded-2xl px-3.5 py-2 text-xs shadow-2xs ${isMe ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-800'}">
+                            <p class="whitespace-pre-line">${escapeHtml(m.text)}</p>
+                            <span class="block text-[9px] mt-1 opacity-75 text-right">${escapeHtml(m.time)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function sendSupportMessage(e) {
+            e.preventDefault();
+            const inp = document.getElementById('support-text-input');
+            const txt = inp.value.trim();
+            if (!txt) return;
+            supportChats.push({
+                id: Date.now(),
+                userPhone: activeSupportUserPhone,
+                userName: (userProfile && userProfile.phone === activeSupportUserPhone) ? userProfile.name : activeSupportUserPhone,
+                sender: activeSupportRole,
+                text: txt,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            saveSupportChats();
+            inp.value = '';
+            renderSupportMessages();
+            if (!document.getElementById('admin-view-support').classList.contains('hidden')) renderAdminSupportThreads();
+        }
+
+        function renderAdminSupportThreads() {
+            const box = document.getElementById('admin-support-threads');
+            const phones = [...new Set(supportChats.map(c => c.userPhone))];
+            if (!phones.length) {
+                box.innerHTML = `<p class="text-center text-xs text-slate-400 py-6">အသုံးပြုသူများထံမှ စာမရှိသေးပါ</p>`;
+                return;
+            }
+            box.innerHTML = phones.map(ph => {
+                const userMsgs = supportChats.filter(c => c.userPhone === ph);
+                const last = userMsgs[userMsgs.length - 1];
+                return `
+                    <div onclick="openSupportChatModal('admin', '${escapeAttr(ph)}')" class="p-3 rounded-2xl bg-slate-50 hover:bg-orange-50 border border-slate-200 flex items-center justify-between cursor-pointer">
+                        <div class="min-w-0">
+                            <p class="text-xs font-extrabold text-slate-900">${escapeHtml(last.userName || ph)} (${escapeHtml(ph)})</p>
+                            <p class="text-[11px] text-slate-600 truncate">${escapeHtml(last.text)}</p>
+                        </div>
+                        <span class="px-3 py-1.5 rounded-xl bg-[#FF5722] text-white font-bold text-xs shrink-0">စာပြန်ရန်</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // RATES, PINS, BIKE ROUTES & RULES CONFIG
+        // ==========================================
+        function loadRatesIntoAdminForm() {
+            document.getElementById('cfg-open-hour-24').value = appConfig.openHour24 || "06:00";
+            document.getElementById('cfg-close-hour-24').value = appConfig.closeHour24 || "19:00";
+            document.getElementById('cfg-open-time').value = appConfig.openTime || "မနက် ၆:၀၀ နာရီ";
+            document.getElementById('cfg-close-time').value = appConfig.closeTime || "ည ၇:၀၀ နာရီ";
             document.getElementById('cfg-pin-admin').value = appConfig.adminPin || "1234";
             document.getElementById('cfg-pin-rider').value = appConfig.riderPin || "5555";
             document.getElementById('cfg-pin-shop').value = appConfig.shopPin || "8888";
@@ -5038,12 +4816,7 @@
             document.getElementById('cfg-thonebane-outer').value = appConfig.thonebaneOuter || 8000;
             document.getElementById('cfg-thonebane-bawgyo').value = appConfig.thonebaneBawgyo || 12000;
 
-            document.getElementById('cfg-open-hour-24').value = appConfig.openHour24 || "06:00";
-            document.getElementById('cfg-close-hour-24').value = appConfig.closeHour24 || "19:00";
-            document.getElementById('cfg-open-time').value = appConfig.openTime || "မနက် ၆:၀၀ နာရီ";
-            document.getElementById('cfg-close-time').value = appConfig.closeTime || "ည ၇:၀၀ နာရီ";
             document.getElementById('cfg-rules-textarea').value = (appConfig.rules || []).join('\n');
-
             updateThonebaneHomeButtonUI();
             renderAdminBikeRoutesList();
         }
@@ -5054,19 +4827,18 @@
             const to = document.getElementById('route-to').value.trim();
             const price = Number(document.getElementById('route-price').value);
             if (!from || !to || !price) return;
-
-            appConfig.customBikeRoutes = appConfig.customBikeRoutes || [];
-            appConfig.customBikeRoutes.push({ from, to, price });
+            if (!appConfig.customBikeRoutes) appConfig.customBikeRoutes = [];
+            appConfig.customBikeRoutes.unshift({ from, to, price });
             saveConfig();
             document.getElementById('route-from').value = '';
             document.getElementById('route-to').value = '';
             document.getElementById('route-price').value = '';
             renderAdminBikeRoutesList();
             renderGrabSuggestedPlaces();
-            showToast("လမ်းကြောင်း ဈေးနှုန်း ထည့်ပြီးပါပြီ");
+            showToast("Bike Taxi လမ်းကြောင်းဈေးနှုန်း ထည့်ပြီးပါပြီ");
         }
 
-        function removeBikeRoutePrice(idx) {
+        function deleteBikeRoutePrice(idx) {
             appConfig.customBikeRoutes.splice(idx, 1);
             saveConfig();
             renderAdminBikeRoutesList();
@@ -5076,53 +4848,177 @@
         function renderAdminBikeRoutesList() {
             const box = document.getElementById('admin-bike-routes-list');
             const routes = appConfig.customBikeRoutes || [];
-            if (!routes.length) {
-                box.innerHTML = `<p class="text-[11px] text-slate-400">သီးသန့် လမ်းကြောင်းဈေးနှုန်း မရှိသေးပါ</p>`;
-                return;
-            }
+            if (!routes.length) { box.innerHTML = ''; return; }
             box.innerHTML = routes.map((r, i) => `
                 <div class="flex items-center justify-between bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs">
-                    <span class="font-bold text-slate-800">🛵 ${escapeHtml(r.from)} → ${escapeHtml(r.to)}: <span class="text-[#FF5722]">${Number(r.price).toLocaleString()} Ks</span></span>
-                    <button type="button" onclick="removeBikeRoutePrice(${i})" class="text-red-600 font-bold text-[11px]">ဖျက်</button>
+                    <span class="font-bold text-slate-800">🛵 ${escapeHtml(r.from)} → ${escapeHtml(r.to)}: <b class="text-[#FF5722]">${Number(r.price).toLocaleString()} Ks</b></span>
+                    <button type="button" onclick="deleteBikeRoutePrice(${i})" class="text-red-600 font-bold text-[11px]">ဖျက်</button>
                 </div>
             `).join('');
         }
 
         function saveAdminRates(e) {
             e.preventDefault();
-            appConfig.orderTown = Number(document.getElementById('cfg-order-town').value);
-            appConfig.orderOuter = Number(document.getElementById('cfg-order-outer').value);
-            appConfig.orderExtraStop = Number(document.getElementById('cfg-order-extrastop').value);
+            appConfig.orderTown = Number(document.getElementById('cfg-order-town').value) || 2000;
+            appConfig.orderOuter = Number(document.getElementById('cfg-order-outer').value) || 3000;
+            appConfig.orderExtraStop = Number(document.getElementById('cfg-order-extrastop').value) || 500;
 
-            appConfig.bikeTown = Number(document.getElementById('cfg-bike-town').value);
-            appConfig.bikeOuter = Number(document.getElementById('cfg-bike-outer').value);
-            appConfig.bikeBawgyo = Number(document.getElementById('cfg-bike-bawgyo').value);
+            appConfig.bikeTown = Number(document.getElementById('cfg-bike-town').value) || 4000;
+            appConfig.bikeOuter = Number(document.getElementById('cfg-bike-outer').value) || 5000;
+            appConfig.bikeBawgyo = Number(document.getElementById('cfg-bike-bawgyo').value) || 8000;
 
-            appConfig.thonebaneTown = Number(document.getElementById('cfg-thonebane-town').value);
-            appConfig.thonebaneOuter = Number(document.getElementById('cfg-thonebane-outer').value);
-            appConfig.thonebaneBawgyo = Number(document.getElementById('cfg-thonebane-bawgyo').value);
+            appConfig.thonebaneTown = Number(document.getElementById('cfg-thonebane-town').value) || 6000;
+            appConfig.thonebaneOuter = Number(document.getElementById('cfg-thonebane-outer').value) || 8000;
+            appConfig.thonebaneBawgyo = Number(document.getElementById('cfg-thonebane-bawgyo').value) || 12000;
 
             saveConfig();
             renderDynamicRatesAndRules();
-            recalculateBikeFare();
             showToast("နှုန်းထားများ သိမ်းဆည်းပြီးပါပြီ!");
         }
 
         function saveAdminRules(e) {
             e.preventDefault();
-            const raw = document.getElementById('cfg-rules-textarea').value;
-            appConfig.rules = raw.split('\n').map(s => s.trim()).filter(Boolean);
+            const lines = document.getElementById('cfg-rules-textarea').value.split('\n').map(l => l.trim()).filter(Boolean);
+            appConfig.rules = lines;
             saveConfig();
             renderDynamicRatesAndRules();
             showToast("စည်းကမ်းချက်များ ပြင်ဆင်ပြီးပါပြီ!");
         }
 
+        // ==========================================
+        // ACTIVITY & ORDER CHAT
+        // ==========================================
+        function renderUserActivity() {
+            const list = document.getElementById('user-activity-list');
+            if (!allOrders.length) {
+                list.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center space-y-2 border border-slate-200"><div class="text-3xl">🛍️</div><p class="text-xs font-bold text-slate-500">မှာယူထားသော အော်ဒါမရှိသေးပါ</p></div>`;
+                return;
+            }
+            list.innerHTML = allOrders.map(o => {
+                const unread = countUnreadForOrder(o, 'customer');
+                const kpayCard = (o.type !== 'bike' && o.type !== 'thonebane' && o.assignedRiderName && (o.assignedRiderKpayPhone || o.assignedRiderKpayQr))
+                    ? `<div class="bg-blue-50 border border-blue-200 rounded-2xl p-3 flex items-center justify-between gap-3">
+                            <div class="min-w-0">
+                                <p class="text-[10px] font-extrabold text-blue-900">💳 Delivery ဝန်ထမ်း KPay အချက်အလက်</p>
+                                <p class="text-xs font-extrabold text-slate-900 truncate">${escapeHtml(o.assignedRiderName)} • ${escapeHtml(o.assignedRiderKpayPhone || '')}</p>
+                            </div>
+                            ${o.assignedRiderKpayQr ? `<img src="${o.assignedRiderKpayQr}" onclick="window.open('${o.assignedRiderKpayQr}')" class="w-14 h-14 rounded-xl object-cover border border-blue-300 shrink-0 cursor-pointer">` : ''}
+                       </div>`
+                    : '';
+
+                return `
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-2xs space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold text-[#FF5722]">${escapeHtml(o.status)}</span>
+                            <span class="text-[11px] text-slate-400">${escapeHtml(o.createdAt)}</span>
+                        </div>
+                        <p class="text-xs font-extrabold text-slate-900 whitespace-pre-line">${escapeHtml(o.details)}</p>
+                        <p class="text-[11px] text-slate-600">📍 ${escapeHtml(o.dropoffAddress)}</p>
+                        <p class="text-xs font-extrabold text-emerald-700">${escapeHtml(o.fareText)}</p>
+                        ${kpayCard}
+                        <div class="flex items-center justify-between pt-1 border-t border-slate-100">
+                            <span class="text-[11px] text-slate-500">${o.assignedRiderName ? `🛵 ${escapeHtml(o.assignedRiderName)} (${escapeHtml(o.assignedRiderPhone)})` : 'Rider ရှာဖွေနေဆဲ...'}</span>
+                            <button onclick="openChatModal(${o.id}, 'customer')" class="px-3 py-1.5 rounded-xl bg-orange-100 text-[#FF5722] font-extrabold text-xs">
+                                💬 Chat ${unread > 0 ? `<span class="ml-1 px-1.5 py-0.2 bg-[#FF5722] text-white rounded-full text-[10px]">${unread}</span>` : ''}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function countUnreadForOrder(order, viewerRole) {
+            if (!order.messages) return 0;
+            return order.messages.filter(m => m.sender !== viewerRole && !m.readByViewer).length;
+        }
+
+        function updateUnreadIndicators() {
+            const totalUnread = allOrders.reduce((sum, o) => sum + countUnreadForOrder(o, 'customer'), 0);
+            const dot = document.getElementById('nav-unread-dot');
+            if (dot) dot.classList.toggle('hidden', totalUnread === 0);
+        }
+
+        function openChatModal(orderId, role) {
+            activeChatOrderId = orderId;
+            activeChatRole = role;
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+            if (!order.messages) order.messages = [];
+            order.messages.forEach(m => { if (m.sender !== role) m.readByViewer = true; });
+            saveOrders();
+            updateUnreadIndicators();
+
+            document.getElementById('chat-header-subtitle').textContent = role === 'customer'
+                ? (order.assignedRiderName ? `Rider: ${order.assignedRiderName} (${order.assignedRiderPhone})` : 'ပို့ဆောင်သူနှင့် စကားပြောရန်')
+                : `Customer: ${order.customerName} (${order.customerPhone})`;
+
+            document.getElementById('chat-order-summary').innerHTML = `
+                <span class="font-bold text-slate-800 truncate">${escapeHtml(order.details.replace(/\n/g, ' • '))}</span>
+                <span class="font-extrabold text-[#FF5722] shrink-0 ml-2">${escapeHtml(order.fareText)}</span>
+            `;
+
+            const qrList = role === 'customer'
+                ? ["ရောက်ခါနီးပြီလားဗျ?", "အိမ်ရှေ့ရောက်ပါပြီ", "ဖုန်းဆက်ပေးပါဦး"]
+                : ["ထွက်လာပါပြီဗျ", "ဆိုင်မှာ ဝယ်နေပါပြီ", "လိပ်စာလေး ထပ်ပြောပေးပါ"];
+
+            document.getElementById('chat-quick-replies').innerHTML = qrList.map(q => `
+                <button type="button" onclick="sendQuickReply('${escapeAttr(q)}')" class="px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#FF5722] font-bold text-[11px] whitespace-nowrap">${escapeHtml(q)}</button>
+            `).join('');
+
+            renderChatMessages(order);
+            const m = document.getElementById('chat-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function closeChatModal() {
+            document.getElementById('chat-modal').classList.add('hidden');
+            document.getElementById('chat-modal').classList.remove('flex');
+            activeChatOrderId = null;
+        }
+
+        function renderChatMessages(order) {
+            const feed = document.getElementById('chat-messages-feed');
+            if (!order.messages.length) {
+                feed.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">စာတိုမရှိသေးပါ - စတင်စကားပြောနိုင်ပါသည်</p>`;
+                return;
+            }
+            feed.innerHTML = order.messages.map(m => {
+                const isMe = m.sender === activeChatRole;
+                return `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[78%] rounded-2xl px-3.5 py-2 text-xs shadow-2xs ${isMe ? 'bg-[#FF5722] text-white' : 'bg-white border border-slate-200 text-slate-800'}">
+                            <p class="whitespace-pre-line">${escapeHtml(m.text)}</p>
+                            <span class="block text-[9px] mt-1 opacity-75 text-right">${escapeHtml(m.time)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function sendQuickReply(text) {
+            const order = allOrders.find(o => o.id === activeChatOrderId);
+            if (!order) return;
+            order.messages.push({ id: Date.now(), sender: activeChatRole, text, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), readByViewer: false });
+            saveOrders();
+            renderChatMessages(order);
+        }
+
+        function sendChatMessage(e) {
+            e.preventDefault();
+            const inp = document.getElementById('chat-text-input');
+            const txt = inp.value.trim();
+            if (!txt) return;
+            inp.value = '';
+            sendQuickReply(txt);
+        }
+
         function escapeHtml(str) {
-            return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            if (!str) return '';
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
-        function escapeAttr(str) {
-            return String(str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-        }
+        function escapeAttr(str) { return escapeHtml(str); }
     </script>
 </body>
 </html>
