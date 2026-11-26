@@ -3310,7 +3310,7 @@
             const startingBadge = document.getElementById('home-starting-rate');
             if (startingBadge) startingBadge.textContent = `Food ${Number(appConfig.orderTown).toLocaleString()} Ks`;
             const townRateVal = document.getElementById('home-town-rate-val');
-            if (townRateVal) townRateVal.textContent = `အဖြူတွင်း: ${Number(appConfig.orderTown).toLocaleString()} Ks • အပြင်: ${Number(appConfig.orderOuter).toLocaleString()} Ks`;
+            if (townRateVal) townRateVal.textContent = `မြို့အတွင်း: ${Number(appConfig.orderTown).toLocaleString()} Ks • အပြင်: ${Number(appConfig.orderOuter).toLocaleString()} Ks`;
 
             const rulesHtml = (appConfig.rules || []).map(r => `<li>${escapeHtml(r)}</li>`).join('');
             const dRules = document.getElementById('dynamic-rules-list');
